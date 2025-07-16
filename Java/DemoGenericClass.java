@@ -20,7 +20,7 @@ public class DemoGenericClass {
 }
 
 /**
- * Generic Classes allows to have features for different data types without rewriting the code 
+ * Generic Classes allows to have same features for different data types without rewriting the code 
 */
 class GenericClass<T> {
     private List<T> list = new ArrayList<T>();
