@@ -7,7 +7,7 @@ public class DemoGenericMethod {
 
 class ExampleGenericMethod {
     /**
-     * generic methods allows different data type within a single method
+     * Generic Methods allows different data types within a single method
      * It is an alternative to method overloading
     */ 
     public static <T> void genericPrint(T element) {
