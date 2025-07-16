@@ -1,5 +1,5 @@
 This repository contains works that was involved in the process of upskilling or interview preparation of myself.
-Primary focuses on general programming concepts(not on language specific) like below:
+Primarily focuses on general programming concepts(not on language specific) like below:
 1. OOP
 2. Software Design Principles
 3. Software Design Patterns
