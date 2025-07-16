@@ -3,6 +3,9 @@ import java.util.*;
 public class DemoGenericClass {
     public static void main(String[] args) {
         GenericClass<String> obj = new GenericClass<String>();
+        if(!obj.removeLast()) {
+            System.out.println("Opps! No one is here to remove");
+        }
         obj.add("Srimani");
         obj.add("Ravikumar");
         obj.add("Nirmal");
