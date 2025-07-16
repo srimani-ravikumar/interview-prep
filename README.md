@@ -7,4 +7,4 @@ Primary focuses on general programming concepts(not on language specific) like b
 5. Algorithms Implementation
 6. Low Level System Design
 
-Note: I will use popular strictly typed OOPS languages like Java and C# for exihibiting the above skills
+Note: I will use popular strictly typed OOP languages like Java and C# for exhibiting the above skills (which I am quite familiar with 😅)
