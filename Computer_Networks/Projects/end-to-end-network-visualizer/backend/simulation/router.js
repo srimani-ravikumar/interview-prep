@@ -1,16 +1,22 @@
-function maybeDropPacket(packet, dropProb = 0.1) {
-  if (Math.random() < dropProb) {
-    packet.status = 'Dropped';
-    return true;
-  }
-  return false;
-}
+// simulation/router.js
+const { maybeDropPacket, isTTLValid, logPacket } = require('../utils/networkHelpers');
 
 class Router {
   forward(packet) {
-    if (maybeDropPacket(packet)) return null;
+    if (!isTTLValid(packet)) {
+      packet.status = 'Dropped';
+      logPacket(packet, 'Router');
+      return null;
+    }
+
+    if (maybeDropPacket(packet)) {
+      logPacket(packet, 'Router');
+      return null;
+    }
+
     packet.header.TTL--;
     packet.status = 'Forwarded';
+    logPacket(packet, 'Router');
     return packet;
   }
 }
