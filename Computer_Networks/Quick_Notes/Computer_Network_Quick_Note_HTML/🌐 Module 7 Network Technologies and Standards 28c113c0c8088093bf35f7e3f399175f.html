@@ -1,0 +1,706 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>🌐 Module 7: Network Technologies and Standards</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(134, 131, 126, 1);
+	fill: rgba(134, 131, 126, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(134, 131, 126, 1);
+	fill: rgba(134, 131, 126, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="28c113c0-c808-8093-bf35-f7e3f399175f" class="page sans"><header><h1 class="page-title">🌐 Module 7: Network Technologies and Standards</h1><p class="page-description"></p></header><div class="page-body"><h2 id="28c113c0-c808-807d-86ae-cdcbf04c8b12" class=""><strong>1. Ethernet Technology and Standards (IEEE 802.3) 🌐</strong></h2><p id="28c113c0-c808-808e-a7bd-dfbe77b11ad6" class=""><strong>Definition:</strong></p><p id="28c113c0-c808-80ee-af63-d2f8802f2c62" class="">Ethernet is a wired LAN technology defined by IEEE 802.3, providing high-speed, reliable communication using MAC addresses over physical media.</p><p id="28c113c0-c808-80c6-8383-fda2e0ea4356" class=""><strong>Key Features:</strong></p><ul id="28c113c0-c808-807c-86bb-c353837adf62" class="bulleted-list"><li style="list-style-type:disc">Operates at <strong>Layer 1 &amp; 2</strong> (Physical + Data Link).</li></ul><ul id="28c113c0-c808-80f6-b760-dbb3bc7069e1" class="bulleted-list"><li style="list-style-type:disc">Unique <strong>MAC addresses</strong> for device identification.</li></ul><ul id="28c113c0-c808-8003-b0c0-ccc7dcf9a012" class="bulleted-list"><li style="list-style-type:disc">Supports speeds from <strong>10 Mbps → 400 Gbps</strong>.</li></ul><p id="28c113c0-c808-803f-87e1-c11e47495cbd" class=""><strong>How It Works:</strong></p><ul id="28c113c0-c808-8085-8572-c3eca2e53351" class="bulleted-list"><li style="list-style-type:disc"><strong>Frames:</strong> Contain source/destination MAC, payload, CRC for error detection.</li></ul><ul id="28c113c0-c808-8021-9a4a-c46319e6283f" class="bulleted-list"><li style="list-style-type:disc"><strong>CSMA/CD:</strong> Prevents collisions in shared networks.</li></ul><ul id="28c113c0-c808-8056-8c3c-ea08a07985d9" class="bulleted-list"><li style="list-style-type:disc"><strong>Transmission Media:</strong> Twisted pair, coaxial, fiber optics.</li></ul><p id="28c113c0-c808-8014-8b1b-f559c2b03893" class=""><strong>Standards Overview:</strong></p><table id="28c113c0-c808-8045-9506-d050181fb321" class="simple-table"><thead class="simple-table-header"><tr id="28c113c0-c808-80ba-9583-eee6ba89c9bd"><th id="Ew_G" class="simple-table-header-color simple-table-header">Standard</th><th id="WW}Y" class="simple-table-header-color simple-table-header">Speed</th><th id=":JMc" class="simple-table-header-color simple-table-header">Medium</th><th id="\p=;" class="simple-table-header-color simple-table-header">Year</th></tr></thead><tbody><tr id="28c113c0-c808-8002-9199-d3e2be85e46f"><td id="Ew_G" class="">10BASE-T</td><td id="WW}Y" class="">10 Mbps</td><td id=":JMc" class="">Twisted Pair</td><td id="\p=;" class="">1990</td></tr><tr id="28c113c0-c808-80ab-9ede-cdf693472f7c"><td id="Ew_G" class="">100BASE-TX</td><td id="WW}Y" class="">100 Mbps</td><td id=":JMc" class="">Twisted Pair</td><td id="\p=;" class="">1995</td></tr><tr id="28c113c0-c808-80c2-ae1d-e38849c1b87f"><td id="Ew_G" class="">1000BASE-T</td><td id="WW}Y" class="">1 Gbps</td><td id=":JMc" class="">Twisted Pair</td><td id="\p=;" class="">1999</td></tr><tr id="28c113c0-c808-8004-b1af-eac1166ed4a9"><td id="Ew_G" class="">10GBASE-T</td><td id="WW}Y" class="">10 Gbps</td><td id=":JMc" class="">Twisted Pair</td><td id="\p=;" class="">2006</td></tr><tr id="28c113c0-c808-8021-b39d-ed1893fb7b53"><td id="Ew_G" class="">40GBASE-T</td><td id="WW}Y" class="">40 Gbps</td><td id=":JMc" class="">Fiber</td><td id="\p=;" class="">2010</td></tr><tr id="28c113c0-c808-8076-a322-c57476f441b0"><td id="Ew_G" class="">100GBASE-T</td><td id="WW}Y" class="">100 Gbps</td><td id=":JMc" class="">Fiber</td><td id="\p=;" class="">2013</td></tr></tbody></table><p id="28c113c0-c808-80f6-8032-e08b8e0e1d8c" class=""><strong>Advantages:</strong></p><ul id="28c113c0-c808-809f-b53c-ee2143f7fc4c" class="bulleted-list"><li style="list-style-type:disc">High reliability &amp; low latency</li></ul><ul id="28c113c0-c808-8024-a28f-d8bbac4369d1" class="bulleted-list"><li style="list-style-type:disc">Scalable &amp; cost-effective</li></ul><p id="28c113c0-c808-808a-996e-c3c80a28136e" class=""><strong>Applications:</strong></p><ul id="28c113c0-c808-8029-8fb0-f4a40830e123" class="bulleted-list"><li style="list-style-type:disc">Enterprise LANs, data centers, home networks</li></ul><p id="28c113c0-c808-80f1-94f8-f783eb4b0498" class=""><strong>One-liner takeaway:</strong> ⚡ Ethernet = Reliable, high-speed wired backbone.</p><p id="28c113c0-c808-8025-9cf0-e070e54bd1df" class=""><strong>Interview Focus 🔍:</strong></p><ul id="28c113c0-c808-805f-b14c-f6c1d48040db" class="bulleted-list"><li style="list-style-type:disc">CSMA/CD mechanism</li></ul><ul id="28c113c0-c808-80ad-8748-d2516b5436cd" class="bulleted-list"><li style="list-style-type:disc">Frame structure &amp; CRC</li></ul><ul id="28c113c0-c808-80d7-a588-d6796be5fa3e" class="bulleted-list"><li style="list-style-type:disc">Differences between Ethernet standards</li></ul><hr id="28c113c0-c808-8059-892f-e0d8a976d22a"/><h2 id="28c113c0-c808-803c-bd71-de341408c528" class=""><strong>2. Wireless Networking (IEEE 802.11) 📶</strong></h2><p id="28c113c0-c808-805f-b5ab-fadbbdc08ccb" class=""><strong>Definition:</strong></p><p id="28c113c0-c808-80ae-bb14-cd10048f4dd8" class="">Wi-Fi uses radio waves to connect devices without cables, defined by IEEE 802.11 standards.</p><p id="28c113c0-c808-800f-ba53-d291430e60f2" class=""><strong>Key Features:</strong></p><ul id="28c113c0-c808-8073-b10b-e067324b7ea4" class="bulleted-list"><li style="list-style-type:disc">Layer 1 &amp; 2 operation</li></ul><ul id="28c113c0-c808-804c-bd43-ffc2b8a09535" class="bulleted-list"><li style="list-style-type:disc">Operates in <strong>2.4 GHz / 5 GHz / 6 GHz</strong></li></ul><ul id="28c113c0-c808-80e1-a057-f2892657c404" class="bulleted-list"><li style="list-style-type:disc">Supports mobility &amp; flexible connectivity</li></ul><p id="28c113c0-c808-8008-88bc-e667573435cd" class=""><strong>How It Works:</strong></p><ul id="28c113c0-c808-8045-8d1e-d60485bf45e9" class="bulleted-list"><li style="list-style-type:disc"><strong>Access Points (APs):</strong> Bridge wireless devices to wired networks</li></ul><ul id="28c113c0-c808-8027-8272-dab5a70a77aa" class="bulleted-list"><li style="list-style-type:disc"><strong>Transmission:</strong> Radio waves with frequency-dependent speeds</li></ul><ul id="28c113c0-c808-803c-b340-fabb93f80873" class="bulleted-list"><li style="list-style-type:disc"><strong>Security:</strong> WPA2/WPA3 encryption</li></ul><p id="28c113c0-c808-80f9-92b5-c3ed155a357e" class=""><strong>Wi-Fi Standards:</strong></p><table id="28c113c0-c808-80cf-bc33-f63526bdd5d3" class="simple-table"><thead class="simple-table-header"><tr id="28c113c0-c808-80eb-b51c-d333828395ae"><th id="o&gt;tG" class="simple-table-header-color simple-table-header">Standard</th><th id="}_X[" class="simple-table-header-color simple-table-header">Frequency</th><th id="?W&gt;:" class="simple-table-header-color simple-table-header">Speed</th><th id="CpM`" class="simple-table-header-color simple-table-header">Year</th></tr></thead><tbody><tr id="28c113c0-c808-802d-81e9-ebc98197cce1"><td id="o&gt;tG" class="">802.11b</td><td id="}_X[" class="">2.4 GHz</td><td id="?W&gt;:" class="">11 Mbps</td><td id="CpM`" class="">1999</td></tr><tr id="28c113c0-c808-808e-9ab8-d834b5df594d"><td id="o&gt;tG" class="">802.11g</td><td id="}_X[" class="">2.4 GHz</td><td id="?W&gt;:" class="">54 Mbps</td><td id="CpM`" class="">2003</td></tr><tr id="28c113c0-c808-80d1-aa49-c3db9088a0ee"><td id="o&gt;tG" class="">802.11n</td><td id="}_X[" class="">2.4/5 GHz</td><td id="?W&gt;:" class="">600 Mbps</td><td id="CpM`" class="">2009</td></tr><tr id="28c113c0-c808-8086-a4cd-e63ee1e40a49"><td id="o&gt;tG" class="">802.11ac</td><td id="}_X[" class="">5 GHz</td><td id="?W&gt;:" class="">6.9 Gbps</td><td id="CpM`" class="">2013</td></tr><tr id="28c113c0-c808-802a-a9f3-d77f8c5355a5"><td id="o&gt;tG" class="">802.11ax (Wi-Fi 6)</td><td id="}_X[" class="">2.4/5 GHz</td><td id="?W&gt;:" class="">9.6 Gbps</td><td id="CpM`" class="">2019</td></tr><tr id="28c113c0-c808-80ae-9e60-d246ac547ff8"><td id="o&gt;tG" class="">802.11be (Wi-Fi 7)</td><td id="}_X[" class="">6 GHz</td><td id="?W&gt;:" class="">40+ Gbps</td><td id="CpM`" class="">Upcoming</td></tr></tbody></table><p id="28c113c0-c808-80d9-a630-d29cd93c5412" class=""><strong>Advantages:</strong></p><ul id="28c113c0-c808-8096-9283-e9006247e182" class="bulleted-list"><li style="list-style-type:disc">Mobility &amp; flexibility</li></ul><ul id="28c113c0-c808-8060-8bc7-de2979748c60" class="bulleted-list"><li style="list-style-type:disc">No cabling</li></ul><ul id="28c113c0-c808-80c6-9256-d7aa8a24c9fd" class="bulleted-list"><li style="list-style-type:disc">High device density</li></ul><p id="28c113c0-c808-80e5-adaf-f108dec86b05" class=""><strong>Applications:</strong></p><ul id="28c113c0-c808-80aa-9511-ecdb9a39e8af" class="bulleted-list"><li style="list-style-type:disc">Home &amp; public networks, IoT devices</li></ul><p id="28c113c0-c808-80ba-94ac-e874fb971481" class=""><strong>One-liner takeaway:</strong> ⚡ Wi-Fi = Flexible, mobile, and convenient connectivity.</p><p id="28c113c0-c808-8065-a42e-e237ade44848" class=""><strong>Interview Focus 🔍:</strong></p><ul id="28c113c0-c808-8031-831b-f22753a09d78" class="bulleted-list"><li style="list-style-type:disc">Differences between Wi-Fi standards</li></ul><ul id="28c113c0-c808-8022-a47f-dd5640b39c76" class="bulleted-list"><li style="list-style-type:disc">Wi-Fi frequency bands &amp; use cases</li></ul><hr id="28c113c0-c808-80ce-9738-f004c7d71509"/><h2 id="28c113c0-c808-80c7-aacd-ce435f4a11bc" class=""><strong>3. Ethernet Switching &amp; VLANs 🔀</strong></h2><h3 id="28c113c0-c808-80d1-968d-d280aecd25c1" class=""><strong>Ethernet Switching</strong></h3><p id="28c113c0-c808-80d9-89ea-d799bacd733a" class=""><strong>Definition:</strong></p><p id="28c113c0-c808-8058-895e-ff1ab4df3326" class="">Switches connect devices in a LAN using <strong>MAC addresses</strong>, forwarding frames intelligently.</p><p id="28c113c0-c808-809d-b968-c18b15473640" class=""><strong>How It Works:</strong></p><ul id="28c113c0-c808-803a-9cc8-edda3533f361" class="bulleted-list"><li style="list-style-type:disc"><strong>MAC Table:</strong> Maps addresses → ports</li></ul><ul id="28c113c0-c808-8039-9cd2-dd513e46ec4f" class="bulleted-list"><li style="list-style-type:disc"><strong>Frame Forwarding:</strong><ul id="28c113c0-c808-80d4-bbe0-d7cbdbda8a63" class="bulleted-list"><li style="list-style-type:circle">Unicast → single device</li></ul><ul id="28c113c0-c808-80b4-8b83-fc1a738d0d02" class="bulleted-list"><li style="list-style-type:circle">Broadcast → all devices</li></ul><ul id="28c113c0-c808-80f3-9cba-d8bc5a80d3de" class="bulleted-list"><li style="list-style-type:circle">Multicast → device group</li></ul></li></ul><ul id="28c113c0-c808-8003-94e6-f016d623a077" class="bulleted-list"><li style="list-style-type:disc"><strong>Learning:</strong> Automatically populates MAC table</li></ul><ul id="28c113c0-c808-8072-ae7e-c1c6a4bbee33" class="bulleted-list"><li style="list-style-type:disc"><strong>Loop Avoidance:</strong> STP prevents broadcast storms</li></ul><p id="28c113c0-c808-806c-95e2-f6e4d4e39c62" class=""><strong>Types:</strong></p><ul id="28c113c0-c808-8072-9234-f84262d11568" class="bulleted-list"><li style="list-style-type:disc"><strong>Unmanaged:</strong> Plug-and-play, small networks</li></ul><ul id="28c113c0-c808-809a-b9e6-c5a5a75f0e59" class="bulleted-list"><li style="list-style-type:disc"><strong>Managed:</strong> VLANs, QoS, monitoring; enterprise-grade</li></ul><p id="28c113c0-c808-8099-b7a0-cf399b57bb43" class=""><strong>Advantages:</strong></p><ul id="28c113c0-c808-8093-8f02-c6633b1b1f79" class="bulleted-list"><li style="list-style-type:disc">Efficient, secure, scalable</li></ul><p id="28c113c0-c808-80d5-aa9c-cb5b33721691" class=""><strong>Applications:</strong></p><ul id="28c113c0-c808-8083-b484-f7b80f7c4384" class="bulleted-list"><li style="list-style-type:disc">Homes, offices, data centers</li></ul><p id="28c113c0-c808-8078-b9d4-e9b0477855cc" class=""><strong>One-liner takeaway:</strong> ⚡ Switches = Efficient traffic management in LANs.</p><hr id="28c113c0-c808-801b-9acf-e5c98aaacca8"/><h3 id="28c113c0-c808-802d-bb7b-d88f46f2b43d" class=""><strong>VLANs (Virtual LANs)</strong></h3><p id="28c113c0-c808-8046-947c-f5b68b137845" class=""><strong>Definition:</strong></p><p id="28c113c0-c808-80ef-b4e8-f7623ef66c60" class="">Logical segmentation of a LAN into <strong>isolated broadcast domains</strong> for performance &amp; security.</p><p id="28c113c0-c808-8041-b884-cb24c76f9047" class=""><strong>How It Works:</strong></p><ul id="28c113c0-c808-8093-af38-f722c01b6253" class="bulleted-list"><li style="list-style-type:disc"><strong>Segmentation:</strong> Confines broadcast traffic to VLAN</li></ul><ul id="28c113c0-c808-804b-8da6-d965e1ce6086" class="bulleted-list"><li style="list-style-type:disc"><strong>Tagging:</strong> IEEE 802.1Q tags identify VLAN traffic</li></ul><ul id="28c113c0-c808-80c8-becb-f16603300ecf" class="bulleted-list"><li style="list-style-type:disc"><strong>Inter-VLAN Routing:</strong> Requires Layer 3 device</li></ul><p id="28c113c0-c808-80f6-8756-d8671e21ab1d" class=""><strong>Types of VLANs:</strong></p><ul id="28c113c0-c808-8008-99dc-cae87856711b" class="bulleted-list"><li style="list-style-type:disc">Default VLAN, Data VLAN, Voice VLAN, Management VLAN</li></ul><p id="28c113c0-c808-8071-9690-e08001b544dc" class=""><strong>Advantages:</strong></p><ul id="28c113c0-c808-80dd-8d03-de4c098dcbc4" class="bulleted-list"><li style="list-style-type:disc">Improved security, performance, and simplified management</li></ul><p id="28c113c0-c808-8030-bf44-f86e028a3362" class=""><strong>Applications:</strong></p><ul id="28c113c0-c808-807f-9acb-d4b330b4a047" class="bulleted-list"><li style="list-style-type:disc">Enterprise networks, public spaces, educational institutions</li></ul><p id="28c113c0-c808-8040-b558-e269b3778f0a" class=""><strong>One-liner takeaway:</strong> ⚡ VLANs = Logical isolation for secure &amp; efficient LANs.</p><p id="28c113c0-c808-808b-a56d-c46d4e6171d8" class=""><strong>Interview Focus 🔍:</strong></p><ul id="28c113c0-c808-80bc-bc23-ccccbbe81c64" class="bulleted-list"><li style="list-style-type:disc">VLAN tagging, inter-VLAN routing</li></ul><ul id="28c113c0-c808-80ee-85bb-f464a500716b" class="bulleted-list"><li style="list-style-type:disc">Differences between unmanaged &amp; managed switches</li></ul><hr id="28c113c0-c808-80c9-b556-d460844fabd3"/><h2 id="28c113c0-c808-8001-8804-f498eda1c535" class=""><strong>4. Data Link Protocols (Layer 2) 🔗</strong></h2><h3 id="28c113c0-c808-802e-b53e-c1e97fac5671" class=""><strong>1. Point-to-Point Protocol (PPP)</strong></h3><p id="28c113c0-c808-8071-9649-ed41ca841b54" class=""><strong>Definition:</strong></p><p id="28c113c0-c808-8042-a82d-c54cb7874853" class="">Protocol for <strong>direct node-to-node communication</strong>, supports multiple network layer protocols.</p><p id="28c113c0-c808-8060-a72d-dc9d63c72fb6" class=""><strong>Key Features:</strong></p><ul id="28c113c0-c808-801c-8c6f-f88682133508" class="bulleted-list"><li style="list-style-type:disc">Encapsulation (IPv4/IPv6)</li></ul><ul id="28c113c0-c808-8063-8aab-f4fa91224a49" class="bulleted-list"><li style="list-style-type:disc">Authentication: PAP, CHAP</li></ul><ul id="28c113c0-c808-8062-9a4d-c51ec9091671" class="bulleted-list"><li style="list-style-type:disc">Error Detection: CRC</li></ul><ul id="28c113c0-c808-80cb-be6b-fb9b8ddda1e0" class="bulleted-list"><li style="list-style-type:disc">Multilink PPP (MLPPP) for higher throughput</li></ul><p id="28c113c0-c808-8022-9e2d-e5774f61ae42" class=""><strong>Applications:</strong></p><ul id="28c113c0-c808-80cd-85d5-e617c3a5c43a" class="bulleted-list"><li style="list-style-type:disc">Dial-up &amp; DSL connections</li></ul><p id="28c113c0-c808-80e7-9b52-c4e126a4bfd5" class=""><strong>One-liner takeaway:</strong> ⚡ PPP = Reliable point-to-point connectivity.</p><hr id="28c113c0-c808-808d-8f0f-f24f8a80388a"/><h3 id="28c113c0-c808-803b-a79d-e3c0ef5a1f07" class=""><strong>2. High-Level Data Link Control (HDLC)</strong></h3><p id="28c113c0-c808-80c4-9b81-dd3a7992370f" class=""><strong>Definition:</strong></p><p id="28c113c0-c808-80a4-ac70-dfac8d5bf989" class="">Bit-oriented protocol for <strong>synchronous communication</strong>, ensuring error-free transmission.</p><p id="28c113c0-c808-8038-a118-db55658c1d4e" class=""><strong>Key Features:</strong></p><ul id="28c113c0-c808-80fc-97e3-eba12fbaa3bf" class="bulleted-list"><li style="list-style-type:disc">Frames: Flag, Address, Control, Payload, CRC</li></ul><ul id="28c113c0-c808-80a1-adfb-d56d7ea24572" class="bulleted-list"><li style="list-style-type:disc">Modes:<ul id="28c113c0-c808-8071-8c05-e479871a1baa" class="bulleted-list"><li style="list-style-type:circle">NRM → Master-slave</li></ul><ul id="28c113c0-c808-801f-b6ee-e54ab8683c5a" class="bulleted-list"><li style="list-style-type:circle">ABM → Peer-to-peer</li></ul></li></ul><p id="28c113c0-c808-8065-b9d7-d0d7e42ddee3" class=""><strong>Applications:</strong></p><ul id="28c113c0-c808-8016-9473-fdb9456f7fb0" class="bulleted-list"><li style="list-style-type:disc">Leased lines, industrial networks</li></ul><p id="28c113c0-c808-803b-bbf9-c7d40349d300" class=""><strong>One-liner takeaway:</strong> ⚡ HDLC = Reliable synchronous link communication.</p><hr id="28c113c0-c808-8007-890c-deaf9da3cd81"/><h3 id="28c113c0-c808-8032-baab-e0d4513d1158" class=""><strong>3. Spanning Tree Protocol (STP)</strong></h3><p id="28c113c0-c808-804d-ba9d-d9ab7e8998c8" class=""><strong>Definition:</strong></p><p id="28c113c0-c808-8082-821c-c842e92068ff" class="">Prevents loops in Ethernet networks, maintaining a <strong>loop-free topology</strong>.</p><p id="28c113c0-c808-8071-a3c7-e559b49bee57" class=""><strong>How It Works:</strong></p><ul id="28c113c0-c808-8086-8533-f335d08fe0d6" class="bulleted-list"><li style="list-style-type:disc"><strong>Root Bridge Election:</strong> Lowest Bridge ID becomes root</li></ul><ul id="28c113c0-c808-80ac-8a26-fbf3fdd7ab7e" class="bulleted-list"><li style="list-style-type:disc"><strong>Path Cost Calculation</strong> for shortest route</li></ul><ul id="28c113c0-c808-808d-b9c2-e1f82fdad50f" class="bulleted-list"><li style="list-style-type:disc"><strong>Port Roles:</strong> Root, Designated, Blocked</li></ul><ul id="28c113c0-c808-8060-bfbb-df402290f950" class="bulleted-list"><li style="list-style-type:disc"><strong>Topology Updates:</strong> BPDUs adapt dynamically</li></ul><p id="28c113c0-c808-80ce-bf07-f86699ceecca" class=""><strong>Applications:</strong></p><ul id="28c113c0-c808-809f-a02e-ea46e398581e" class="bulleted-list"><li style="list-style-type:disc">Enterprise networks, data centers</li></ul><p id="28c113c0-c808-80f4-b4b7-e7a86e5db54e" class=""><strong>One-liner takeaway:</strong> ⚡ STP = Ensures loop-free, stable Ethernet networks.</p><p id="28c113c0-c808-8043-a8d2-e5e262d82bab" class=""><strong>Interview Focus 🔍:</strong></p><ul id="28c113c0-c808-8031-a024-c04c6a3b7f11" class="bulleted-list"><li style="list-style-type:disc">Differences between PPP, HDLC, STP</li></ul><ul id="28c113c0-c808-80b5-ad34-d44a39924d74" class="bulleted-list"><li style="list-style-type:disc">Frame structure &amp; port roles</li></ul><ul id="28c113c0-c808-8002-8b74-d533de5095e7" class="bulleted-list"><li style="list-style-type:disc">Use cases for STP</li></ul><hr id="28c113c0-c808-80c2-b70e-d4b3124f8bdb"/><h2 id="28c113c0-c808-80cc-8625-c8798db67b1f" class=""><strong>5. Summary Table: Ethernet vs Wi-Fi vs VLAN vs Switching</strong></h2><table id="28c113c0-c808-80b1-8754-c7228d890fac" class="simple-table"><thead class="simple-table-header"><tr id="28c113c0-c808-808c-92a1-e6bc16b22457"><th id="reG~" class="simple-table-header-color simple-table-header">Feature</th><th id="iHKP" class="simple-table-header-color simple-table-header">Ethernet</th><th id="j&lt;Zn" class="simple-table-header-color simple-table-header">Wi-Fi</th><th id="lX|W" class="simple-table-header-color simple-table-header">VLAN</th><th id="~;=s" class="simple-table-header-color simple-table-header">Switching</th></tr></thead><tbody><tr id="28c113c0-c808-809f-8928-c4f977d16886"><td id="reG~" class="">Medium</td><td id="iHKP" class="">Wired</td><td id="j&lt;Zn" class="">Wireless</td><td id="lX|W" class="">Logical segmentation</td><td id="~;=s" class="">Wired</td></tr><tr id="28c113c0-c808-8048-b11e-c4b2e928d124"><td id="reG~" class="">Mobility</td><td id="iHKP" class="">Low</td><td id="j&lt;Zn" class="">High</td><td id="lX|W" class="">N/A</td><td id="~;=s" class="">Low</td></tr><tr id="28c113c0-c808-8003-a18c-f657a6f59718"><td id="reG~" class="">Speed</td><td id="iHKP" class="">Up to 400 Gbps</td><td id="j&lt;Zn" class="">Up to 40+ Gbps</td><td id="lX|W" class="">Depends on underlying network</td><td id="~;=s" class="">Depends on speed</td></tr><tr id="28c113c0-c808-8056-b272-f60a8fe6c66e"><td id="reG~" class="">Reliability</td><td id="iHKP" class="">High</td><td id="j&lt;Zn" class="">Medium</td><td id="lX|W" class="">High</td><td id="~;=s" class="">High</td></tr><tr id="28c113c0-c808-800b-a1c5-ce23d8268d1c"><td id="reG~" class="">Use Case</td><td id="iHKP" class="">LAN backbone</td><td id="j&lt;Zn" class="">Home, IoT, public</td><td id="lX|W" class="">Security, segmentation</td><td id="~;=s" class="">LAN traffic management</td></tr></tbody></table><hr id="28c113c0-c808-809f-b1b3-c4a87efacd7c"/><p id="28c113c0-c808-809c-8b38-ed7a93c237d1" class=""><strong>💡 Key Takeaways:</strong></p><ul id="28c113c0-c808-806e-88f1-e90b970a3457" class="bulleted-list"><li style="list-style-type:disc">Ethernet = reliable, high-speed LAN backbone</li></ul><ul id="28c113c0-c808-8070-8096-cd17d446cf7f" class="bulleted-list"><li style="list-style-type:disc">Wi-Fi = flexible, mobile access for devices</li></ul><ul id="28c113c0-c808-8091-b421-c372566f91ed" class="bulleted-list"><li style="list-style-type:disc">VLAN = logical segmentation &amp; security</li></ul><ul id="28c113c0-c808-80f8-aaa2-def9f6cdcae4" class="bulleted-list"><li style="list-style-type:disc">Switches = efficient LAN traffic forwarding</li></ul><ul id="28c113c0-c808-8031-a8aa-df072b9a1995" class="bulleted-list"><li style="list-style-type:disc">PPP/HDLC = reliable point-to-point &amp; synchronous protocols</li></ul><ul id="28c113c0-c808-80d7-9be4-f6b5621dd96a" class="bulleted-list"><li style="list-style-type:disc">STP = prevents loops, maintains Ethernet stability</li></ul><p id="28c113c0-c808-80f1-a785-db48ad81af46" class=""><strong>🔍 Interview Focus Areas:</strong></p><ul id="28c113c0-c808-80fa-baf0-e6687bbec3e6" class="bulleted-list"><li style="list-style-type:disc">Ethernet frame structure &amp; CSMA/CD</li></ul><ul id="28c113c0-c808-8072-9baf-f008d590426c" class="bulleted-list"><li style="list-style-type:disc">Wi-Fi standards &amp; frequency bands</li></ul><ul id="28c113c0-c808-8085-9aa1-c16065f6da7d" class="bulleted-list"><li style="list-style-type:disc">VLAN tagging &amp; inter-VLAN routing</li></ul><ul id="28c113c0-c808-80ae-997d-c156cc8665a3" class="bulleted-list"><li style="list-style-type:disc">Differences between PPP, HDLC, STP</li></ul><ul id="28c113c0-c808-80d8-94c1-cfae38030816" class="bulleted-list"><li style="list-style-type:disc">Switching types, STP port roles, loop prevention</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

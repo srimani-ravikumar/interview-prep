@@ -1,0 +1,706 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>🌐 Module 5: IP Addressing and Subnetting</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(134, 131, 126, 1);
+	fill: rgba(134, 131, 126, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(134, 131, 126, 1);
+	fill: rgba(134, 131, 126, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="28c113c0-c808-80be-85ac-d03ed009f9ac" class="page sans"><header><h1 class="page-title">🌐 Module 5: IP Addressing and Subnetting</h1><p class="page-description"></p></header><div class="page-body"><h2 id="28c113c0-c808-8013-a71b-e8b75ebdbb32" class="">1. IP Addressing (IPv4 &amp; IPv6) ✨</h2><p id="28c113c0-c808-8062-9806-e0099dc24669" class=""><strong>Definition:</strong></p><p id="28c113c0-c808-80f4-8d9a-f6e194cbc1e0" class="">IP addresses uniquely identify devices on a network, enabling efficient routing and communication.</p><p id="28c113c0-c808-806c-959e-fa1931903fbf" class=""><strong>Purpose:</strong></p><ul id="28c113c0-c808-802f-98ff-cc01782fc484" class="bulleted-list"><li style="list-style-type:disc">Unique identification for devices ✅</li></ul><ul id="28c113c0-c808-8070-97d4-d84f04ef5ce7" class="bulleted-list"><li style="list-style-type:disc">Facilitates data routing across LAN, WAN, and the Internet 🌍</li></ul><ul id="28c113c0-c808-807a-88ca-c9258f1d1f25" class="bulleted-list"><li style="list-style-type:disc">Distinguishes local vs. global network devices</li></ul><hr id="28c113c0-c808-80d9-a0b1-c685bd67899a"/><h3 id="28c113c0-c808-8070-8cf9-e5f1363ad8e7" class="">1.1 IPv4 (Internet Protocol v4) 🖥️</h3><p id="28c113c0-c808-80d4-b83c-fe9f6b15122a" class=""><strong>Structure:</strong></p><ul id="28c113c0-c808-803a-9837-d9e67d0d6995" class="bulleted-list"><li style="list-style-type:disc">32-bit addresses in <strong>dotted decimal notation</strong> (e.g., <code>192.168.1.1</code>)</li></ul><ul id="28c113c0-c808-804f-b1c6-e1992f314f2a" class="bulleted-list"><li style="list-style-type:disc">4 octets, each 0–255</li></ul><p id="28c113c0-c808-80a5-b18b-fca8661328f9" class=""><strong>Header Fields:</strong></p><ul id="28c113c0-c808-8072-8f34-f0074ba3835c" class="bulleted-list"><li style="list-style-type:disc">Version, Header Length, ToS, Total Length</li></ul><ul id="28c113c0-c808-8089-9fd2-f5f8d5b45922" class="bulleted-list"><li style="list-style-type:disc">Identification, Flags, Fragment Offset</li></ul><ul id="28c113c0-c808-8042-a4b8-cd3f7fdca166" class="bulleted-list"><li style="list-style-type:disc">TTL, Protocol, Header Checksum</li></ul><ul id="28c113c0-c808-8001-b25e-e279145defd9" class="bulleted-list"><li style="list-style-type:disc">Source &amp; Destination Address, Options</li></ul><p id="28c113c0-c808-805a-ab99-c857c667d7c7" class=""><strong>Address Classes:</strong></p><table id="28c113c0-c808-8091-8dc7-fe059d155a85" class="simple-table"><thead class="simple-table-header"><tr id="28c113c0-c808-80d7-8e9b-e9279f3963ac"><th id="v??l" class="simple-table-header-color simple-table-header">Class</th><th id="?gCj" class="simple-table-header-color simple-table-header">Range</th><th id="ieHg" class="simple-table-header-color simple-table-header">Use Case</th></tr></thead><tbody><tr id="28c113c0-c808-8018-914d-e3ade45db9ef"><td id="v??l" class="">A</td><td id="?gCj" class="">1.0.0.0 – 126.255.255.255</td><td id="ieHg" class="">Large networks, ISPs</td></tr><tr id="28c113c0-c808-802f-903f-e6a3eb26f2e0"><td id="v??l" class="">B</td><td id="?gCj" class="">128.0.0.0 – 191.255.255.255</td><td id="ieHg" class="">Medium networks, universities</td></tr><tr id="28c113c0-c808-8099-8fb4-e113e5c341a6"><td id="v??l" class="">C</td><td id="?gCj" class="">192.0.0.0 – 223.255.255.255</td><td id="ieHg" class="">Small businesses</td></tr><tr id="28c113c0-c808-80af-b182-cb5282fd3cbf"><td id="v??l" class="">D</td><td id="?gCj" class="">224.0.0.0 – 239.255.255.255</td><td id="ieHg" class="">Multicast</td></tr><tr id="28c113c0-c808-8068-99b1-ee26ab7b05b0"><td id="v??l" class="">E</td><td id="?gCj" class="">240.0.0.0 – 255.255.255.255</td><td id="ieHg" class="">Experimental</td></tr></tbody></table><p id="28c113c0-c808-80f4-b154-c0c1a6ebaf12" class=""><strong>Limitations:</strong></p><ul id="28c113c0-c808-808d-b407-d78b00277cdf" class="bulleted-list"><li style="list-style-type:disc">Limited address space (~4.3B)</li></ul><ul id="28c113c0-c808-80fb-8fe5-dcf26586570d" class="bulleted-list"><li style="list-style-type:disc">No built-in security</li></ul><ul id="28c113c0-c808-8077-b598-f64dcaf98c2c" class="bulleted-list"><li style="list-style-type:disc">Exhaustion due to Internet growth</li></ul><p id="28c113c0-c808-8072-a548-d4aff7f40123" class=""><strong>Takeaway:</strong> IPv4 is reliable for small-scale networks but insufficient for modern global needs.</p><p id="28c113c0-c808-80ec-95f2-fa578fd62d8c" class=""><strong>Interview Focus 🔍:</strong> IPv4 header fields, classes, and limitations.</p><hr id="28c113c0-c808-8004-be66-cee065051d40"/><h3 id="28c113c0-c808-8014-a014-d8a851153306" class="">1.2 IPv6 (Internet Protocol v6) 🌐</h3><p id="28c113c0-c808-800b-933b-d4457316fae6" class=""><strong>Structure:</strong></p><ul id="28c113c0-c808-8095-929c-d5b8144c7b8b" class="bulleted-list"><li style="list-style-type:disc">128-bit addresses in <strong>colon-hexadecimal notation</strong> (e.g., <code>2001:db8::1</code>)</li></ul><ul id="28c113c0-c808-8078-93c0-e61dbef25155" class="bulleted-list"><li style="list-style-type:disc">8 segments, supports shorthand for zeros</li></ul><p id="28c113c0-c808-8093-b4c7-e9b731572532" class=""><strong>Header Fields:</strong></p><ul id="28c113c0-c808-8038-82ea-d256f2440f6a" class="bulleted-list"><li style="list-style-type:disc">Version, Traffic Class, Flow Label</li></ul><ul id="28c113c0-c808-80ca-aae4-ddece1f3e404" class="bulleted-list"><li style="list-style-type:disc">Payload Length, Next Header, Hop Limit</li></ul><ul id="28c113c0-c808-806f-81e3-d65aac1676a7" class="bulleted-list"><li style="list-style-type:disc">Source &amp; Destination Address</li></ul><p id="28c113c0-c808-800e-a0dc-e1515c8873cc" class=""><strong>Key Features:</strong></p><ul id="28c113c0-c808-8052-b53d-f8819b43dfb9" class="bulleted-list"><li style="list-style-type:disc">Large address space (~340 undecillion)</li></ul><ul id="28c113c0-c808-8036-9073-cdd148edb31d" class="bulleted-list"><li style="list-style-type:disc">Built-in IPsec security 🔒</li></ul><ul id="28c113c0-c808-80e8-9707-e9ef06079de2" class="bulleted-list"><li style="list-style-type:disc">Auto-configuration (SLAAC)</li></ul><ul id="28c113c0-c808-8006-98a0-f2e9af9b98c3" class="bulleted-list"><li style="list-style-type:disc">Efficient routing</li></ul><p id="28c113c0-c808-80ce-8e1a-d2c9c5217427" class=""><strong>Takeaway:</strong> IPv6 solves IPv4 limitations, ideal for IoT and modern networking.</p><p id="28c113c0-c808-80ea-85e8-f6a31a5ce46a" class=""><strong>Interview Focus 🔍:</strong> IPv6 structure, flow label, hop limit, and transition techniques (dual-stack/tunneling).</p><hr id="28c113c0-c808-8017-aac8-d2860f6ae308"/><h3 id="28c113c0-c808-8003-89ab-ebf137e03914" class="">1.3 IPv4 vs IPv6 Comparison</h3><table id="28c113c0-c808-8042-a96b-e0a28dc941a7" class="simple-table"><thead class="simple-table-header"><tr id="28c113c0-c808-808f-bac9-df4f0563b8a0"><th id="PomX" class="simple-table-header-color simple-table-header">Feature</th><th id="vdb_" class="simple-table-header-color simple-table-header">IPv4</th><th id="baN:" class="simple-table-header-color simple-table-header">IPv6</th></tr></thead><tbody><tr id="28c113c0-c808-80e2-8c62-d690a5e78371"><td id="PomX" class="">Address Length</td><td id="vdb_" class="">32-bit</td><td id="baN:" class="">128-bit</td></tr><tr id="28c113c0-c808-8067-88c6-cd770f36db43"><td id="PomX" class="">Notation</td><td id="vdb_" class="">Dotted decimal</td><td id="baN:" class="">Colon-hexadecimal</td></tr><tr id="28c113c0-c808-80a9-9b2b-cbdee005efa5"><td id="PomX" class="">Address Space</td><td id="vdb_" class="">~4.3B</td><td id="baN:" class="">~340 undecillion</td></tr><tr id="28c113c0-c808-8020-b725-fedf9768f131"><td id="PomX" class="">Security</td><td id="vdb_" class="">None</td><td id="baN:" class="">IPsec built-in</td></tr><tr id="28c113c0-c808-804e-84ea-d83eadc5928a"><td id="PomX" class="">Header Size</td><td id="vdb_" class="">20 bytes</td><td id="baN:" class="">40 bytes</td></tr><tr id="28c113c0-c808-807b-b4fa-c61413f17e60"><td id="PomX" class="">Fragmentation</td><td id="vdb_" class="">Routers</td><td id="baN:" class="">Source device</td></tr><tr id="28c113c0-c808-807b-9489-cdceae0ed50e"><td id="PomX" class="">Routing Efficiency</td><td id="vdb_" class="">Moderate</td><td id="baN:" class="">High</td></tr></tbody></table><hr id="28c113c0-c808-80ca-a27f-e12f05aef823"/><h2 id="28c113c0-c808-80cb-b32f-df621a774382" class="">2. Subnetting &amp; Supernetting 🏷️</h2><h3 id="28c113c0-c808-8010-8671-efb82ed4a838" class="">2.1 Subnetting</h3><p id="28c113c0-c808-8074-8fb3-dfed049ee589" class=""><strong>Definition:</strong> Dividing a large network into smaller subnets for better management.</p><p id="28c113c0-c808-801c-83a0-df27e19d7339" class=""><strong>Purpose:</strong></p><ul id="28c113c0-c808-800f-a76e-cc3a17598a36" class="bulleted-list"><li style="list-style-type:disc">Reduce network congestion 📉</li></ul><ul id="28c113c0-c808-80a1-827c-ee0186221676" class="bulleted-list"><li style="list-style-type:disc">Enhance security 🔒</li></ul><ul id="28c113c0-c808-800e-9590-ebfeedfe53ea" class="bulleted-list"><li style="list-style-type:disc">Optimize IP allocation</li></ul><p id="28c113c0-c808-80d5-a4f2-e6a54607e2a6" class=""><strong>Example:</strong></p><ul id="28c113c0-c808-803f-ba26-c55e613b8c0e" class="bulleted-list"><li style="list-style-type:disc">Original Network: <code>192.168.1.0/24</code> (254 usable IPs)</li></ul><ul id="28c113c0-c808-803a-9f02-ff28ab3c4c1e" class="bulleted-list"><li style="list-style-type:disc">Subnets:<ul id="28c113c0-c808-802c-abfa-e69c868336d6" class="bulleted-list"><li style="list-style-type:circle"><code>192.168.1.0/26</code> → 64 IPs</li></ul><ul id="28c113c0-c808-8022-96f7-d75f49438553" class="bulleted-list"><li style="list-style-type:circle"><code>192.168.1.64/26</code> → 64 IPs</li></ul></li></ul><p id="28c113c0-c808-80f9-ad5a-cf0186de95d5" class=""><strong>Takeaway:</strong> Subnetting improves efficiency and security in LANs.</p><hr id="28c113c0-c808-809d-8abe-c8a140efae91"/><h3 id="28c113c0-c808-80e6-956e-ec246ba6aaa8" class="">2.2 Supernetting</h3><p id="28c113c0-c808-804e-9380-d1cf98dfaaa2" class=""><strong>Definition:</strong> Combining multiple smaller networks into a larger network.</p><p id="28c113c0-c808-805d-ac7c-dc2583b76456" class=""><strong>Purpose:</strong></p><ul id="28c113c0-c808-80fe-aa87-e7398e298dbc" class="bulleted-list"><li style="list-style-type:disc">Reduce routing table size 🗂️</li></ul><ul id="28c113c0-c808-80dc-9332-d3e0d073c9b9" class="bulleted-list"><li style="list-style-type:disc">Optimize routing efficiency</li></ul><ul id="28c113c0-c808-8049-aef9-f53507d62ea7" class="bulleted-list"><li style="list-style-type:disc">Simplify network management</li></ul><p id="28c113c0-c808-8032-958f-fc88f884d9ed" class=""><strong>Example:</strong></p><ul id="28c113c0-c808-806c-89c4-ef1bc4d81bf6" class="bulleted-list"><li style="list-style-type:disc"><code>192.168.0.0/16</code> aggregates <code>192.168.0.0/24</code> and <code>192.168.1.0/24</code></li></ul><p id="28c113c0-c808-807d-8585-c599f30e6d8e" class=""><strong>Takeaway:</strong> Supernetting simplifies routing in large networks, commonly used by ISPs.</p><hr id="28c113c0-c808-80f6-a390-dcd590588133"/><h3 id="28c113c0-c808-80d1-b36b-e208885929c9" class="">2.3 Classful vs Classless Addressing</h3><table id="28c113c0-c808-80a5-8cbe-d9c1fa3a1e02" class="simple-table"><thead class="simple-table-header"><tr id="28c113c0-c808-8080-a1b8-f1f0547f6d76"><th id="hoio" class="simple-table-header-color simple-table-header">Feature</th><th id="`;~W" class="simple-table-header-color simple-table-header">Classful</th><th id="f;aw" class="simple-table-header-color simple-table-header">Classless (CIDR)</th></tr></thead><tbody><tr id="28c113c0-c808-8095-a3b5-fd85c9ac9656"><td id="hoio" class="">Flexibility</td><td id="`;~W" class="">Fixed classes (A-E)</td><td id="f;aw" class="">Variable-length subnet masks</td></tr><tr id="28c113c0-c808-8051-8a62-f3f86563f620"><td id="hoio" class="">Efficiency</td><td id="`;~W" class="">Wastes IPs in small networks</td><td id="f;aw" class="">Efficient IP utilization</td></tr><tr id="28c113c0-c808-8004-8ecd-d53241f8fcf6"><td id="hoio" class="">Example</td><td id="`;~W" class=""><code>10.0.0.0/8</code></td><td id="f;aw" class=""><code>192.168.1.0/27</code></td></tr></tbody></table><p id="28c113c0-c808-8043-aa52-f14d3d392c90" class=""><strong>Takeaway:</strong> Classless addressing (CIDR) is modern, flexible, and supports both subnetting and supernetting.</p><p id="28c113c0-c808-803a-bbc8-c649d1836146" class=""><strong>Interview Focus 🔍:</strong> Subnet mask calculations, CIDR notation, and differences between subnetting &amp; supernetting.</p><hr id="28c113c0-c808-808d-940f-ec70b974a496"/><h2 id="28c113c0-c808-80f8-b545-dfe9a29d48f0" class="">3. NAT, DHCP, and DNS 🛠️</h2><h3 id="28c113c0-c808-8000-96e1-df956c0931c9" class="">3.1 Network Address Translation (NAT)</h3><p id="28c113c0-c808-8057-972e-d8894e270fa0" class=""><strong>Definition:</strong> Modifies IP addresses in packets between private and public networks.</p><p id="28c113c0-c808-809c-9ee4-f82e4c58b3b3" class=""><strong>Types:</strong></p><ul id="28c113c0-c808-805d-b455-d09acc109d2b" class="bulleted-list"><li style="list-style-type:disc"><strong>Static NAT:</strong> 1:1 mapping (e.g., server hosting website)</li></ul><ul id="28c113c0-c808-8001-a7df-ceb2711b274d" class="bulleted-list"><li style="list-style-type:disc"><strong>Dynamic NAT:</strong> Pool-based mapping</li></ul><ul id="28c113c0-c808-80ef-a9e3-f991c3bd405f" class="bulleted-list"><li style="list-style-type:disc"><strong>PAT (NAT Overload):</strong> Multiple private IPs → 1 public IP (home networks)</li></ul><p id="28c113c0-c808-80f2-bb28-e61582b2805a" class=""><strong>Advantages:</strong></p><ul id="28c113c0-c808-80fa-8eaa-d842250ef8c6" class="bulleted-list"><li style="list-style-type:disc">Conserves public IPs</li></ul><ul id="28c113c0-c808-8082-ab09-df2e022f3b98" class="bulleted-list"><li style="list-style-type:disc">Hides internal network structure</li></ul><ul id="28c113c0-c808-80ac-b968-c65292ae1c16" class="bulleted-list"><li style="list-style-type:disc">Enables Internet access</li></ul><p id="28c113c0-c808-800f-9e5c-f9ee965fe466" class=""><strong>Limitations:</strong></p><ul id="28c113c0-c808-804e-9d95-e659209b36dd" class="bulleted-list"><li style="list-style-type:disc">Adds latency</li></ul><ul id="28c113c0-c808-8003-ae10-fb2b1133b710" class="bulleted-list"><li style="list-style-type:disc">Compatibility issues with direct-connect protocols</li></ul><p id="28c113c0-c808-8026-96bf-ebff0c18eae4" class=""><strong>Takeaway:</strong> NAT enables multiple devices to share a single public IP while improving security.</p><hr id="28c113c0-c808-80d9-bb17-c7abfe974397"/><h3 id="28c113c0-c808-8052-bfdb-cef0f938073a" class="">3.2 Dynamic Host Configuration Protocol (DHCP)</h3><p id="28c113c0-c808-8048-8b2e-c941510511ec" class=""><strong>Definition:</strong> Automates IP assignment and configuration.</p><p id="28c113c0-c808-8055-8cc3-e7cdaa90e686" class=""><strong>Process:</strong></p><ol type="1" id="28c113c0-c808-8003-b791-d95e11e527fe" class="numbered-list" start="1"><li>Discovery → 2. Offer → 3. Request → 4. Acknowledgment</li></ol><p id="28c113c0-c808-80f9-9db2-de23a27c04d3" class=""><strong>Components:</strong></p><ul id="28c113c0-c808-8090-ac05-f0132633982c" class="bulleted-list"><li style="list-style-type:disc">DHCP Server, DHCP Client, Lease Time</li></ul><p id="28c113c0-c808-801b-90e0-e8391bf7c2b9" class=""><strong>Advantages:</strong></p><ul id="28c113c0-c808-800b-b1e8-da48afe61176" class="bulleted-list"><li style="list-style-type:disc">Automates IP management</li></ul><ul id="28c113c0-c808-8009-9eff-f09a9e56d86a" class="bulleted-list"><li style="list-style-type:disc">Reduces configuration errors</li></ul><ul id="28c113c0-c808-8060-8282-f6cf005e57dc" class="bulleted-list"><li style="list-style-type:disc">Scalable for large networks</li></ul><p id="28c113c0-c808-80a3-a005-e6b5faf36066" class=""><strong>Takeaway:</strong> DHCP simplifies network management and avoids manual errors.</p><hr id="28c113c0-c808-80ce-91a8-da2f37f8ca75"/><h3 id="28c113c0-c808-807a-99e9-ea94c6006606" class="">3.3 Domain Name System (DNS)</h3><p id="28c113c0-c808-8059-9b14-ffb36143579b" class=""><strong>Definition:</strong> Resolves domain names to IP addresses.</p><p id="28c113c0-c808-8089-a737-fd264b8d6113" class=""><strong>Process:</strong></p><ol type="1" id="28c113c0-c808-8043-b67b-cfec4515e45d" class="numbered-list" start="1"><li>Query → 2. Recursive Resolver → 3. Authoritative Server → 4. Response</li></ol><p id="28c113c0-c808-8004-a644-f9b6f3129e1f" class=""><strong>Record Types:</strong></p><ul id="28c113c0-c808-8015-8dd8-c25ec01d8425" class="bulleted-list"><li style="list-style-type:disc"><strong>A Record:</strong> IPv4</li></ul><ul id="28c113c0-c808-80eb-87b8-ef5231543c1d" class="bulleted-list"><li style="list-style-type:disc"><strong>AAAA Record:</strong> IPv6</li></ul><ul id="28c113c0-c808-8084-9f18-cca268ef196c" class="bulleted-list"><li style="list-style-type:disc"><strong>CNAME:</strong> Aliases</li></ul><ul id="28c113c0-c808-806e-8d30-e3f0ac0e6a38" class="bulleted-list"><li style="list-style-type:disc"><strong>MX:</strong> Mail servers</li></ul><p id="28c113c0-c808-800e-8ff4-d852ee4382c7" class=""><strong>Advantages:</strong></p><ul id="28c113c0-c808-80c6-bf00-fe997ff8d5b3" class="bulleted-list"><li style="list-style-type:disc">User-friendly navigation 🌐</li></ul><ul id="28c113c0-c808-8019-a2c2-ff143b50cd8b" class="bulleted-list"><li style="list-style-type:disc">Scalable &amp; redundant</li></ul><ul id="28c113c0-c808-80da-ab55-dc1571af5923" class="bulleted-list"><li style="list-style-type:disc">Supports Internet services</li></ul><p id="28c113c0-c808-8028-b033-cf7ac18dd521" class=""><strong>Limitations:</strong></p><ul id="28c113c0-c808-80e9-ad09-d1c688c74d35" class="bulleted-list"><li style="list-style-type:disc">Vulnerable to attacks (spoofing, cache poisoning)</li></ul><p id="28c113c0-c808-8014-8d2f-dbc57015ff86" class=""><strong>Takeaway:</strong> DNS makes the internet navigable and scalable for millions of users.</p><hr id="28c113c0-c808-8062-bd26-fc48045284ea"/><h3 id="28c113c0-c808-80f5-b9e5-f31600805379" class="">3.4 NAT vs DHCP vs DNS Comparison</h3><table id="28c113c0-c808-803f-b92d-ccbeaf125b97" class="simple-table"><thead class="simple-table-header"><tr id="28c113c0-c808-8091-bbce-e1d61e4e9ab3"><th id="fGi[" class="simple-table-header-color simple-table-header">Feature</th><th id="oW[t" class="simple-table-header-color simple-table-header">NAT</th><th id="qbVm" class="simple-table-header-color simple-table-header">DHCP</th><th id="I;sV" class="simple-table-header-color simple-table-header">DNS</th></tr></thead><tbody><tr id="28c113c0-c808-8089-8c1b-c4a4fdc52f11"><td id="fGi[" class="">Function</td><td id="oW[t" class="">Translates IPs</td><td id="qbVm" class="">Assigns IPs dynamically</td><td id="I;sV" class="">Resolves domain names</td></tr><tr id="28c113c0-c808-8057-b47d-e0ab5fc1af8f"><td id="fGi[" class="">Key Benefit</td><td id="oW[t" class="">Conserves public IPs</td><td id="qbVm" class="">Automates configuration</td><td id="I;sV" class="">Simplifies navigation</td></tr><tr id="28c113c0-c808-80ae-9fad-cea5bf848406"><td id="fGi[" class="">Use Case</td><td id="oW[t" class="">Home/enterprise networks</td><td id="qbVm" class="">Corporate networks</td><td id="I;sV" class="">Accessing websites</td></tr></tbody></table><hr id="28c113c0-c808-803b-a96b-ddc68f640d7a"/><p id="28c113c0-c808-8082-8d5b-fc3ea0b159d5" class=""><strong>🔑 Module 5 Takeaways:</strong></p><ul id="28c113c0-c808-8012-850d-d083bb38e257" class="bulleted-list"><li style="list-style-type:disc">IPv4 vs IPv6: Address space, security, routing efficiency</li></ul><ul id="28c113c0-c808-8061-9d89-f6c674fdf507" class="bulleted-list"><li style="list-style-type:disc">Subnetting &amp; supernetting optimize network performance</li></ul><ul id="28c113c0-c808-8044-b0eb-c96263519c34" class="bulleted-list"><li style="list-style-type:disc">NAT, DHCP, DNS are critical for IP management and seamless Internet communication</li></ul><p id="28c113c0-c808-80e7-af82-f8cfaa88e964" class=""><strong>Interview Focus 🔍:</strong></p><ul id="28c113c0-c808-8000-8b63-f5c437786561" class="bulleted-list"><li style="list-style-type:disc">IPv4/IPv6 headers &amp; differences</li></ul><ul id="28c113c0-c808-8056-ac33-f1caf7eec28d" class="bulleted-list"><li style="list-style-type:disc">CIDR, subnet mask calculations, supernetting</li></ul><ul id="28c113c0-c808-80db-bb1e-f3aa5f9442f7" class="bulleted-list"><li style="list-style-type:disc">NAT types, DHCP process, DNS resolution</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
