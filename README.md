@@ -6,5 +6,7 @@ Primarily focuses on general programming concepts(not on language specific) like
 4. Data Structures Implementation
 5. Algorithms Implementation
 6. Low Level System Design
+7. Computer Networks Notes & Projects
+8. Operating Systems Notes & Projects
 
-Note: I will use popular strictly typed OOP languages like Java and C# for exhibiting the above skills (which I am quite familiar with 😅)
+Note: I will use popular strictly typed OOP languages like C#, JavaScript, Java for exhibiting the above skills (which I am quite familiar with 😅)
