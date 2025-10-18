@@ -51,10 +51,15 @@ Each keeps generating logs every second.
 But writing each log immediately to disk would be slow.  
 So, we place a temporary buffer between them and the log writer.
 
+<p align="center">
+<pre>
 ┌────────────┐       ┌────────────────┐       ┌─────────────┐
 │  Producer  │  ---> │  Shared Queue  │  ---> │  Consumer   │
 │ (Service)  │       │ (Bounded = 10) │       │ (LogWriter) │
 └────────────┘       └────────────────┘       └─────────────┘
+</pre>
+</p>
+
 
 
 Here:
