@@ -1,0 +1,706 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Module 6: Routing and Switching</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(134, 131, 126, 1);
+	fill: rgba(134, 131, 126, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(134, 131, 126, 1);
+	fill: rgba(134, 131, 126, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="28c113c0-c808-80cd-bfcf-da03110d72b1" class="page sans"><header><h1 class="page-title">Module 6: Routing and Switching</h1><p class="page-description"></p></header><div class="page-body"><p id="28c113c0-c808-80cf-8d9d-e6deda91b7c4" class="">Networking relies heavily on routing and switching to ensure <strong>efficient, reliable, and scalable data transfer</strong> across devices and networks.</p><hr id="28c113c0-c808-8082-abf2-c19c2a824ec9"/><h2 id="28c113c0-c808-808a-8503-cfcc234b3408" class=""><strong>1️⃣ Routing Algorithms</strong></h2><p id="28c113c0-c808-8096-8128-ce5c83eabac4" class=""><strong>Definition:</strong></p><p id="28c113c0-c808-802d-85ba-d76a631b0c56" class="">Routing algorithms are <strong>mathematical methods routers use</strong> to determine the optimal path for data packets. They consider network topology, traffic, and link costs.</p><p id="28c113c0-c808-804e-b4f7-d365bca1dccf" class=""><strong>Purpose:</strong></p><ul id="28c113c0-c808-80fc-bc28-e4bb31f210fd" class="bulleted-list"><li style="list-style-type:disc">✅ Ensure efficient data delivery</li></ul><ul id="28c113c0-c808-8087-bb4c-e5186856f7bb" class="bulleted-list"><li style="list-style-type:disc">✅ Optimize network resource usage</li></ul><ul id="28c113c0-c808-804a-a366-ca9d73c73ece" class="bulleted-list"><li style="list-style-type:disc">✅ Enable load balancing in dynamic networks</li></ul><h3 id="28c113c0-c808-80ba-b0fe-e1697905fbfc" class=""><strong>Types of Routing</strong></h3><h3 id="28c113c0-c808-8064-a9f3-ff0047632d9b" class=""><strong>A. Static Routing</strong></h3><ul id="28c113c0-c808-80aa-b0bf-c97aa159f2a5" class="bulleted-list"><li style="list-style-type:disc"><strong>Configuration:</strong> Manually configured by network admins</li></ul><ul id="28c113c0-c808-80f9-9481-df591c71d7e0" class="bulleted-list"><li style="list-style-type:disc"><strong>Key Features:</strong><ul id="28c113c0-c808-801c-94f2-f819339b281e" class="bulleted-list"><li style="list-style-type:circle">Predictable routes</li></ul><ul id="28c113c0-c808-8054-a492-db5c01d35622" class="bulleted-list"><li style="list-style-type:circle">No overhead for route updates</li></ul><ul id="28c113c0-c808-8049-a43d-d48b2b2245af" class="bulleted-list"><li style="list-style-type:circle">Manual updates required on topology change</li></ul></li></ul><ul id="28c113c0-c808-8011-b0c4-d9e2f8d188d6" class="bulleted-list"><li style="list-style-type:disc"><strong>Advantages:</strong><ul id="28c113c0-c808-803a-9ff1-ece037b0062d" class="bulleted-list"><li style="list-style-type:circle">Simple to configure in small networks</li></ul><ul id="28c113c0-c808-8007-a9a6-c8dfb29b29ab" class="bulleted-list"><li style="list-style-type:circle">Conserves bandwidth</li></ul><ul id="28c113c0-c808-804b-967f-dc1bc28c1775" class="bulleted-list"><li style="list-style-type:circle">Enhances security</li></ul></li></ul><ul id="28c113c0-c808-8056-887a-d41cc0fdf408" class="bulleted-list"><li style="list-style-type:disc"><strong>Disadvantages:</strong><ul id="28c113c0-c808-8061-8afa-c42310bc22b4" class="bulleted-list"><li style="list-style-type:circle">Not scalable</li></ul><ul id="28c113c0-c808-8047-b17c-d0ba031d61ab" class="bulleted-list"><li style="list-style-type:circle">Cannot adapt to network failures</li></ul></li></ul><ul id="28c113c0-c808-80c2-a72b-cba56288165b" class="bulleted-list"><li style="list-style-type:disc"><strong>Use Case:</strong> Small offices, home networks</li></ul><p id="28c113c0-c808-80ba-b8c4-c14d37deb032" class=""><strong>Takeaway:</strong> Best for <strong>small, stable networks</strong> with predictable traffic. 🔍</p><h3 id="28c113c0-c808-8058-8ef1-ee21a8b06db8" class=""><strong>B. Dynamic Routing</strong></h3><ul id="28c113c0-c808-804d-a2a6-eee03a4ddca4" class="bulleted-list"><li style="list-style-type:disc"><strong>Configuration:</strong> Automatically updates routing tables using protocols</li></ul><ul id="28c113c0-c808-80cb-8ec1-c281348ba7e7" class="bulleted-list"><li style="list-style-type:disc"><strong>Key Features:</strong><ul id="28c113c0-c808-80f5-8993-e90836461437" class="bulleted-list"><li style="list-style-type:circle">Adaptable to topology changes</li></ul><ul id="28c113c0-c808-80b9-8815-e0da18e064d9" class="bulleted-list"><li style="list-style-type:circle">Periodic updates between routers</li></ul><ul id="28c113c0-c808-80db-8c0c-e2495e0dccd3" class="bulleted-list"><li style="list-style-type:circle">Uses protocols like RIP, OSPF, EIGRP</li></ul></li></ul><ul id="28c113c0-c808-8071-ab3b-d599cfa44daa" class="bulleted-list"><li style="list-style-type:disc"><strong>Advantages:</strong><ul id="28c113c0-c808-805c-b8e6-f9f0e198de22" class="bulleted-list"><li style="list-style-type:circle">Scalable for large networks</li></ul><ul id="28c113c0-c808-806c-bbb3-ef5957bad39b" class="bulleted-list"><li style="list-style-type:circle">Resilient to failures</li></ul><ul id="28c113c0-c808-80d4-9da8-e139afe68840" class="bulleted-list"><li style="list-style-type:circle">Reduces manual admin effort</li></ul></li></ul><ul id="28c113c0-c808-80c4-8bd1-d0919fbf5d70" class="bulleted-list"><li style="list-style-type:disc"><strong>Disadvantages:</strong><ul id="28c113c0-c808-80cb-b6a3-e216f1cb7467" class="bulleted-list"><li style="list-style-type:circle">Consumes bandwidth for updates</li></ul><ul id="28c113c0-c808-8005-9cce-d5f875b14dfd" class="bulleted-list"><li style="list-style-type:circle">More complex setup</li></ul></li></ul><ul id="28c113c0-c808-80df-a28d-d7ba0b986258" class="bulleted-list"><li style="list-style-type:disc"><strong>Use Case:</strong> Enterprises, ISPs, dynamic large networks</li></ul><p id="28c113c0-c808-8003-bf40-d520fa821772" class=""><strong>Takeaway:</strong> Ideal for <strong>large, dynamic networks</strong> needing automated route management. 🔍</p><hr id="28c113c0-c808-80b6-8a05-f4177d39cd47"/><h3 id="28c113c0-c808-80b5-ab2f-c59f79f4a6cc" class=""><strong>Routing Algorithms Types</strong></h3><table id="28c113c0-c808-80ef-8b44-de83f8eb7a4a" class="simple-table"><thead class="simple-table-header"><tr id="28c113c0-c808-80b7-9892-db8e56373c1a"><th id="p@ZP" class="simple-table-header-color simple-table-header">Algorithm Type</th><th id="o&gt;JY" class="simple-table-header-color simple-table-header">Key Idea</th><th id="gs]n" class="simple-table-header-color simple-table-header">Example Protocol</th></tr></thead><tbody><tr id="28c113c0-c808-80f8-a869-c2ba70f2ff5f"><td id="p@ZP" class="">Distance Vector</td><td id="o&gt;JY" class="">Shares routing table with neighbors; hop count</td><td id="gs]n" class="">RIP, EIGRP</td></tr><tr id="28c113c0-c808-80d0-be15-c89f8e889cdd"><td id="p@ZP" class="">Link State</td><td id="o&gt;JY" class="">Builds full network map; shortest path calculation</td><td id="gs]n" class="">OSPF, IS-IS</td></tr><tr id="28c113c0-c808-801f-a073-ce2c85ae3a40"><td id="p@ZP" class="">Hybrid</td><td id="o&gt;JY" class="">Combines DV &amp; LS features</td><td id="gs]n" class="">EIGRP</td></tr></tbody></table><p id="28c113c0-c808-807b-9231-d4bbfe97e0d2" class=""><strong>Takeaway:</strong> <strong>Hybrid algorithms balance simplicity and performance.</strong></p><hr id="28c113c0-c808-802a-a480-ebffd5eeef86"/><h2 id="28c113c0-c808-805d-958f-cb0eebceb8c4" class=""><strong>2️⃣ Routing Protocols</strong></h2><p id="28c113c0-c808-807a-8ea6-ce6f23c39de0" class="">Routing protocols determine how routers exchange information and select paths.</p><h3 id="28c113c0-c808-8097-bbb1-de4f8b45a462" class=""><strong>Categories</strong></h3><ol type="1" id="28c113c0-c808-80ed-b30c-c72ea8160693" class="numbered-list" start="1"><li><strong>Interior Gateway Protocols (IGPs):</strong> Routing within a single AS<ul id="28c113c0-c808-80f2-9e19-d55f00322e7a" class="bulleted-list"><li style="list-style-type:disc">Examples: RIP, IGRP, EIGRP, OSPF</li></ul></li></ol><ol type="1" id="28c113c0-c808-80ca-ade6-c2d6f27a4894" class="numbered-list" start="2"><li><strong>Exterior Gateway Protocols (EGPs):</strong> Routing between ASs<ul id="28c113c0-c808-8006-81fd-c085df514976" class="bulleted-list"><li style="list-style-type:disc">Example: BGP</li></ul></li></ol><hr id="28c113c0-c808-8011-b858-e3fa290cfca2"/><h3 id="28c113c0-c808-804a-8d6b-e810cf5475ae" class=""><strong>A. Distance Vector Protocols (DV)</strong></h3><ul id="28c113c0-c808-80fb-948f-fe9075d98236" class="bulleted-list"><li style="list-style-type:disc"><strong>Mechanism:</strong> Share entire routing tables with neighbors</li></ul><ul id="28c113c0-c808-8058-80f5-d2bc39afd227" class="bulleted-list"><li style="list-style-type:disc"><strong>Features:</strong><ul id="28c113c0-c808-80d1-8cec-c0836c052473" class="bulleted-list"><li style="list-style-type:circle">Periodic updates</li></ul><ul id="28c113c0-c808-8007-a4da-d5e3cd216e59" class="bulleted-list"><li style="list-style-type:circle">Metric-based (hop count) path selection</li></ul><ul id="28c113c0-c808-80d4-888a-e7169649d8ce" class="bulleted-list"><li style="list-style-type:circle">Decentralized decision-making</li></ul></li></ul><ul id="28c113c0-c808-8030-adc2-dc193f8b008e" class="bulleted-list"><li style="list-style-type:disc"><strong>Pros:</strong> Simple, low resource usage</li></ul><ul id="28c113c0-c808-80b0-ac12-d4765ffa9d2c" class="bulleted-list"><li style="list-style-type:disc"><strong>Cons:</strong> Slow convergence, count-to-infinity problem</li></ul><ul id="28c113c0-c808-80fc-8bd5-d74c5c162530" class="bulleted-list"><li style="list-style-type:disc"><strong>Protocols:</strong> RIP, EIGRP</li></ul><p id="28c113c0-c808-8084-9165-cce779b3d087" class=""><strong>Takeaway:</strong> Best for <strong>small networks with limited resources.</strong> 🔍</p><h3 id="28c113c0-c808-80df-844c-f13ae83002b6" class=""><strong>B. Link State Protocols (LS)</strong></h3><ul id="28c113c0-c808-8078-b287-e7fa710d1c98" class="bulleted-list"><li style="list-style-type:disc"><strong>Mechanism:</strong> Build a complete network map and calculate shortest paths</li></ul><ul id="28c113c0-c808-80eb-b960-f1fc79fdd29d" class="bulleted-list"><li style="list-style-type:disc"><strong>Features:</strong><ul id="28c113c0-c808-80d7-9494-c6e85429adca" class="bulleted-list"><li style="list-style-type:circle">Global topology awareness</li></ul><ul id="28c113c0-c808-8012-b2f5-c3f635fe964f" class="bulleted-list"><li style="list-style-type:circle">Event-driven updates</li></ul><ul id="28c113c0-c808-80c8-8585-f150d1217931" class="bulleted-list"><li style="list-style-type:circle">Shortest path calculation (Dijkstra)</li></ul></li></ul><ul id="28c113c0-c808-801d-b8bf-fe7a2405235a" class="bulleted-list"><li style="list-style-type:disc"><strong>Pros:</strong> Fast convergence, scalable, accurate routing</li></ul><ul id="28c113c0-c808-80c0-80cc-ca0f5b365930" class="bulleted-list"><li style="list-style-type:disc"><strong>Cons:</strong> Resource-intensive, complex configuration</li></ul><ul id="28c113c0-c808-80bf-9b32-e8b461a262d0" class="bulleted-list"><li style="list-style-type:disc"><strong>Protocols:</strong> OSPF, IS-IS</li></ul><p id="28c113c0-c808-801c-9f0a-dcdda60b8f7f" class=""><strong>Takeaway:</strong> Suited for <strong>large, dynamic networks requiring speed and accuracy.</strong> 🔍</p><hr id="28c113c0-c808-8047-a168-ea64fda2d54a"/><h3 id="28c113c0-c808-80de-9cd5-d8c013c03916" class=""><strong>C. Comparison: DV vs LS</strong></h3><table id="28c113c0-c808-805a-8f1d-fca16022d3be" class="simple-table"><thead class="simple-table-header"><tr id="28c113c0-c808-80e5-86b9-e99088bc2673"><th id="U]Xy" class="simple-table-header-color simple-table-header">Feature</th><th id="EzDb" class="simple-table-header-color simple-table-header">Distance Vector</th><th id="silU" class="simple-table-header-color simple-table-header">Link State</th></tr></thead><tbody><tr id="28c113c0-c808-8012-9ac2-e26b1a7f522c"><td id="U]Xy" class="">Info Shared</td><td id="EzDb" class="">Routing table to neighbors</td><td id="silU" class="">Link-state to all routers</td></tr><tr id="28c113c0-c808-8066-8207-c6731cf9fabc"><td id="U]Xy" class="">Network View</td><td id="EzDb" class="">Partial</td><td id="silU" class="">Complete</td></tr><tr id="28c113c0-c808-80a5-90fd-edc67b967a8b"><td id="U]Xy" class="">Convergence</td><td id="EzDb" class="">Slow</td><td id="silU" class="">Fast</td></tr><tr id="28c113c0-c808-80c7-9ff4-f4d960cd9b07"><td id="U]Xy" class="">Resource Use</td><td id="EzDb" class="">Low</td><td id="silU" class="">High</td></tr><tr id="28c113c0-c808-80f7-afd1-ee09e7dd2342"><td id="U]Xy" class="">Scalability</td><td id="EzDb" class="">Limited</td><td id="silU" class="">High</td></tr><tr id="28c113c0-c808-801e-a739-f3b180e7ab4f"><td id="U]Xy" class="">Examples</td><td id="EzDb" class="">RIP, EIGRP</td><td id="silU" class="">OSPF, IS-IS</td></tr></tbody></table><hr id="28c113c0-c808-80b1-86fb-d6ad44c8b975"/><h3 id="28c113c0-c808-80b2-a5df-c3c0a751f8cb" class=""><strong>D. BGP vs IGPs</strong></h3><table id="28c113c0-c808-80af-95c1-e5b55a2944b1" class="simple-table"><thead class="simple-table-header"><tr id="28c113c0-c808-809d-9790-f8667fe13edd"><th id="XBhX" class="simple-table-header-color simple-table-header">Feature</th><th id="C;dX" class="simple-table-header-color simple-table-header">BGP</th><th id=":TEh" class="simple-table-header-color simple-table-header">IGPs (RIP, EIGRP, OSPF)</th></tr></thead><tbody><tr id="28c113c0-c808-80c1-8db8-db81ee04d881"><td id="XBhX" class="">Scope</td><td id="C;dX" class="">Inter-AS (Internet)</td><td id=":TEh" class="">Intra-AS (internal)</td></tr><tr id="28c113c0-c808-8099-95a8-de945b7b0c4b"><td id="XBhX" class="">Type</td><td id="C;dX" class="">Path vector</td><td id=":TEh" class="">DV/Hybrid/LS</td></tr><tr id="28c113c0-c808-803d-92f4-d70e93601dd4"><td id="XBhX" class="">Convergence</td><td id="C;dX" class="">Slower</td><td id=":TEh" class="">Faster</td></tr><tr id="28c113c0-c808-8093-a2ec-dc7f60a9be7f"><td id="XBhX" class="">Complexity</td><td id="C;dX" class="">High</td><td id=":TEh" class="">Moderate</td></tr><tr id="28c113c0-c808-8083-afd8-e7ecd84cbc91"><td id="XBhX" class="">Use Case</td><td id="C;dX" class="">Internet routing</td><td id=":TEh" class="">Enterprise internal routing</td></tr></tbody></table><p id="28c113c0-c808-80d2-aa24-d66f01580545" class=""><strong>Takeaway:</strong> <strong>BGP handles global routing; IGPs optimize internal traffic.</strong> 🔍</p><hr id="28c113c0-c808-80e0-bc3f-cd79d16aaf1d"/><h2 id="28c113c0-c808-80dd-9c67-c2f589f64904" class=""><strong>3️⃣ Switching Techniques</strong></h2><p id="28c113c0-c808-80de-879f-c77dc607a760" class="">Switching defines <strong>how data flows between devices</strong> in a network.</p><p id="28c113c0-c808-80d1-b2f8-ec988d7160d0" class=""><strong>Purpose:</strong></p><ul id="28c113c0-c808-8018-b8f7-d48465aa86fe" class="bulleted-list"><li style="list-style-type:disc">Efficient data transfer ✨</li></ul><ul id="28c113c0-c808-805a-882c-e18da49cf415" class="bulleted-list"><li style="list-style-type:disc">Optimized resource use ✨</li></ul><ul id="28c113c0-c808-808f-b517-e5b8efcd57e4" class="bulleted-list"><li style="list-style-type:disc">Support for real-time &amp; asynchronous communication ✨</li></ul><h3 id="28c113c0-c808-8018-b97b-e3aa73dc6b55" class=""><strong>A. Circuit Switching</strong></h3><ul id="28c113c0-c808-80e4-9492-e268aee6db22" class="bulleted-list"><li style="list-style-type:disc"><strong>Mechanism:</strong> Establishes a dedicated path before communication</li></ul><ul id="28c113c0-c808-8013-938e-f298045e6f4f" class="bulleted-list"><li style="list-style-type:disc"><strong>Features:</strong> Continuous connection, reserved bandwidth</li></ul><ul id="28c113c0-c808-80c0-90a1-e3d54f992a27" class="bulleted-list"><li style="list-style-type:disc"><strong>Pros:</strong> Reliable, guaranteed bandwidth</li></ul><ul id="28c113c0-c808-8018-9ce0-c9ab0d102a20" class="bulleted-list"><li style="list-style-type:disc"><strong>Cons:</strong> Inefficient resource use, high setup time</li></ul><ul id="28c113c0-c808-80a3-908a-fde032a362e1" class="bulleted-list"><li style="list-style-type:disc"><strong>Applications:</strong> Telephone networks, video conferencing</li></ul><p id="28c113c0-c808-804b-a5cc-d9d5916fcd5d" class=""><strong>Takeaway:</strong> Best for <strong>real-time, guaranteed communication.</strong> 🔍</p><h3 id="28c113c0-c808-8052-b2a7-d89b5edaf14f" class=""><strong>B. Packet Switching</strong></h3><ul id="28c113c0-c808-8036-98df-f455c42446d9" class="bulleted-list"><li style="list-style-type:disc"><strong>Mechanism:</strong> Data divided into packets; routed independently</li></ul><ul id="28c113c0-c808-80e2-b4d6-eb1dca982d1d" class="bulleted-list"><li style="list-style-type:disc"><strong>Features:</strong> Dynamic path, stateless communication</li></ul><ul id="28c113c0-c808-800b-98c7-f77b3318a81c" class="bulleted-list"><li style="list-style-type:disc"><strong>Pros:</strong> Efficient, scalable, resilient</li></ul><ul id="28c113c0-c808-8090-a134-c6caf1b7d8d7" class="bulleted-list"><li style="list-style-type:disc"><strong>Cons:</strong> Out-of-order delivery, variable delay</li></ul><ul id="28c113c0-c808-80a5-8153-fc44a7e395ed" class="bulleted-list"><li style="list-style-type:disc"><strong>Applications:</strong> Internet, streaming, online gaming</li></ul><p id="28c113c0-c808-8001-aa1f-dd99e56d5c33" class=""><strong>Takeaway:</strong> Backbone of <strong>modern data networks</strong>. 🔍</p><h3 id="28c113c0-c808-8009-a042-f193c56e7eba" class=""><strong>C. Message Switching</strong></h3><ul id="28c113c0-c808-8080-a89d-f9aa31b7f977" class="bulleted-list"><li style="list-style-type:disc"><strong>Mechanism:</strong> Entire message stored and forwarded at intermediate nodes</li></ul><ul id="28c113c0-c808-801c-ab71-f4f754b42264" class="bulleted-list"><li style="list-style-type:disc"><strong>Features:</strong> Store-and-forward, no dedicated path</li></ul><ul id="28c113c0-c808-801f-ab9a-e8b80d429d60" class="bulleted-list"><li style="list-style-type:disc"><strong>Pros:</strong> Efficient for non-real-time, handles congestion</li></ul><ul id="28c113c0-c808-8081-a813-ecac96ad7869" class="bulleted-list"><li style="list-style-type:disc"><strong>Cons:</strong> High latency, storage requirements</li></ul><ul id="28c113c0-c808-80ab-8dc5-eae0af4cac7a" class="bulleted-list"><li style="list-style-type:disc"><strong>Applications:</strong> Email, file sharing</li></ul><p id="28c113c0-c808-801e-a489-c984abaf402e" class=""><strong>Takeaway:</strong> Suited for <strong>non-real-time communication.</strong> 🔍</p><hr id="28c113c0-c808-80cd-a158-c6a35a9f6296"/><h3 id="28c113c0-c808-809b-9554-c3ded047658c" class=""><strong>Comparison of Switching Techniques</strong></h3><table id="28c113c0-c808-80c0-8364-d780b44b9c84" class="simple-table"><thead class="simple-table-header"><tr id="28c113c0-c808-8060-a658-e237dfdc27a7"><th id="zj|z" class="simple-table-header-color simple-table-header">Feature</th><th id="hy\M" class="simple-table-header-color simple-table-header">Circuit</th><th id="T[dq" class="simple-table-header-color simple-table-header">Packet</th><th id=":Jer" class="simple-table-header-color simple-table-header">Message</th></tr></thead><tbody><tr id="28c113c0-c808-8049-9499-dfe2e7da86e4"><td id="zj|z" class="">Path</td><td id="hy\M" class="">Dedicated</td><td id="T[dq" class="">Dynamic</td><td id=":Jer" class="">Dynamic</td></tr><tr id="28c113c0-c808-8054-9ae6-d6b857d314e7"><td id="zj|z" class="">Delay</td><td id="hy\M" class="">Low</td><td id="T[dq" class="">Variable</td><td id=":Jer" class="">High</td></tr><tr id="28c113c0-c808-8085-a12b-fd6395df7bc3"><td id="zj|z" class="">Resource Use</td><td id="hy\M" class="">Inefficient</td><td id="T[dq" class="">Efficient</td><td id=":Jer" class="">Moderate</td></tr><tr id="28c113c0-c808-805b-afcf-e2de0255e0f6"><td id="zj|z" class="">Real-Time Suitability</td><td id="hy\M" class="">Yes</td><td id="T[dq" class="">Yes (with QoS)</td><td id=":Jer" class="">No</td></tr><tr id="28c113c0-c808-80e2-81cb-f8386ab5a1a6"><td id="zj|z" class="">Applications</td><td id="hy\M" class="">Voice/video calls</td><td id="T[dq" class="">Internet, data</td><td id=":Jer" class="">Email, file sharing</td></tr></tbody></table><hr id="28c113c0-c808-8037-80c3-db045cca1edd"/><h2 id="28c113c0-c808-800b-9b3f-da779108bf7c" class=""><strong>4️⃣ Key Interview Focus Areas 🔍</strong></h2><ul id="28c113c0-c808-80d3-be98-e9156ad0a8ba" class="bulleted-list"><li style="list-style-type:disc">Differences between <strong>static vs dynamic routing</strong></li></ul><ul id="28c113c0-c808-8068-b08a-f5fac442086a" class="bulleted-list"><li style="list-style-type:disc">Distance Vector vs Link State protocols and convergence issues</li></ul><ul id="28c113c0-c808-80f9-a734-f2bd7d0c74e6" class="bulleted-list"><li style="list-style-type:disc">BGP vs IGPs, and their use in Internet vs enterprise networks</li></ul><ul id="28c113c0-c808-8051-81d6-e896c3ad5cbd" class="bulleted-list"><li style="list-style-type:disc">Switching techniques and their suitability for real-time vs non-real-time applications</li></ul><ul id="28c113c0-c808-80a3-a87b-c88e4d18fef4" class="bulleted-list"><li style="list-style-type:disc">Common routing algorithms: RIP, OSPF, EIGRP, IS-IS</li></ul><hr id="28c113c0-c808-80ce-a691-da45b4071e93"/><p id="28c113c0-c808-80f0-a445-e09b97ff2d87" class=""><strong>✅ Summary Takeaways</strong></p><ul id="28c113c0-c808-8004-be3e-da26378cb6d8" class="bulleted-list"><li style="list-style-type:disc">Routing algorithms ensure <strong>efficient, reliable paths</strong> for data.</li></ul><ul id="28c113c0-c808-8034-870b-fa39b08204a4" class="bulleted-list"><li style="list-style-type:disc">DV protocols are <strong>simple, small-scale</strong>; LS protocols are <strong>fast, scalable</strong>.</li></ul><ul id="28c113c0-c808-80ec-ac3f-fcdb762bfbd3" class="bulleted-list"><li style="list-style-type:disc">BGP is used for <strong>global Internet routing</strong>, IGPs for <strong>internal networks</strong>.</li></ul><ul id="28c113c0-c808-8026-80e4-fd03517db631" class="bulleted-list"><li style="list-style-type:disc">Circuit switching = <strong>real-time reliability</strong>, Packet switching = <strong>efficiency &amp; scalability</strong>, Message switching = <strong>non-real-time communication</strong>.</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

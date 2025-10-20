@@ -1,0 +1,706 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Module 3: Networking Fundamentals and Basics</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(134, 131, 126, 1);
+	fill: rgba(134, 131, 126, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(134, 131, 126, 1);
+	fill: rgba(134, 131, 126, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="28c113c0-c808-8046-af00-d17f28de0e46" class="page sans"><header><h1 class="page-title"><strong>Module 3: Networking Fundamentals and Basics</strong></h1><p class="page-description"></p></header><div class="page-body"><h2 id="28c113c0-c808-8073-a170-ead5f711c93e" class=""><strong>1. Network Cabling and Connectors</strong> 🔌</h2><p id="28c113c0-c808-8001-8256-f0de0c5d2768" class=""><strong>Definition:</strong></p><p id="28c113c0-c808-8010-ae76-e028674d1ef5" class="">Physical mediums (cables) and connectors that enable data transfer between devices in a network.</p><p id="28c113c0-c808-8063-b78c-c1151b706625" class=""><strong>Importance:</strong></p><ul id="28c113c0-c808-80b5-8d54-e1c18cb712d0" class="bulleted-list"><li style="list-style-type:disc">Provides the foundation for network communication</li></ul><ul id="28c113c0-c808-8071-be3b-ed23a086dc39" class="bulleted-list"><li style="list-style-type:disc">Determines speed, reliability, and scalability</li></ul><h3 id="28c113c0-c808-8052-a47b-d6c1bbb73489" class=""><strong>1.1 Twisted Pair Cables</strong></h3><ul id="28c113c0-c808-8051-b539-c16d898337f2" class="bulleted-list"><li style="list-style-type:disc"><strong>Structure:</strong> Two insulated copper wires twisted together to reduce electromagnetic interference (EMI)</li></ul><ul id="28c113c0-c808-8083-9701-e5b6319d1514" class="bulleted-list"><li style="list-style-type:disc"><strong>Types:</strong><ul id="28c113c0-c808-8013-a547-db261f7d3f37" class="bulleted-list"><li style="list-style-type:circle"><strong>UTP (Unshielded):</strong> Cost-effective, widely used in Ethernet</li></ul><ul id="28c113c0-c808-802f-a986-f4e61adc42de" class="bulleted-list"><li style="list-style-type:circle"><strong>STP (Shielded):</strong> Reduces EMI, ideal for industrial environments</li></ul></li></ul><ul id="28c113c0-c808-8011-baaf-ff929c97a23e" class="bulleted-list"><li style="list-style-type:disc"><strong>Connectors:</strong> RJ45 (Ethernet), RJ11 (telephone)</li></ul><ul id="28c113c0-c808-801e-8605-fc13de449f37" class="bulleted-list"><li style="list-style-type:disc"><strong>Pros:</strong> Easy installation, flexible, cost-effective</li></ul><ul id="28c113c0-c808-80b0-b586-e9c3fa54857e" class="bulleted-list"><li style="list-style-type:disc"><strong>Cons:</strong> Susceptible to interference, limited bandwidth</li></ul><h3 id="28c113c0-c808-80c8-8549-e77688bd5bba" class=""><strong>1.2 Fiber Optic Cables</strong></h3><ul id="28c113c0-c808-805b-98df-fb162100031f" class="bulleted-list"><li style="list-style-type:disc"><strong>Structure:</strong> Glass/plastic fibers transmitting data as light</li></ul><ul id="28c113c0-c808-8084-93dd-f770a06928cb" class="bulleted-list"><li style="list-style-type:disc"><strong>Types:</strong><ul id="28c113c0-c808-80ff-90b3-e348fdfe3228" class="bulleted-list"><li style="list-style-type:circle"><strong>Single-mode (SMF):</strong> Long-distance, single light wave</li></ul><ul id="28c113c0-c808-8027-964d-d7594d4aa8ae" class="bulleted-list"><li style="list-style-type:circle"><strong>Multi-mode (MMF):</strong> Short-distance, multiple light waves</li></ul></li></ul><ul id="28c113c0-c808-8016-9345-c3e65487f492" class="bulleted-list"><li style="list-style-type:disc"><strong>Connectors:</strong> LC, SC, ST</li></ul><ul id="28c113c0-c808-803d-8749-ff7d9bc6e3c7" class="bulleted-list"><li style="list-style-type:disc"><strong>Pros:</strong> High bandwidth, immune to EMI, long distance</li></ul><ul id="28c113c0-c808-80c6-9891-efcd7d75d685" class="bulleted-list"><li style="list-style-type:disc"><strong>Cons:</strong> Expensive, fragile</li></ul><h3 id="28c113c0-c808-80e0-8d17-d71347d2207a" class=""><strong>1.3 Coaxial Cables</strong></h3><ul id="28c113c0-c808-80bf-908f-ec7c049cf8ad" class="bulleted-list"><li style="list-style-type:disc"><strong>Structure:</strong> Central conductor + insulation + metallic shield + outer jacket</li></ul><ul id="28c113c0-c808-805c-b6fc-ee681074b95a" class="bulleted-list"><li style="list-style-type:disc"><strong>Connectors:</strong> BNC, F-type</li></ul><ul id="28c113c0-c808-80d9-a63c-d07d481e360b" class="bulleted-list"><li style="list-style-type:disc"><strong>Pros:</strong> EMI resistant, durable</li></ul><ul id="28c113c0-c808-80ee-ae02-e4d10f0fe92b" class="bulleted-list"><li style="list-style-type:disc"><strong>Cons:</strong> Limited speed, bulky</li></ul><p id="28c113c0-c808-800b-9616-e1246809708f" class=""><strong>Comparison:</strong></p><table id="28c113c0-c808-8060-815c-fbe670b0c83d" class="simple-table"><thead class="simple-table-header"><tr id="28c113c0-c808-80e2-afc5-fa92a461a103"><th id="Zna`" class="simple-table-header-color simple-table-header">Feature</th><th id="k{UD" class="simple-table-header-color simple-table-header">Twisted Pair</th><th id="{[ot" class="simple-table-header-color simple-table-header">Fiber Optics</th><th id="BMIj" class="simple-table-header-color simple-table-header">Coaxial</th></tr></thead><tbody><tr id="28c113c0-c808-8095-abb2-cfffd87709aa"><td id="Zna`" class="">Bandwidth</td><td id="k{UD" class="">Medium</td><td id="{[ot" class="">High</td><td id="BMIj" class="">Low-Medium</td></tr><tr id="28c113c0-c808-8022-a7c2-d075e1acea4a"><td id="Zna`" class="">Distance</td><td id="k{UD" class="">Short-Medium</td><td id="{[ot" class="">Long</td><td id="BMIj" class="">Medium</td></tr><tr id="28c113c0-c808-80bb-8514-ec7987cc3e7b"><td id="Zna`" class="">Cost</td><td id="k{UD" class="">Low</td><td id="{[ot" class="">High</td><td id="BMIj" class="">Moderate</td></tr><tr id="28c113c0-c808-80b1-8d87-e9542353dbed"><td id="Zna`" class="">Interference</td><td id="k{UD" class="">Moderate</td><td id="{[ot" class="">None</td><td id="BMIj" class="">Low</td></tr><tr id="28c113c0-c808-8071-a8c0-e1971ab0b627"><td id="Zna`" class="">Usage</td><td id="k{UD" class="">Ethernet, phones</td><td id="{[ot" class="">Backbone, long-distance</td><td id="BMIj" class="">Cable TV, older Ethernet</td></tr></tbody></table><p id="28c113c0-c808-806e-bfef-d9bcad484ee0" class=""><strong>✨ Takeaway:</strong> Cabling type determines network performance, reliability, and cost.</p><p id="28c113c0-c808-803d-893a-ecaad9bc79b1" class=""><strong>🔍 Interview Focus:</strong> Differences between UTP/STP, fiber types, and connectors.</p><hr id="28c113c0-c808-805e-8fae-e2d770a9e112"/><h2 id="28c113c0-c808-809b-9e01-e6061386fcc3" class=""><strong>2. Network Devices</strong> 🖧</h2><p id="28c113c0-c808-80f8-919d-d75f7f9d2a21" class=""><strong>Definition:</strong> Hardware enabling communication and data transfer between devices.</p><p id="28c113c0-c808-80d5-817f-eb4ca059ac12" class=""><strong>Importance:</strong></p><ul id="28c113c0-c808-80fd-b393-cbd7d1a29972" class="bulleted-list"><li style="list-style-type:disc">Facilitates routing &amp; switching</li></ul><ul id="28c113c0-c808-80a1-b08a-c64b33bcca53" class="bulleted-list"><li style="list-style-type:disc">Enhances performance &amp; scalability</li></ul><ul id="28c113c0-c808-8083-9012-d5b2686698ed" class="bulleted-list"><li style="list-style-type:disc">Maintains data integrity</li></ul><h3 id="28c113c0-c808-80cf-bf65-f78036dc6966" class=""><strong>2.1 Router</strong></h3><ul id="28c113c0-c808-8072-be9e-cc9d66c048d5" class="bulleted-list"><li style="list-style-type:disc">Connects multiple networks, routes packets using IP addresses</li></ul><ul id="28c113c0-c808-8068-a159-f150b60c9e8b" class="bulleted-list"><li style="list-style-type:disc"><strong>Functions:</strong> Best path selection, internet access, NAT/firewall security</li></ul><ul id="28c113c0-c808-80b0-ac4f-e0a64d9734d8" class="bulleted-list"><li style="list-style-type:disc"><strong>Use Case:</strong> Home/office internet access</li></ul><h3 id="28c113c0-c808-801f-a594-c07af1ffb6e2" class=""><strong>2.2 Switch</strong></h3><ul id="28c113c0-c808-8084-a891-cf20d0823f94" class="bulleted-list"><li style="list-style-type:disc">Connects multiple devices within a LAN, forwards data using MAC addresses</li></ul><ul id="28c113c0-c808-80b3-98e8-c10ddb15f308" class="bulleted-list"><li style="list-style-type:disc"><strong>Use Case:</strong> LAN communication between computers, printers, servers</li></ul><h3 id="28c113c0-c808-800b-9e4c-e67637117ec1" class=""><strong>2.3 Hub</strong></h3><ul id="28c113c0-c808-8028-95e2-c58cf904db5d" class="bulleted-list"><li style="list-style-type:disc">Broadcasts data to all connected devices</li></ul><ul id="28c113c0-c808-801a-96d9-c423f722fbfb" class="bulleted-list"><li style="list-style-type:disc"><strong>Layer:</strong> Physical</li></ul><ul id="28c113c0-c808-8061-8df1-cb2eb3fcb05d" class="bulleted-list"><li style="list-style-type:disc"><strong>Limitation:</strong> Causes network congestion</li></ul><ul id="28c113c0-c808-808e-b403-cf9efb5d7eeb" class="bulleted-list"><li style="list-style-type:disc"><strong>Use Case:</strong> Small/simple networks</li></ul><h3 id="28c113c0-c808-80f9-b94e-f63ed5bd9e74" class=""><strong>2.4 Bridge</strong></h3><ul id="28c113c0-c808-808b-8c6c-eec2e601cf76" class="bulleted-list"><li style="list-style-type:disc">Connects multiple networks into a single network</li></ul><ul id="28c113c0-c808-80b5-a155-fb5873f5e1f1" class="bulleted-list"><li style="list-style-type:disc">Filters traffic using MAC addresses</li></ul><ul id="28c113c0-c808-80dd-ae4a-c059b10d633b" class="bulleted-list"><li style="list-style-type:disc"><strong>Use Case:</strong> Expanding LANs with segmentation</li></ul><h3 id="28c113c0-c808-80ae-80cf-ed54de739934" class=""><strong>2.5 Repeater</strong></h3><ul id="28c113c0-c808-8005-9b66-d8f0ce01eb41" class="bulleted-list"><li style="list-style-type:disc">Amplifies &amp; regenerates signals to extend network range</li></ul><ul id="28c113c0-c808-80fe-b21a-e7d609079521" class="bulleted-list"><li style="list-style-type:disc"><strong>Use Case:</strong> Long-distance communication (e.g., buildings, Wi-Fi extension)</li></ul><p id="28c113c0-c808-80b9-8bc6-e63803390b9b" class=""><strong>Device Comparison:</strong></p><table id="28c113c0-c808-80ee-bae9-ff7e655e0603" class="simple-table"><thead class="simple-table-header"><tr id="28c113c0-c808-808b-8660-c1cd8031c777"><th id="hzOx" class="simple-table-header-color simple-table-header">Device</th><th id="|YOE" class="simple-table-header-color simple-table-header">Layer</th><th id="DuKN" class="simple-table-header-color simple-table-header">Function</th><th id="IXuc" class="simple-table-header-color simple-table-header">Use Case</th></tr></thead><tbody><tr id="28c113c0-c808-8046-9eb8-c88d5ae251de"><td id="hzOx" class="">Router</td><td id="|YOE" class="">Network</td><td id="DuKN" class="">Routes data</td><td id="IXuc" class="">Internet access</td></tr><tr id="28c113c0-c808-80a6-b622-cb28f0ac8270"><td id="hzOx" class="">Switch</td><td id="|YOE" class="">Data Link</td><td id="DuKN" class="">Forwards data</td><td id="IXuc" class="">LAN communication</td></tr><tr id="28c113c0-c808-8014-9301-e22cc5af36e8"><td id="hzOx" class="">Hub</td><td id="|YOE" class="">Physical</td><td id="DuKN" class="">Broadcasts data</td><td id="IXuc" class="">Small networks</td></tr><tr id="28c113c0-c808-8048-84a4-fda291b881af"><td id="hzOx" class="">Bridge</td><td id="|YOE" class="">Data Link</td><td id="DuKN" class="">Connects networks</td><td id="IXuc" class="">Expanding LANs</td></tr><tr id="28c113c0-c808-8076-a567-d916b4528957"><td id="hzOx" class="">Repeater</td><td id="|YOE" class="">Physical</td><td id="DuKN" class="">Amplifies signals</td><td id="IXuc" class="">Extending range</td></tr></tbody></table><p id="28c113c0-c808-80dc-9e50-faf8ec963d1f" class=""><strong>✨ Takeaway:</strong> Network devices manage data flow, routing, and connectivity efficiently.</p><p id="28c113c0-c808-800a-b163-fc04a61a3acd" class=""><strong>🔍 Interview Focus:</strong> Router vs switch vs hub, bridge vs repeater use cases.</p><hr id="28c113c0-c808-80e7-b9b8-e0e12adaa99b"/><h2 id="28c113c0-c808-8017-b8bd-f3773e259171" class=""><strong>3. Ethernet Frames</strong> 📦</h2><p id="28c113c0-c808-80eb-a101-cb559aae113a" class=""><strong>Definition:</strong> Unit of communication in Ethernet networks, encapsulating data for transmission.</p><p id="28c113c0-c808-8083-973d-e8550c0dbe24" class=""><strong>Purpose:</strong></p><ul id="28c113c0-c808-80ae-8be8-f2b963b7be2a" class="bulleted-list"><li style="list-style-type:disc">Structured format for data transmission</li></ul><ul id="28c113c0-c808-80c1-ad9e-fd5952df0e22" class="bulleted-list"><li style="list-style-type:disc">Ensures addressing, error detection, flow control</li></ul><h3 id="28c113c0-c808-8078-8719-ed38df709443" class=""><strong>3.1 Components</strong></h3><table id="28c113c0-c808-80e4-bad5-fc2a96e09e24" class="simple-table"><thead class="simple-table-header"><tr id="28c113c0-c808-80cb-9779-e7c8318835a6"><th id="jE@F" class="simple-table-header-color simple-table-header">Component</th><th id="&gt;~`~" class="simple-table-header-color simple-table-header">Size</th><th id="XnNk" class="simple-table-header-color simple-table-header">Description</th></tr></thead><tbody><tr id="28c113c0-c808-809a-b4f4-dee62cd5fdef"><td id="jE@F" class="">Preamble</td><td id="&gt;~`~" class="">7</td><td id="XnNk" class="">Clock synchronization</td></tr><tr id="28c113c0-c808-80d6-a451-d9d6af72a117"><td id="jE@F" class="">Start Frame Delimiter (SFD)</td><td id="&gt;~`~" class="">1</td><td id="XnNk" class="">Marks start of frame</td></tr><tr id="28c113c0-c808-8018-a9f9-d1700449a344"><td id="jE@F" class="">Destination MAC</td><td id="&gt;~`~" class="">6</td><td id="XnNk" class="">Recipient address</td></tr><tr id="28c113c0-c808-8045-b191-d4774aba8a9c"><td id="jE@F" class="">Source MAC</td><td id="&gt;~`~" class="">6</td><td id="XnNk" class="">Sender address</td></tr><tr id="28c113c0-c808-8040-99a0-fbf22149af20"><td id="jE@F" class="">EtherType/Length</td><td id="&gt;~`~" class="">2</td><td id="XnNk" class="">Protocol type or payload length</td></tr><tr id="28c113c0-c808-806f-8b0b-c17c09d1f5a9"><td id="jE@F" class="">Data/Payload</td><td id="&gt;~`~" class="">46–1500</td><td id="XnNk" class="">Actual transmitted data</td></tr><tr id="28c113c0-c808-8021-b437-faf3666d451e"><td id="jE@F" class="">FCS</td><td id="&gt;~`~" class="">4</td><td id="XnNk" class="">Error detection via CRC</td></tr></tbody></table><h3 id="28c113c0-c808-80a5-ad27-c81da58f9a49" class=""><strong>3.2 Variants</strong></h3><ul id="28c113c0-c808-80ac-926d-eec882cebb24" class="bulleted-list"><li style="list-style-type:disc"><strong>Ethernet II:</strong> Default TCP/IP networks, uses EtherType</li></ul><ul id="28c113c0-c808-8045-b13a-e9c3a3b46ca5" class="bulleted-list"><li style="list-style-type:disc"><strong>IEEE 802.3:</strong> Early networks, length field</li></ul><ul id="28c113c0-c808-8037-8b58-c431eeea6783" class="bulleted-list"><li style="list-style-type:disc"><strong>VLAN Tagging:</strong> Adds VLAN ID for network segmentation</li></ul><p id="28c113c0-c808-8063-ba61-de00998e9b59" class=""><strong>✨ Takeaway:</strong> Ethernet frames ensure reliable and error-checked data transfer in LANs.</p><p id="28c113c0-c808-80cb-9160-e2c34cf3b0f8" class=""><strong>🔍 Interview Focus:</strong> Frame structure, FCS, VLAN tagging.</p><hr id="28c113c0-c808-8097-b2e1-cb198699f721"/><h2 id="28c113c0-c808-80da-ac6e-e8554bc24d35" class=""><strong>4. Address Resolution Protocol (ARP)</strong> 🔄</h2><p id="28c113c0-c808-809e-928e-e65310c22482" class=""><strong>Definition:</strong> Resolves IP addresses into MAC addresses for local network communication.</p><p id="28c113c0-c808-8022-b978-cb6b9159461e" class=""><strong>How It Works:</strong></p><ol type="1" id="28c113c0-c808-80fa-8b44-d8a417bb0414" class="numbered-list" start="1"><li>Broadcast request: “Who has this IP?”</li></ol><ol type="1" id="28c113c0-c808-80e7-aee9-f439aa8220ee" class="numbered-list" start="2"><li>Response: Device with IP sends MAC address</li></ol><ol type="1" id="28c113c0-c808-8055-9297-dd04a724cefb" class="numbered-list" start="3"><li>Cache: Stores IP-MAC mappings for future use</li></ol><p id="28c113c0-c808-80b4-8bb6-d8df3e2437c6" class=""><strong>Types:</strong></p><ul id="28c113c0-c808-808c-8cb5-dd584d69f6f0" class="bulleted-list"><li style="list-style-type:disc">Gratuitous ARP: Updates ARP tables proactively</li></ul><ul id="28c113c0-c808-80fb-9639-d57fb9a9b68e" class="bulleted-list"><li style="list-style-type:disc">Proxy ARP: Router responds on behalf of another device</li></ul><ul id="28c113c0-c808-8054-b4f3-f34fa47ac320" class="bulleted-list"><li style="list-style-type:disc">Reverse ARP (RARP): MAC → IP (legacy systems)</li></ul><p id="28c113c0-c808-80bf-a46c-cc49a671824d" class=""><strong>Security Concerns:</strong></p><ul id="28c113c0-c808-80d3-b4c8-cc9c09054aa3" class="bulleted-list"><li style="list-style-type:disc"><strong>ARP Spoofing:</strong> MITM attacks, traffic interception</li></ul><ul id="28c113c0-c808-8069-b5f2-c1e485ac27f2" class="bulleted-list"><li style="list-style-type:disc"><strong>Cache Poisoning:</strong> Incorrect IP-MAC entries, misrouting</li></ul><p id="28c113c0-c808-80bf-a2db-cf16817a0c0f" class=""><strong>✨ Takeaway:</strong> ARP bridges IP and MAC, but can be exploited if unsecured.</p><p id="28c113c0-c808-8008-bb45-c5f2ceb742a9" class=""><strong>🔍 Interview Focus:</strong> ARP request/response, spoofing, RARP differences.</p><hr id="28c113c0-c808-80a1-b0ad-e56775459dc5"/><h2 id="28c113c0-c808-803c-ba40-e8c9bb671d5a" class=""><strong>5. Network Access Control (NAC)</strong> 🔐</h2><p id="28c113c0-c808-80d1-8796-c28d3abdc9af" class=""><strong>Definition:</strong> Security solution to regulate device/user access based on identity and compliance.</p><p id="28c113c0-c808-8060-a54e-d2cc2f630294" class=""><strong>Purpose:</strong></p><ul id="28c113c0-c808-8038-833f-fcf4d85edb8e" class="bulleted-list"><li style="list-style-type:disc">Authenticate &amp; authorize devices</li></ul><ul id="28c113c0-c808-8054-a22f-cb44243b517e" class="bulleted-list"><li style="list-style-type:disc">Ensure compliance with security policies</li></ul><ul id="28c113c0-c808-80fb-9aa0-c5849e82dce4" class="bulleted-list"><li style="list-style-type:disc">Monitor devices for ongoing threats</li></ul><h3 id="28c113c0-c808-80e5-9e8a-ca91369adb65" class=""><strong>5.1 How NAC Works</strong></h3><ul id="28c113c0-c808-8028-814d-fa9e4c27da08" class="bulleted-list"><li style="list-style-type:disc"><strong>Authentication:</strong> Verify identity (passwords, certificates, biometrics)</li></ul><ul id="28c113c0-c808-80c8-ba21-eb18d38f75fb" class="bulleted-list"><li style="list-style-type:disc"><strong>Authorization:</strong> Assign access levels based on roles or context</li></ul><ul id="28c113c0-c808-80aa-959a-d9205a38f417" class="bulleted-list"><li style="list-style-type:disc"><strong>Compliance Check:</strong> Verify antivirus, patches, firewalls</li></ul><ul id="28c113c0-c808-80c9-a74a-e70161bca87b" class="bulleted-list"><li style="list-style-type:disc"><strong>Enforcement:</strong> Continuous monitoring, isolate non-compliant devices</li></ul><h3 id="28c113c0-c808-805c-90bd-d21238ca3804" class=""><strong>5.2 Types</strong></h3><table id="28c113c0-c808-80a8-984b-d2a480d01043" class="simple-table"><thead class="simple-table-header"><tr id="28c113c0-c808-804e-ae25-ce1b39826e6a"><th id="q`UI" class="simple-table-header-color simple-table-header">Type</th><th id="sw;J" class="simple-table-header-color simple-table-header">Timing</th><th id="egr~" class="simple-table-header-color simple-table-header">Focus</th><th id="n?U@" class="simple-table-header-color simple-table-header">Action</th></tr></thead><tbody><tr id="28c113c0-c808-8050-a788-c743465342f1"><td id="q`UI" class="">Pre-Admission</td><td id="sw;J" class="">Before network access</td><td id="egr~" class="">Compliance/authentication</td><td id="n?U@" class="">Deny/quarantine non-compliant devices</td></tr><tr id="28c113c0-c808-80c1-90c2-f9b32cc3b8a3"><td id="q`UI" class="">Post-Admission</td><td id="sw;J" class="">After access</td><td id="egr~" class="">Monitoring/detection</td><td id="n?U@" class="">Block/isolate suspicious devices</td></tr></tbody></table><h3 id="28c113c0-c808-8010-a57f-dc23e0d70a2c" class=""><strong>5.3 Benefits</strong></h3><ul id="28c113c0-c808-8058-b898-fd997bfbb05e" class="bulleted-list"><li style="list-style-type:disc">Enhanced security</li></ul><ul id="28c113c0-c808-80d6-971a-fa104b2dfbf5" class="bulleted-list"><li style="list-style-type:disc">Improved visibility of devices</li></ul><ul id="28c113c0-c808-8038-8033-e74dfd14ef4a" class="bulleted-list"><li style="list-style-type:disc">Automated threat response</li></ul><ul id="28c113c0-c808-80c0-80dd-ed6a4410c6d1" class="bulleted-list"><li style="list-style-type:disc">Regulatory compliance (GDPR, HIPAA, PCI-DSS)</li></ul><p id="28c113c0-c808-80d9-8cf0-dc50f626de9b" class=""><strong>✨ Takeaway:</strong> NAC ensures secure, policy-compliant network access.</p><p id="28c113c0-c808-8079-b484-f03c336c3ee3" class=""><strong>🔍 Interview Focus:</strong> Pre vs post admission NAC, components, and enforcement mechanisms.</p><hr id="28c113c0-c808-8097-b5f1-cfe02b86d260"/><p id="28c113c0-c808-8049-ae9f-f7df139369e4" class=""><strong>💡 Quick Tips for Interviews:</strong></p><ul id="28c113c0-c808-804c-b9cc-fab7a7b72401" class="bulleted-list"><li style="list-style-type:disc">Remember <strong>cable types &amp; connectors</strong></li></ul><ul id="28c113c0-c808-808b-bfb1-c94df620bb97" class="bulleted-list"><li style="list-style-type:disc">Know <strong>network device layers &amp; functions</strong></li></ul><ul id="28c113c0-c808-80cb-9788-f382c4c1879e" class="bulleted-list"><li style="list-style-type:disc">Understand <strong>Ethernet frame structure</strong></li></ul><ul id="28c113c0-c808-8065-accf-c7be65906068" class="bulleted-list"><li style="list-style-type:disc">Be able to explain <strong>ARP, spoofing, and RARP</strong></li></ul><ul id="28c113c0-c808-8036-be27-e50a37ed3ba8" class="bulleted-list"><li style="list-style-type:disc">NAC: focus on <strong>authentication, authorization, enforcement</strong></li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
