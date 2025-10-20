@@ -1,0 +1,716 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Module 7: Inter-Process Communication (IPC)</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(134, 131, 126, 1);
+	fill: rgba(134, 131, 126, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(134, 131, 126, 1);
+	fill: rgba(134, 131, 126, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="291113c0-c808-80fc-9f82-d07288d7b5ff" class="page sans"><header><h1 class="page-title"><strong>Module 7: Inter-Process Communication (IPC)</strong></h1><p class="page-description"></p></header><div class="page-body"><p id="291113c0-c808-8001-a6fa-ddfa29f1c793" class="">Inter-Process Communication (IPC) enables processes to exchange data, synchronize actions, and share resources, whether on the same machine or across a network.</p><p id="291113c0-c808-805b-90e2-eda66ac26da2" class=""><strong>One-liner takeaway:</strong> IPC ensures processes communicate and coordinate efficiently like team members in a collaborative environment.</p><p id="291113c0-c808-80a7-8c3e-e9cb3ddd63f6" class=""><strong>Interview Focus 🔍:</strong> Explain IPC mechanisms, differences between Message Passing &amp; Shared Memory, and common use cases in OS design.</p><hr id="291113c0-c808-8073-8117-d76c255be5d6"/><h2 id="291113c0-c808-801b-89b2-c538a51fc7fb" class=""><strong>1. IPC Mechanisms Overview</strong> 📨</h2><ul id="291113c0-c808-8049-858d-fbeb282655d8" class="bulleted-list"><li style="list-style-type:disc"><strong>Definition:</strong> Mechanisms allowing processes to communicate and synchronize.</li></ul><ul id="291113c0-c808-8014-97f8-e7b5fecf62f9" class="bulleted-list"><li style="list-style-type:disc"><strong>Purpose:</strong><ul id="291113c0-c808-805e-b4d6-c3b273ff74c5" class="bulleted-list"><li style="list-style-type:circle">Share data efficiently.</li></ul><ul id="291113c0-c808-8080-ba34-f671d8d65a03" class="bulleted-list"><li style="list-style-type:circle">Coordinate tasks.</li></ul><ul id="291113c0-c808-80a6-b1d8-e94489c72994" class="bulleted-list"><li style="list-style-type:circle">Prevent resource conflicts.</li></ul></li></ul><ul id="291113c0-c808-801f-99e3-f9e7940f4373" class="bulleted-list"><li style="list-style-type:disc"><strong>Real-life Analogy:</strong> Team members exchanging notes or discussing tasks in a meeting room.</li></ul><ul id="291113c0-c808-80f0-922c-eae1eaea08be" class="bulleted-list"><li style="list-style-type:disc"><strong>Key Mechanisms:</strong><ol type="1" id="291113c0-c808-80b6-8116-c33de7b73224" class="numbered-list" start="1"><li>Message Passing</li></ol><ol type="1" id="291113c0-c808-80f4-b29e-dc9148c014b2" class="numbered-list" start="2"><li>Shared Memory</li></ol></li></ul><hr id="291113c0-c808-8091-bab8-c798d65a144b"/><h2 id="291113c0-c808-807b-bfc5-c50b63127bb8" class=""><strong>2. Message Passing IPC</strong> ✉️</h2><p id="291113c0-c808-801f-92d1-e43f096b8d92" class=""><strong>Definition:</strong> Processes communicate by sending/receiving structured messages through OS-managed channels.</p><p id="291113c0-c808-80da-8801-d3670a663116" class=""><strong>Real-life Analogy:</strong> Two colleagues using a shared mailbox to exchange notes without accessing each other’s desks.</p><h3 id="291113c0-c808-800c-b011-e83132ffddfd" class=""><strong>Working Steps:</strong></h3><ol type="1" id="291113c0-c808-80a2-a7b1-f26ffad11141" class="numbered-list" start="1"><li><strong>Message Creation:</strong> Sender structures data.</li></ol><ol type="1" id="291113c0-c808-804c-8ca6-ccfcc21d627f" class="numbered-list" start="2"><li><strong>Sending:</strong> OS manages delivery via message queues/pipes.</li></ol><ol type="1" id="291113c0-c808-8051-bbe9-ccd28d53627b" class="numbered-list" start="3"><li><strong>Receiving:</strong> Receiver reads messages (blocking or non-blocking).</li></ol><ol type="1" id="291113c0-c808-80e2-ab02-eb6b848cbf2c" class="numbered-list" start="4"><li><strong>Processing:</strong> Receiver acts on message; optionally sends a response.</li></ol><h3 id="291113c0-c808-80ab-9ebf-e789d5a77fc3" class=""><strong>Advantages:</strong></h3><ul id="291113c0-c808-8002-8f03-e4cc99912975" class="bulleted-list"><li style="list-style-type:disc">Isolation: Processes remain independent.</li></ul><ul id="291113c0-c808-80b8-a89e-d97459cd3a46" class="bulleted-list"><li style="list-style-type:disc">Modularity: Well-defined communication channels.</li></ul><ul id="291113c0-c808-804a-972d-eb5e2306a919" class="bulleted-list"><li style="list-style-type:disc">Synchronization: Send/receive can synchronize actions.</li></ul><ul id="291113c0-c808-801c-81a1-c8a2d3201d73" class="bulleted-list"><li style="list-style-type:disc">Network-friendly: Works across distributed systems.</li></ul><h3 id="291113c0-c808-80d9-9ef2-dab2de97828c" class=""><strong>Disadvantages:</strong></h3><ul id="291113c0-c808-80c6-9ddf-f422ca378837" class="bulleted-list"><li style="list-style-type:disc">Overhead: Message copying and context switches.</li></ul><ul id="291113c0-c808-80f0-a947-d0f4793081ec" class="bulleted-list"><li style="list-style-type:disc">Complexity: Ordering and delivery guarantees may require extra logic.</li></ul><ul id="291113c0-c808-805a-8738-f6eaf2c228fe" class="bulleted-list"><li style="list-style-type:disc">Buffering issues: Limited queue sizes can cause delays.</li></ul><p id="291113c0-c808-806d-a801-c388a0a3601b" class=""><strong>One-liner takeaway:</strong> Message passing provides safe, structured IPC ideal for distributed systems.</p><p id="291113c0-c808-801a-8916-c869264e789e" class=""><strong>Interview Focus 🔍:</strong> Differences between synchronous/asynchronous message passing; use cases for distributed applications.</p><hr id="291113c0-c808-80da-9aac-d3ff31d5b116"/><h2 id="291113c0-c808-8056-b89f-ddc00b4eab54" class=""><strong>3. Shared Memory IPC</strong> 🖥️</h2><p id="291113c0-c808-8077-8944-ca844ef1c518" class=""><strong>Definition:</strong> Processes share a common memory region for direct data exchange.</p><p id="291113c0-c808-8052-bc24-c4c5719dd60c" class=""><strong>Real-life Analogy:</strong> Team members using a whiteboard in a meeting room, coordinating via rules to avoid conflicts.</p><h3 id="291113c0-c808-80d1-9edf-ff19d2c8e773" class=""><strong>Working Steps:</strong></h3><ol type="1" id="291113c0-c808-8090-953f-ead270377f3e" class="numbered-list" start="1"><li><strong>Memory Allocation:</strong> OS allocates shared segment.</li></ol><ol type="1" id="291113c0-c808-8042-be74-f4bec475f753" class="numbered-list" start="2"><li><strong>Attach:</strong> Processes attach to memory segment.</li></ol><ol type="1" id="291113c0-c808-803c-a9cd-dd149bfb03c2" class="numbered-list" start="3"><li><strong>Access:</strong> Read/write data directly.</li></ol><ol type="1" id="291113c0-c808-8069-bd39-ed864ff00ad8" class="numbered-list" start="4"><li><strong>Synchronization:</strong> Use mutexes/semaphores to avoid conflicts.</li></ol><h3 id="291113c0-c808-8087-84ca-f99947452b63" class=""><strong>Advantages:</strong></h3><ul id="291113c0-c808-804f-a778-d0d0e1e3277b" class="bulleted-list"><li style="list-style-type:disc">High performance: Direct memory access.</li></ul><ul id="291113c0-c808-803e-945f-c071a987d7ff" class="bulleted-list"><li style="list-style-type:disc">Large data sharing without repeated copying.</li></ul><ul id="291113c0-c808-8007-8c80-c5dd0f2954b6" class="bulleted-list"><li style="list-style-type:disc">Efficient communication once set up.</li></ul><h3 id="291113c0-c808-80d4-91cb-f05c94ee246c" class=""><strong>Disadvantages:</strong></h3><ul id="291113c0-c808-80b4-888c-f69a690f3334" class="bulleted-list"><li style="list-style-type:disc">Complex synchronization (mutexes, semaphores required).</li></ul><ul id="291113c0-c808-8059-b2fe-e8e15d277398" class="bulleted-list"><li style="list-style-type:disc">Memory management (allocation &amp; cleanup).</li></ul><ul id="291113c0-c808-807f-ad32-d5a27473ea02" class="bulleted-list"><li style="list-style-type:disc">Usually confined to a single machine.</li></ul><p id="291113c0-c808-80b5-af02-f070cb425b74" class=""><strong>One-liner takeaway:</strong> Shared memory is fastest for local high-volume IPC but requires careful synchronization.</p><p id="291113c0-c808-8008-97de-d8d515a41da4" class=""><strong>Interview Focus 🔍:</strong> Difference between message passing and shared memory, pros/cons, synchronization challenges.</p><hr id="291113c0-c808-8013-b401-ed79c0dd5ecb"/><h2 id="291113c0-c808-80b1-a010-ce227d68b21b" class=""><strong>4. Key Differences: Message Passing vs Shared Memory</strong> 🔄</h2><table id="291113c0-c808-80b3-a144-db7746d91541" class="simple-table"><thead class="simple-table-header"><tr id="291113c0-c808-806d-a2eb-fcee85229145"><th id="TKNL" class="simple-table-header-color simple-table-header">Feature</th><th id=":YBp" class="simple-table-header-color simple-table-header">Message Passing</th><th id="EChs" class="simple-table-header-color simple-table-header">Shared Memory</th></tr></thead><tbody><tr id="291113c0-c808-8057-a6c2-d5391512a0d3"><td id="TKNL" class=""><strong>Data Exchange</strong></td><td id=":YBp" class="">Discrete messages sent/received</td><td id="EChs" class="">Direct memory access</td></tr><tr id="291113c0-c808-8047-a172-c443b531f888"><td id="TKNL" class=""><strong>Synchronization</strong></td><td id=":YBp" class="">Implicit via send/receive</td><td id="EChs" class="">Explicit via locks/semaphores</td></tr><tr id="291113c0-c808-8099-8b91-f8f1dcc15e84"><td id="TKNL" class=""><strong>Performance</strong></td><td id=":YBp" class="">Moderate; kernel intervention</td><td id="EChs" class="">High; direct access</td></tr><tr id="291113c0-c808-80b4-8fbc-e81b1efaa741"><td id="TKNL" class=""><strong>Best Use</strong></td><td id=":YBp" class="">Distributed systems</td><td id="EChs" class="">Processes on same machine</td></tr></tbody></table><hr id="291113c0-c808-8075-83b1-c60a5fe83eae"/><h2 id="291113c0-c808-800c-b2d9-ff8a9b7c5a54" class=""><strong>5. Signals and Signal Handling</strong> 🔔</h2><p id="291113c0-c808-8037-af6e-c73b66060931" class=""><strong>Definition:</strong> Asynchronous software interrupts sent by OS to notify processes of events.</p><p id="291113c0-c808-8025-8a95-ebcb541a162f" class=""><strong>Real-life Analogy:</strong> Reading a book at home and suddenly the doorbell rings; you decide how to respond.</p><h3 id="291113c0-c808-808f-9085-e0deee321102" class=""><strong>Signal Sources:</strong></h3><ul id="291113c0-c808-80a7-891c-d539a59fab3e" class="bulleted-list"><li style="list-style-type:disc">User interaction: Ctrl+C → SIGINT</li></ul><ul id="291113c0-c808-8087-ba62-ff74ee022074" class="bulleted-list"><li style="list-style-type:disc">Software exceptions: Division by zero → SIGFPE</li></ul><ul id="291113c0-c808-80a0-8f8f-fdeb66b872ce" class="bulleted-list"><li style="list-style-type:disc">Kernel events: Timer expiry, hardware changes</li></ul><ul id="291113c0-c808-803d-8b3e-fb743aa97813" class="bulleted-list"><li style="list-style-type:disc">Other processes: <code>kill()</code> system call</li></ul><h3 id="291113c0-c808-80d0-8bdb-ebb817e280f6" class=""><strong>Signal Delivery &amp; Default Actions:</strong></h3><ul id="291113c0-c808-805d-813c-ca4fc8dec396" class="bulleted-list"><li style="list-style-type:disc">Queued and delivered by OS.</li></ul><ul id="291113c0-c808-80da-becf-e7852a5b008b" class="bulleted-list"><li style="list-style-type:disc">Default actions:<ul id="291113c0-c808-8006-9547-c865bbfc3386" class="bulleted-list"><li style="list-style-type:circle"><strong>SIGTERM:</strong> Terminate gracefully.</li></ul><ul id="291113c0-c808-80b4-ac5c-cb401c718ba3" class="bulleted-list"><li style="list-style-type:circle"><strong>SIGKILL:</strong> Forced termination.</li></ul><ul id="291113c0-c808-802e-8297-c7ad23e16125" class="bulleted-list"><li style="list-style-type:circle"><strong>SIGSTOP:</strong> Pause execution.</li></ul></li></ul><h3 id="291113c0-c808-8082-986e-da892142b594" class=""><strong>Custom Signal Handlers:</strong></h3><ul id="291113c0-c808-80a5-93f8-eb2ea14d65c2" class="bulleted-list"><li style="list-style-type:disc">Override default behavior with a function.</li></ul><ul id="291113c0-c808-80f5-948d-e7c67fbea03e" class="bulleted-list"><li style="list-style-type:disc">Graceful shutdown: Close files, free memory.</li></ul><ul id="291113c0-c808-8036-b777-ef98bcc7c7d3" class="bulleted-list"><li style="list-style-type:disc">Ignore signals when appropriate.</li></ul><ul id="291113c0-c808-80d7-92ad-e4c1c558d475" class="bulleted-list"><li style="list-style-type:disc">Restart operations after handling.</li></ul><h3 id="291113c0-c808-80ab-8513-d4d63c71e6f9" class=""><strong>Common Signals:</strong></h3><ul id="291113c0-c808-8064-9327-d96be4da9b5e" class="bulleted-list"><li style="list-style-type:disc"><strong>SIGINT:</strong> Ctrl+C, interrupt process.</li></ul><ul id="291113c0-c808-802c-954f-dd83461cc048" class="bulleted-list"><li style="list-style-type:disc"><strong>SIGTERM:</strong> Polite termination request.</li></ul><ul id="291113c0-c808-80d1-91aa-ed854098a919" class="bulleted-list"><li style="list-style-type:disc"><strong>SIGKILL:</strong> Forceful termination (cannot be caught).</li></ul><ul id="291113c0-c808-808c-ae91-d8604a197f6e" class="bulleted-list"><li style="list-style-type:disc"><strong>SIGSEGV:</strong> Segmentation fault (invalid memory access).</li></ul><ul id="291113c0-c808-803e-96ce-fc35b115c14c" class="bulleted-list"><li style="list-style-type:disc"><strong>SIGALRM:</strong> Timer-triggered events.</li></ul><h3 id="291113c0-c808-804a-87e0-f7a8bbb5127a" class=""><strong>Steps in Signal Handling:</strong></h3><ol type="1" id="291113c0-c808-8052-ac6b-ccc8bb68f18c" class="numbered-list" start="1"><li>Signal raised.</li></ol><ol type="1" id="291113c0-c808-8044-9e84-df210eb89aac" class="numbered-list" start="2"><li>Delivered by OS.</li></ol><ol type="1" id="291113c0-c808-8018-8ae2-cb0380920db7" class="numbered-list" start="3"><li>Handler executes (custom or default).</li></ol><ol type="1" id="291113c0-c808-80a7-b977-ff9aa24ab6a6" class="numbered-list" start="4"><li>Process resumes (or terminates).</li></ol><h3 id="291113c0-c808-8098-9a7a-c42fc84337c7" class=""><strong>Advantages:</strong></h3><ul id="291113c0-c808-80d4-8257-fd8c3c754662" class="bulleted-list"><li style="list-style-type:disc">Immediate notification of critical events.</li></ul><ul id="291113c0-c808-80e0-a769-dff76976d53f" class="bulleted-list"><li style="list-style-type:disc">Low overhead.</li></ul><ul id="291113c0-c808-8082-b552-cd45d30cc54a" class="bulleted-list"><li style="list-style-type:disc">Flexible handling.</li></ul><h3 id="291113c0-c808-80bf-a984-cd24d89b69ee" class=""><strong>Challenges:</strong></h3><ul id="291113c0-c808-80bc-8f31-c959b4477d08" class="bulleted-list"><li style="list-style-type:disc">Asynchronous complexity.</li></ul><ul id="291113c0-c808-8060-856d-fc263b004546" class="bulleted-list"><li style="list-style-type:disc">Limited information in signal.</li></ul><ul id="291113c0-c808-80c8-a20a-c60007b45529" class="bulleted-list"><li style="list-style-type:disc">Safe handler design required.</li></ul><p id="291113c0-c808-8051-a96b-ea2a5b47f58c" class=""><strong>One-liner takeaway:</strong> Signals provide lightweight, asynchronous process notifications for rapid OS-level event handling.</p><p id="291113c0-c808-804f-93a7-fbc9b63fa21a" class=""><strong>Interview Focus 🔍:</strong> Use cases of signals in UNIX/Linux, handling SIGTERM vs SIGKILL, and implementing signal handlers safely.</p><hr id="291113c0-c808-8028-ad65-ffffb3eab6d1"/><p id="291113c0-c808-803f-bf4b-c0f73b6d48a7" class=""><strong>Summary:</strong></p><p id="291113c0-c808-809a-aa8a-ef126d93ef64" class="">IPC ensures processes communicate, synchronize, and share resources effectively. Message Passing and Shared Memory cover structured and high-speed local communication, while Signals provide asynchronous notifications. Choosing the right mechanism depends on system architecture, performance needs, and synchronization complexity.</p><p id="291113c0-c808-8079-a548-dc5a81be80d6" class=""><strong>Diagram Suggestion:</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="291113c0-c808-80ec-9d2d-c4b7645904bf" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">+-----------------+        +-----------------+
+| Process A       |        | Process B       |
+|-----------------|        |-----------------|
+| Create Message  | -----&gt; | Receive Message |
+| or Write Memory |        | or Read Memory  |
++-----------------+        +-----------------+
+       ^                            ^
+       |                            |
+       +-------- Signal ------------+
+
+</code></pre><hr id="291113c0-c808-808c-936b-d575973963d0"/></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

@@ -1,0 +1,706 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Module 2: Process Management</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(134, 131, 126, 1);
+	fill: rgba(134, 131, 126, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(134, 131, 126, 1);
+	fill: rgba(134, 131, 126, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="28f113c0-c808-80d7-83ac-d2edaf497630" class="page sans"><header><h1 class="page-title">Module 2: Process Management</h1><p class="page-description"></p></header><div class="page-body"><h2 id="28f113c0-c808-80ea-bd5a-d38171172d0f" class="">1️⃣ Process and Its States ✨</h2><p id="28f113c0-c808-80bd-9a9b-e9bb81b093b0" class=""><strong>Definition:</strong></p><ul id="28f113c0-c808-80c8-9c11-fedc2f1264eb" class="bulleted-list"><li style="list-style-type:disc">A <strong>process</strong> is a program in execution—an active entity consuming CPU, memory, and I/O resources.</li></ul><ul id="28f113c0-c808-803f-af77-e098c2d2a20c" class="bulleted-list"><li style="list-style-type:disc">Each process has a <strong>Process Control Block (PCB)</strong> storing its essential information.</li></ul><p id="28f113c0-c808-809a-a41b-f66eba1986a1" class=""><strong>Real-Life Analogy:</strong> 🍳</p><ul id="28f113c0-c808-8038-bbc9-cb46fd01d6c2" class="bulleted-list"><li style="list-style-type:disc">A <strong>recipe</strong> = program, <strong>chef</strong> = CPU, <strong>ingredients/tools</strong> = resources.</li></ul><ul id="28f113c0-c808-802d-9567-ffb005dedfe9" class="bulleted-list"><li style="list-style-type:disc">The process executes steps sequentially, requiring specific resources at each stage.</li></ul><p id="28f113c0-c808-8096-a35b-e66cf6168668" class=""><strong>Process in Memory:</strong></p><ul id="28f113c0-c808-8098-9dfe-e77ff2a3df01" class="bulleted-list"><li style="list-style-type:disc"><strong>Text Segment:</strong> Executable code.</li></ul><ul id="28f113c0-c808-80ba-b7d6-f16d053b84db" class="bulleted-list"><li style="list-style-type:disc"><strong>Data Segment:</strong> Global/static variables.</li></ul><ul id="28f113c0-c808-8022-b14b-c568d8da122c" class="bulleted-list"><li style="list-style-type:disc"><strong>Heap:</strong> Dynamic memory allocation.</li></ul><ul id="28f113c0-c808-8024-83cf-e906aa10ff9b" class="bulleted-list"><li style="list-style-type:disc"><strong>Stack:</strong> Local variables, function calls.</li></ul><p id="28f113c0-c808-8090-80ea-e85622f201dd" class=""><strong>Process States:</strong></p><table id="28f113c0-c808-80d1-93fc-e14e12ae9c2b" class="simple-table"><thead class="simple-table-header"><tr id="28f113c0-c808-8023-90f9-de4a1129c9e9"><th id="~QC}" class="simple-table-header-color simple-table-header">State</th><th id="JO&lt;f" class="simple-table-header-color simple-table-header">Description</th><th id="{eSC" class="simple-table-header-color simple-table-header">Key Points</th></tr></thead><tbody><tr id="28f113c0-c808-804b-b03a-d527073180c5"><td id="~QC}" class="">New</td><td id="JO&lt;f" class="">Process is being created</td><td id="{eSC" class="">PCB allocated</td></tr><tr id="28f113c0-c808-80f4-8dd6-db692a88b28f"><td id="~QC}" class="">Ready</td><td id="JO&lt;f" class="">Waiting for CPU</td><td id="{eSC" class="">Managed in a queue</td></tr><tr id="28f113c0-c808-80ca-aad9-da715bed9a21"><td id="~QC}" class="">Running</td><td id="JO&lt;f" class="">Executed by CPU</td><td id="{eSC" class="">One process per core</td></tr><tr id="28f113c0-c808-8064-8ab4-d6fb898ef970"><td id="~QC}" class="">Waiting</td><td id="JO&lt;f" class="">Waiting for I/O</td><td id="{eSC" class="">Returns to ready once done</td></tr><tr id="28f113c0-c808-80b0-adf9-d34594912b92"><td id="~QC}" class="">Suspended</td><td id="JO&lt;f" class="">Temporarily paused/swapped</td><td id="{eSC" class="">Saves resources</td></tr><tr id="28f113c0-c808-8048-ae30-f319bdcca871"><td id="~QC}" class="">Terminated</td><td id="JO&lt;f" class="">Completed execution</td><td id="{eSC" class="">Resources released</td></tr></tbody></table><p id="28f113c0-c808-80c8-bb20-ffc6bb83f7f8" class=""><strong>State Transitions:</strong></p><ul id="28f113c0-c808-804f-832f-e1f8f6d2f760" class="bulleted-list"><li style="list-style-type:disc"><code>New → Ready → Running → Waiting → Ready → Running → Terminated</code></li></ul><ul id="28f113c0-c808-80e2-9ade-f40e08e4a269" class="bulleted-list"><li style="list-style-type:disc">Scheduler and I/O operations trigger transitions.</li></ul><p id="28f113c0-c808-808b-96d7-eb36f7dbdda6" class=""><strong>One-Liner Takeaway:</strong></p><blockquote id="28f113c0-c808-8018-9ce0-df27635e8282" class="">Processes move through states to allow efficient multitasking and CPU utilization.</blockquote><p id="28f113c0-c808-80ec-a512-d4ba29b6baef" class=""><strong>Interview Focus 🔍:</strong></p><ul id="28f113c0-c808-80b1-b3af-d368fa39606d" class="bulleted-list"><li style="list-style-type:disc">Difference between ready, waiting, and suspended.</li></ul><ul id="28f113c0-c808-802f-89dd-c892c406ddbf" class="bulleted-list"><li style="list-style-type:disc">Life cycle of a process.</li></ul><hr id="28f113c0-c808-8027-b760-cada3f09d8f5"/><h2 id="28f113c0-c808-807c-a4be-fc46ed086dbb" class="">2️⃣ Process Control Block (PCB) ⚙️</h2><p id="28f113c0-c808-80bd-88d3-fdb7e0b96398" class=""><strong>Definition:</strong></p><ul id="28f113c0-c808-80bc-9aa6-fdb15d6eb070" class="bulleted-list"><li style="list-style-type:disc">PCB is a <strong>data structure</strong> storing all information about a process.</li></ul><ul id="28f113c0-c808-80e8-82c1-da52a1df2620" class="bulleted-list"><li style="list-style-type:disc">Acts like an <strong>identity card</strong> for the OS to manage scheduling, execution, and termination.</li></ul><p id="28f113c0-c808-8035-a030-cb5ca4c0f47d" class=""><strong>Information in PCB:</strong></p><ul id="28f113c0-c808-8058-b3ee-f43d376eae1e" class="bulleted-list"><li style="list-style-type:disc">Process state, PID, program counter, CPU registers.</li></ul><ul id="28f113c0-c808-8059-a8d0-f6cf64291602" class="bulleted-list"><li style="list-style-type:disc">Memory management info (base/limit, pages, segments).</li></ul><ul id="28f113c0-c808-80fa-9ec8-ec4a1b2b63c0" class="bulleted-list"><li style="list-style-type:disc">I/O status info, CPU usage, priority, accounting.</li></ul><p id="28f113c0-c808-80da-9472-f76cd6c74588" class=""><strong>Importance:</strong></p><ul id="28f113c0-c808-808c-9b1e-e27e71207b7a" class="bulleted-list"><li style="list-style-type:disc"><strong>Context switching:</strong> Saves/resumes process state.</li></ul><ul id="28f113c0-c808-8089-b86c-d225e48fe122" class="bulleted-list"><li style="list-style-type:disc"><strong>Scheduling decisions:</strong> Determines next process.</li></ul><ul id="28f113c0-c808-80bd-a051-dda78bd67287" class="bulleted-list"><li style="list-style-type:disc"><strong>Resource allocation &amp; error handling.</strong></li></ul><p id="28f113c0-c808-80dd-8cb7-e0d0e56600b9" class=""><strong>Advanced Perspective:</strong></p><ul id="28f113c0-c808-8018-a4d4-db7fe5774689" class="bulleted-list"><li style="list-style-type:disc">May include security info, privileges, and multiprocessor scheduling data.</li></ul><p id="28f113c0-c808-8039-8890-cb50f07952ed" class=""><strong>One-Liner Takeaway:</strong></p><blockquote id="28f113c0-c808-8027-8037-fc23ebd7c12f" class="">PCB is the backbone that allows the OS to control, schedule, and switch processes efficiently.</blockquote><p id="28f113c0-c808-800b-b11a-d5eafc0be27e" class=""><strong>Interview Focus 🔍:</strong></p><ul id="28f113c0-c808-8069-a9af-e4d157f8778c" class="bulleted-list"><li style="list-style-type:disc">Components of PCB, role in context switching.</li></ul><hr id="28f113c0-c808-80a4-805a-d59458244cde"/><h2 id="28f113c0-c808-8034-bad6-dcd47069741a" class="">3️⃣ Context &amp; Context Switching 🔄</h2><p id="28f113c0-c808-8017-9e5a-e8f514005f40" class=""><strong>Definition:</strong></p><ul id="28f113c0-c808-806c-93da-cbeb6be6a980" class="bulleted-list"><li style="list-style-type:disc"><strong>Context:</strong> CPU/system state required to execute a process.</li></ul><ul id="28f113c0-c808-80d2-a24b-c2dd18541546" class="bulleted-list"><li style="list-style-type:disc">Includes registers, process state, memory info, etc.</li></ul><p id="28f113c0-c808-8018-8e62-d3689318c992" class=""><strong>Context Switching:</strong></p><ul id="28f113c0-c808-8077-a935-e1f2519208e0" class="bulleted-list"><li style="list-style-type:disc">Switching CPU from one process to another to enable multitasking.</li></ul><p id="28f113c0-c808-8054-b684-c3378967ce85" class=""><strong>Analogy:</strong> 🧑‍🏫</p><ul id="28f113c0-c808-80e7-8819-d55c57d170ea" class="bulleted-list"><li style="list-style-type:disc">Teacher grading multiple students’ assignments, keeping notes of where they left off.</li></ul><p id="28f113c0-c808-8052-bfbe-ec115fdb2977" class=""><strong>Events During Context Switching:</strong></p><ol type="1" id="28f113c0-c808-806f-b544-f8efbdfc140c" class="numbered-list" start="1"><li>Interrupt or system call.</li></ol><ol type="1" id="28f113c0-c808-80eb-a157-c8f7d10d09e1" class="numbered-list" start="2"><li>Save current process state in PCB.</li></ol><ol type="1" id="28f113c0-c808-801c-8548-f72154a4eee4" class="numbered-list" start="3"><li>Load next process state from PCB.</li></ol><ol type="1" id="28f113c0-c808-806b-83d7-f59fe2a4d61b" class="numbered-list" start="4"><li>Resume execution.</li></ol><p id="28f113c0-c808-80ad-83ce-eb877d4d45df" class=""><strong>Components Involved:</strong></p><ul id="28f113c0-c808-8003-b474-c0d5fe65fd2d" class="bulleted-list"><li style="list-style-type:disc">PCB, CPU registers, interrupts, scheduler.</li></ul><p id="28f113c0-c808-80ff-8fac-d5409ea84f3b" class=""><strong>Advantages:</strong></p><ul id="28f113c0-c808-80aa-9474-ff9722241ffd" class="bulleted-list"><li style="list-style-type:disc">Efficient CPU utilization, multitasking, fairness.</li></ul><p id="28f113c0-c808-80e2-9b80-e3dedecb4bb1" class=""><strong>Disadvantages:</strong></p><ul id="28f113c0-c808-80f5-b884-ea37c061b32a" class="bulleted-list"><li style="list-style-type:disc">Overhead, performance impact, OS complexity.</li></ul><p id="28f113c0-c808-801f-92d4-c86806dc3846" class=""><strong>One-Liner Takeaway:</strong></p><blockquote id="28f113c0-c808-806a-a98a-fb69fc83deca" class="">Context switching allows multitasking but adds overhead.</blockquote><p id="28f113c0-c808-80f5-aaac-de0d3dfbc211" class=""><strong>Interview Focus 🔍:</strong></p><ul id="28f113c0-c808-8086-8036-dd81a250512b" class="bulleted-list"><li style="list-style-type:disc">Steps in context switching, overhead, and its necessity.</li></ul><hr id="28f113c0-c808-80a8-a2f9-d6c16b84169d"/><h2 id="28f113c0-c808-8097-a48d-fd8dd7c6dfb6" class="">4️⃣ Kernel Mode vs User Mode 🔒</h2><p id="28f113c0-c808-8080-b559-cdb332e8ba48" class=""><strong>Definition:</strong></p><ul id="28f113c0-c808-80b1-963e-f0a11a6444e3" class="bulleted-list"><li style="list-style-type:disc"><strong>Dual-mode operation:</strong> Kernel Mode (privileged) &amp; User Mode (restricted).</li></ul><p id="28f113c0-c808-8073-83ca-c3ad320beee2" class=""><strong>Analogy:</strong> 🏦</p><ul id="28f113c0-c808-80ea-9929-dfc0a2d4807e" class="bulleted-list"><li style="list-style-type:disc">Bank: public area = user mode, restricted area = kernel mode.</li></ul><p id="28f113c0-c808-80d6-89b3-ec4c09ddd826" class=""><strong>User Mode:</strong></p><ul id="28f113c0-c808-80ae-a631-c50fdae1f139" class="bulleted-list"><li style="list-style-type:disc">Runs user applications with limited permissions.</li></ul><ul id="28f113c0-c808-806b-84e4-f3957bbd68b3" class="bulleted-list"><li style="list-style-type:disc">Errors do not crash the system.</li></ul><p id="28f113c0-c808-80a2-9637-fed7436cd589" class=""><strong>Kernel Mode:</strong></p><ul id="28f113c0-c808-80c8-8adb-f7aa16ca1b0b" class="bulleted-list"><li style="list-style-type:disc">Executes OS core functions.</li></ul><ul id="28f113c0-c808-8007-b23e-ee1e66a10c90" class="bulleted-list"><li style="list-style-type:disc">Full access to CPU, memory, I/O.</li></ul><ul id="28f113c0-c808-802b-b7a2-e3de3a89dff4" class="bulleted-list"><li style="list-style-type:disc">Errors can crash the system.</li></ul><p id="28f113c0-c808-8017-9938-f909ae0746a3" class=""><strong>Mode Change Events:</strong></p><ul id="28f113c0-c808-80a8-9f37-e4b2325ec46e" class="bulleted-list"><li style="list-style-type:disc">System calls, interrupts, faults.</li></ul><p id="28f113c0-c808-80fd-a378-e9147cefbd20" class=""><strong>Mode Bit:</strong></p><ul id="28f113c0-c808-8050-9c4f-e7a7504459b8" class="bulleted-list"><li style="list-style-type:disc">Hardware bit to distinguish user (1) vs kernel (0) mode.</li></ul><p id="28f113c0-c808-800a-b980-e6189bde0c92" class=""><strong>Differences:</strong></p><table id="28f113c0-c808-80b2-a00d-df15ed4446e7" class="simple-table"><thead class="simple-table-header"><tr id="28f113c0-c808-80c0-8318-cf1baf8df7c7"><th id="rpRb" class="simple-table-header-color simple-table-header">Aspect</th><th id="qz&lt;t" class="simple-table-header-color simple-table-header">User Mode</th><th id="~[kf" class="simple-table-header-color simple-table-header">Kernel Mode</th></tr></thead><tbody><tr id="28f113c0-c808-8054-864c-c64474a1c3ee"><td id="rpRb" class="">Access</td><td id="qz&lt;t" class="">Restricted</td><td id="~[kf" class="">Full</td></tr><tr id="28f113c0-c808-802a-ad7b-ef4e071d3593"><td id="rpRb" class="">Hardware Access</td><td id="qz&lt;t" class="">No</td><td id="~[kf" class="">Yes</td></tr><tr id="28f113c0-c808-8033-bd06-ca978b97e325"><td id="rpRb" class="">Privileged Instructions</td><td id="qz&lt;t" class="">Not allowed</td><td id="~[kf" class="">Allowed</td></tr><tr id="28f113c0-c808-802e-8e76-f0e4741023f1"><td id="rpRb" class="">Fault Impact</td><td id="qz&lt;t" class="">App crash</td><td id="~[kf" class="">System crash</td></tr></tbody></table><p id="28f113c0-c808-8021-abc5-c84b015aafbb" class=""><strong>One-Liner Takeaway:</strong></p><blockquote id="28f113c0-c808-80b8-b774-e19016f909fb" class="">Kernel mode protects the OS while user mode ensures safe app execution.</blockquote><p id="28f113c0-c808-80a7-afbd-f71ca5a23ddd" class=""><strong>Interview Focus 🔍:</strong></p><ul id="28f113c0-c808-80de-9eb2-f979c2d36f50" class="bulleted-list"><li style="list-style-type:disc">Mode switching, purpose of dual-mode operation, mode bit.</li></ul><hr id="28f113c0-c808-801a-8663-f544b435b0be"/><h2 id="28f113c0-c808-8000-a1dc-dbaad905e17b" class="">5️⃣ Scheduling &amp; Scheduling Queues ⏱️</h2><p id="28f113c0-c808-8048-aaa9-df74d187ee0f" class=""><strong>Definition:</strong></p><ul id="28f113c0-c808-80e3-8738-ff54d30b117e" class="bulleted-list"><li style="list-style-type:disc">Scheduling determines <strong>process execution order</strong> to optimize CPU and resources.</li></ul><p id="28f113c0-c808-8067-8108-d37e757d6281" class=""><strong>Queues:</strong></p><ul id="28f113c0-c808-8041-8523-e9f87bb39f37" class="bulleted-list"><li style="list-style-type:disc"><strong>Job Queue:</strong> All processes in system.</li></ul><ul id="28f113c0-c808-80ea-b2e2-eb3c1ce682d6" class="bulleted-list"><li style="list-style-type:disc"><strong>Ready Queue:</strong> Processes in memory waiting for CPU.</li></ul><ul id="28f113c0-c808-8074-8be3-c40397819ff8" class="bulleted-list"><li style="list-style-type:disc"><strong>Device Queue:</strong> Processes waiting for I/O devices.</li></ul><p id="28f113c0-c808-80c5-9287-d52c12562ea9" class=""><strong>Schedulers:</strong></p><ul id="28f113c0-c808-8052-a07d-ed2a865c274d" class="bulleted-list"><li style="list-style-type:disc"><strong>Long-Term:</strong> Controls multiprogramming.</li></ul><ul id="28f113c0-c808-80da-8329-f5c865732a34" class="bulleted-list"><li style="list-style-type:disc"><strong>Medium-Term:</strong> Swaps processes to manage memory.</li></ul><ul id="28f113c0-c808-80d5-b1da-c404e594f904" class="bulleted-list"><li style="list-style-type:disc"><strong>Short-Term:</strong> Chooses ready processes for CPU.</li></ul><p id="28f113c0-c808-801b-af17-c91083ca70ad" class=""><strong>Analogy:</strong> ✈️</p><ul id="28f113c0-c808-8086-b934-e571dd9e38c7" class="bulleted-list"><li style="list-style-type:disc">Airport queues: Job = arriving passengers, Ready = waiting at gates, Device = waiting for services. Staff = schedulers.</li></ul><p id="28f113c0-c808-803e-a843-dddc8e2cfc55" class=""><strong>One-Liner Takeaway:</strong></p><blockquote id="28f113c0-c808-8024-b1a7-cef9b94a090b" class="">Scheduling ensures fair CPU allocation and smooth system operation.</blockquote><p id="28f113c0-c808-8020-974a-d13400966124" class=""><strong>Interview Focus 🔍:</strong></p><ul id="28f113c0-c808-8040-81d6-f3cab6f188c4" class="bulleted-list"><li style="list-style-type:disc">Types of schedulers, scheduling queues, their purpose.</li></ul><hr id="28f113c0-c808-806d-a5c2-e2b91e540af2"/><h2 id="28f113c0-c808-80f1-b168-fe3484667dcd" class="">6️⃣ Process Scheduling Algorithms ⚡</h2><p id="28f113c0-c808-80ac-a987-e8a2ea191e0a" class=""><strong>Preemptive vs Non-Preemptive:</strong></p><table id="28f113c0-c808-80c3-9c86-e25dfb5cbd6e" class="simple-table"><thead class="simple-table-header"><tr id="28f113c0-c808-80d3-a05c-c6ba4b615978"><th id="aZ@t" class="simple-table-header-color simple-table-header">Aspect</th><th id="KpGs" class="simple-table-header-color simple-table-header">Preemptive</th><th id="Gltf" class="simple-table-header-color simple-table-header">Non-Preemptive</th></tr></thead><tbody><tr id="28f113c0-c808-8043-a40e-c2dcfac56f94"><td id="aZ@t" class="">CPU Interrupt</td><td id="KpGs" class="">Yes</td><td id="Gltf" class="">No</td></tr><tr id="28f113c0-c808-80b8-b545-e76c15432809"><td id="aZ@t" class="">Responsiveness</td><td id="KpGs" class="">High</td><td id="Gltf" class="">Low</td></tr><tr id="28f113c0-c808-805c-891d-deba94924aa1"><td id="aZ@t" class="">Overhead</td><td id="KpGs" class="">Higher</td><td id="Gltf" class="">Lower</td></tr></tbody></table><p id="28f113c0-c808-80e5-a589-c86c94c040a2" class=""><strong>Preemptive Use:</strong> Real-time systems, interactive OS.</p><p id="28f113c0-c808-804c-ba78-d2d9bd98fdbb" class=""><strong>Non-Preemptive Use:</strong> Batch systems.</p><p id="28f113c0-c808-8000-8a05-e90ab0700f1c" class=""><strong>Factors Considered:</strong></p><ul id="28f113c0-c808-8012-862d-c37bd4e1b62f" class="bulleted-list"><li style="list-style-type:disc">Priority, arrival time, burst time, CPU/I/O bound, deadlines.</li></ul><p id="28f113c0-c808-8022-9348-dcc337ae623d" class=""><strong>One-Liner Takeaway:</strong></p><blockquote id="28f113c0-c808-8012-beb3-ff9be446dd57" class="">Scheduling algorithms decide which process runs next, balancing fairness and efficiency.</blockquote><p id="28f113c0-c808-8075-937d-dceaced3273a" class=""><strong>Interview Focus 🔍:</strong></p><ul id="28f113c0-c808-8046-b073-d347d705993c" class="bulleted-list"><li style="list-style-type:disc">Differences between preemptive/non-preemptive, examples.</li></ul><hr id="28f113c0-c808-8089-bce1-d4fdac0b425e"/><h2 id="28f113c0-c808-808e-9399-fd585f0053b0" class="">7️⃣ CPU Scheduling Algorithms – Part 1 🖥️</h2><ol type="1" id="28f113c0-c808-8021-8dd7-fa489821b012" class="numbered-list" start="1"><li><strong>FCFS (First Come First Serve):</strong> Non-preemptive, easy to implement, may cause convoy effect.</li></ol><ol type="1" id="28f113c0-c808-809b-b01e-f1557538c5db" class="numbered-list" start="2"><li><strong>SJF (Shortest Job First):</strong> Preemptive/non-preemptive, minimizes waiting time, may cause starvation.</li></ol><ol type="1" id="28f113c0-c808-802a-849f-caef57396fc2" class="numbered-list" start="3"><li><strong>SRTF (Shortest Remaining Time First):</strong> Preemptive version of SJF, reduces average turnaround time.</li></ol><p id="28f113c0-c808-80d9-a63d-cb9ea45b05d6" class=""><strong>Analogy:</strong> 🛒</p><ul id="28f113c0-c808-8047-becc-c27667aa7382" class="bulleted-list"><li style="list-style-type:disc">FCFS = queue at store, SJF = fastest orders first.</li></ul><p id="28f113c0-c808-80fd-b518-ff2d79a7735e" class=""><strong>One-Liner Takeaway:</strong></p><blockquote id="28f113c0-c808-806d-a6cb-f440d80c2448" class="">Choose scheduling based on system goals: throughput vs fairness vs responsiveness.</blockquote><p id="28f113c0-c808-8015-a8f3-e826e66062bf" class=""><strong>Interview Focus 🔍:</strong></p><ul id="28f113c0-c808-8077-8289-c1d3de5f89b0" class="bulleted-list"><li style="list-style-type:disc">FCFS convoy effect, SJF starvation, SRTF preemption.</li></ul><hr id="28f113c0-c808-8034-b18e-c69000753265"/><h2 id="28f113c0-c808-803f-b42b-d8db2ec570b3" class="">8️⃣ CPU Scheduling Algorithms – Part 2 🖥️</h2><ol type="1" id="28f113c0-c808-80fb-a0b5-d5adb9c0df8e" class="numbered-list" start="1"><li><strong>HRRN:</strong> Prioritizes longest-waiting tasks, balances efficiency and fairness.</li></ol><ol type="1" id="28f113c0-c808-8076-8114-d67a4bc1a048" class="numbered-list" start="2"><li><strong>Round Robin (RR):</strong> Fixed time slices, preemptive, good for interactive systems.</li></ol><ol type="1" id="28f113c0-c808-80b1-8568-f1064cdb429e" class="numbered-list" start="3"><li><strong>Priority-Based (PBS):</strong> Executes based on priority, may cause starvation.</li></ol><ol type="1" id="28f113c0-c808-8079-9313-d727dab3b96f" class="numbered-list" start="4"><li><strong>Multilevel Queue (MLQ):</strong> Processes in different queues with policies.</li></ol><ol type="1" id="28f113c0-c808-80a4-8530-f6ccc69f9b64" class="numbered-list" start="5"><li><strong>Multilevel Feedback Queue (MLFQ):</strong> Adaptive, moves processes between queues, complex to implement.</li></ol><p id="28f113c0-c808-805a-a021-c06ef7500fe6" class=""><strong>Analogy:</strong> 🎮</p><ul id="28f113c0-c808-8006-85bf-f73be488eb9c" class="bulleted-list"><li style="list-style-type:disc">RR = turns in multiplayer game, PBS = hospital emergencies, MLQ/MLFQ = differentiated customer service.</li></ul><p id="28f113c0-c808-80b1-b1c3-d0adf12b6235" class=""><strong>One-Liner Takeaway:</strong></p><blockquote id="28f113c0-c808-8038-98c9-e05fbf2df6c5" class="">Advanced scheduling improves fairness, responsiveness, and adaptability.</blockquote><p id="28f113c0-c808-80ce-ac2f-c5aba240cdf1" class=""><strong>Interview Focus 🔍:</strong></p><ul id="28f113c0-c808-80b1-ae61-c7b1b30bf9e7" class="bulleted-list"><li style="list-style-type:disc">Difference between RR, PBS, MLQ, MLFQ, starvation prevention.</li></ul><hr id="28f113c0-c808-803c-a770-fc592b611203"/><h2 id="28f113c0-c808-8060-95f9-cff002487509" class="">9️⃣ Threads in Operating Systems 🧵</h2><p id="28f113c0-c808-8031-bc27-d8b4ea2baff2" class=""><strong>Definition:</strong></p><ul id="28f113c0-c808-800c-816c-d630267a5b6b" class="bulleted-list"><li style="list-style-type:disc">Threads = smallest unit of execution in a process, share resources but run independently.</li></ul><p id="28f113c0-c808-806a-99db-fa04376dae53" class=""><strong>Analogy:</strong> 🍽️</p><ul id="28f113c0-c808-80f7-8041-f24340649b92" class="bulleted-list"><li style="list-style-type:disc">Chef (process) cooking multiple dishes (threads) concurrently.</li></ul><p id="28f113c0-c808-80f9-a44d-cbeb406a6928" class=""><strong>Types:</strong></p><ul id="28f113c0-c808-80a9-bc07-f76ede5cbae3" class="bulleted-list"><li style="list-style-type:disc"><strong>User-Level Threads (ULTs):</strong> Managed in user space, fast context switch, limited multiprocessor use.</li></ul><ul id="28f113c0-c808-8055-bb2c-cee5910a97ac" class="bulleted-list"><li style="list-style-type:disc"><strong>Kernel-Level Threads (KLTs):</strong> Managed by OS, true concurrency, higher overhead.</li></ul><p id="28f113c0-c808-80bc-b741-d9481a8ec5f0" class=""><strong>Advantages:</strong></p><ul id="28f113c0-c808-8050-a9c7-cac9fca392ff" class="bulleted-list"><li style="list-style-type:disc">Faster context switching, resource sharing, improved CPU utilization, scalability.</li></ul><p id="28f113c0-c808-80ed-873f-deb1b90cdd56" class=""><strong>Disadvantages:</strong></p><ul id="28f113c0-c808-805f-80ff-c0da1a6888ed" class="bulleted-list"><li style="list-style-type:disc">Complex debugging, synchronization overhead, risk of deadlocks.</li></ul><p id="28f113c0-c808-80b6-ad8b-eb07cc8e980f" class=""><strong>Applications:</strong> Web servers, video streaming, interactive apps.</p><p id="28f113c0-c808-80bb-8bb0-c19ca383d1ef" class=""><strong>One-Liner Takeaway:</strong></p><blockquote id="28f113c0-c808-80c2-902f-d4885fca86ca" class="">Threads enable concurrent execution within a process, enhancing efficiency and responsiveness.</blockquote><p id="28f113c0-c808-806a-9603-ec282de03aea" class=""><strong>Interview Focus 🔍:</strong></p><ul id="28f113c0-c808-80e8-a4aa-f62aed4dd0fd" class="bulleted-list"><li style="list-style-type:disc">Threads vs processes, ULT vs KLT, concurrency benefits.</li></ul><hr id="28f113c0-c808-8018-9861-f18a11fb78bd"/><h2 id="28f113c0-c808-808d-9731-ddd0e02ff957" class="">🔟 User-Kernel Thread Models</h2><p id="28f113c0-c808-80b5-9998-ffe60b0ebc2a" class=""><strong>Thread Mapping Models:</strong></p><ol type="1" id="28f113c0-c808-80e3-a6fb-e0f5bfae8ca1" class="numbered-list" start="1"><li><strong>Many-to-One:</strong> Multiple ULT → single KLT. Fast, but blocks entire process.</li></ol><ol type="1" id="28f113c0-c808-801c-99ed-d08b79399ccf" class="numbered-list" start="2"><li><strong>One-to-One:</strong> Each ULT → separate KLT. True parallelism, higher overhead.</li></ol><ol type="1" id="28f113c0-c808-80f7-ab54-e228739300f1" class="numbered-list" start="3"><li><strong>Many-to-Many:</strong> Multiple ULT → smaller/equal KLT pool. Balanced concurrency, complex.</li></ol><p id="28f113c0-c808-805e-af79-d6bb8295159b" class=""><strong>Comparison Table:</strong></p><table id="28f113c0-c808-8009-bde3-fd5ae6a7c8fb" class="simple-table"><thead class="simple-table-header"><tr id="28f113c0-c808-8090-a277-d1092424e066"><th id="D@QE" class="simple-table-header-color simple-table-header">Aspect</th><th id=";Zqu" class="simple-table-header-color simple-table-header">ULT</th><th id="tuoc" class="simple-table-header-color simple-table-header">KLT</th></tr></thead><tbody><tr id="28f113c0-c808-80f3-a94d-e70ba0fecaee"><td id="D@QE" class="">Context Switch</td><td id=";Zqu" class="">Fast, user space</td><td id="tuoc" class="">Slower, kernel calls</td></tr><tr id="28f113c0-c808-80fc-9d24-fb84e7936edf"><td id="D@QE" class="">Blocking</td><td id=";Zqu" class="">One blocks all</td><td id="tuoc" class="">Independent threads run</td></tr><tr id="28f113c0-c808-8015-945e-f59e737d4c58"><td id="D@QE" class="">Scheduling</td><td id=";Zqu" class="">User library</td><td id="tuoc" class="">OS kernel</td></tr><tr id="28f113c0-c808-8036-9f88-f0c3f847a63c"><td id="D@QE" class="">Concurrency</td><td id=";Zqu" class="">Limited</td><td id="tuoc" class="">True parallelism</td></tr><tr id="28f113c0-c808-80cc-b4a8-c85746686096"><td id="D@QE" class="">Complexity</td><td id=";Zqu" class="">Simpler</td><td id="tuoc" class="">OS-level complexity</td></tr></tbody></table><p id="28f113c0-c808-80a5-a266-fb995c3f36a2" class=""><strong>One-Liner Takeaway:</strong></p><blockquote id="28f113c0-c808-80b7-b8a1-d42d1b3f3875" class="">Thread models define trade-offs between speed, concurrency, and OS overhead.</blockquote><p id="28f113c0-c808-80b1-b500-c4ec29cb26b5" class=""><strong>Interview Focus 🔍:</strong></p><ul id="28f113c0-c808-8043-a67a-f94f3f010a57" class="bulleted-list"><li style="list-style-type:disc">Thread models (1:1, m:n, m:1), advantages/disadvantages, real-life usage.</li></ul><hr id="28f113c0-c808-80cf-b258-f25396f6344f"/><h2 id="28f113c0-c808-806c-83ff-da6a190ffb2b" class="">✅ Key Takeaways – Module 2</h2><ul id="28f113c0-c808-80ff-8f3a-d7544d0c8884" class="bulleted-list"><li style="list-style-type:disc">Processes are the <strong>active programs</strong>, threads are <strong>lightweight execution units</strong>.</li></ul><ul id="28f113c0-c808-8007-8827-f7e64ef630d2" class="bulleted-list"><li style="list-style-type:disc">PCB is <strong>essential for process management and context switching</strong>.</li></ul><ul id="28f113c0-c808-809c-9d7a-ee514ee20bc8" class="bulleted-list"><li style="list-style-type:disc"><strong>Dual-mode (Kernel/User)</strong> ensures security and stability.</li></ul><ul id="28f113c0-c808-80a9-9110-f4dea41201be" class="bulleted-list"><li style="list-style-type:disc"><strong>Schedulers</strong> and <strong>queues</strong> optimize CPU and resource utilization.</li></ul><ul id="28f113c0-c808-80f5-9332-d4e239352fac" class="bulleted-list"><li style="list-style-type:disc"><strong>Preemptive vs Non-preemptive</strong> and <strong>CPU scheduling algorithms</strong> manage fairness, throughput, and response time.</li></ul><ul id="28f113c0-c808-80b9-bf90-d2b35ab9d86b" class="bulleted-list"><li style="list-style-type:disc">Threads and their mapping models determine <strong>concurrency and parallelism</strong> in modern systems.</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

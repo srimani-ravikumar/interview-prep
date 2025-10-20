@@ -1,0 +1,706 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Module 5: File Systems</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(134, 131, 126, 1);
+	fill: rgba(134, 131, 126, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(134, 131, 126, 1);
+	fill: rgba(134, 131, 126, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="291113c0-c808-802c-89d2-d9fb30438cb7" class="page sans"><header><h1 class="page-title"><strong>Module 5: File Systems</strong></h1><p class="page-description"></p></header><div class="page-body"><h2 id="291113c0-c808-80c3-bb75-ff28f7ec22ad" class="">🌟 <strong>1. Introduction to File Systems</strong></h2><h3 id="291113c0-c808-807d-ad33-f42b975b5044" class="">📘 Definition</h3><p id="291113c0-c808-80e6-92ca-f4b542aa2608" class="">A <strong>File System (FS)</strong> is the method and data structure an OS uses to <strong>store, organize, retrieve, and manage data</strong> on storage devices.</p><h3 id="291113c0-c808-8068-9870-c8e6f06a0f56" class="">🧩 Purpose</h3><ul id="291113c0-c808-8030-afc3-f3bf2e5f4ca6" class="bulleted-list"><li style="list-style-type:disc">Manages files and directories efficiently</li></ul><ul id="291113c0-c808-8058-82fa-e0222bf49c7d" class="bulleted-list"><li style="list-style-type:disc">Keeps track of file locations, metadata, and access rights</li></ul><ul id="291113c0-c808-80d8-bbb4-cc0f7bfaa7e1" class="bulleted-list"><li style="list-style-type:disc">Acts as an interface between users/programs and the storage hardware</li></ul><h3 id="291113c0-c808-803a-8905-c38422d0a096" class="">💡 Real-Life Analogy</h3><p id="291113c0-c808-80ec-996d-d66aa80cc8ae" class="">Think of a <strong>library system</strong>:</p><ul id="291113c0-c808-8035-b0be-fca9f0ae5cc2" class="bulleted-list"><li style="list-style-type:disc">Books → Files</li></ul><ul id="291113c0-c808-80eb-8660-d06dcaf62827" class="bulleted-list"><li style="list-style-type:disc">Bookshelves → Directories</li></ul><ul id="291113c0-c808-8024-970c-d031711afab5" class="bulleted-list"><li style="list-style-type:disc">Library catalog → File Allocation Table (FAT)</li></ul><h3 id="291113c0-c808-806e-b677-cc39e91412f6" class="">⚡ Takeaway</h3><blockquote id="291113c0-c808-80d5-a092-e3c2b327a47c" class="">The file system is the heart of data organization in an operating system.</blockquote><h3 id="291113c0-c808-8082-822b-ecfe15468904" class="">🔍 Interview Focus</h3><ul id="291113c0-c808-80c2-9c1a-e7aa9d6f06e8" class="bulleted-list"><li style="list-style-type:disc">What is a file system?</li></ul><ul id="291113c0-c808-80ef-9ebc-ead7a40bfa7b" class="bulleted-list"><li style="list-style-type:disc">Explain the difference between a file and a directory.</li></ul><hr id="291113c0-c808-802b-a4c8-d1e5385558c2"/><h2 id="291113c0-c808-80b6-ad92-c13da9380d1e" class="">📁 <strong>2. File Concepts and Structure</strong></h2><h3 id="291113c0-c808-8095-8cff-ee709ef9c161" class="">🧠 What is a File?</h3><p id="291113c0-c808-8081-9c87-c683dc761dfa" class="">A file is a <strong>named collection of related information</strong> stored on secondary storage.</p><h3 id="291113c0-c808-8058-9376-ff9c974ee868" class="">🏗️ File Structure Types</h3><ul id="291113c0-c808-804b-b8cd-c98b9b230d89" class="bulleted-list"><li style="list-style-type:disc"><strong>Byte Sequence:</strong> Stream of bytes (used by UNIX)</li></ul><ul id="291113c0-c808-80a8-8831-c384b163ab77" class="bulleted-list"><li style="list-style-type:disc"><strong>Record Sequence:</strong> Data stored in fixed-size records (used in DBMS)</li></ul><ul id="291113c0-c808-8053-9501-fc9bda9ebe35" class="bulleted-list"><li style="list-style-type:disc"><strong>Tree Structure:</strong> Hierarchical storage (used in XML/JSON)</li></ul><h3 id="291113c0-c808-80e7-9bc9-c0ee095c51a3" class="">🧾 File Attributes (Metadata)</h3><ul id="291113c0-c808-80b1-ba32-da4ac3cc35cd" class="bulleted-list"><li style="list-style-type:disc">Name</li></ul><ul id="291113c0-c808-803d-8371-e066a81c4853" class="bulleted-list"><li style="list-style-type:disc">Type (text, binary, executable)</li></ul><ul id="291113c0-c808-80d2-8d18-f5f7a8b90829" class="bulleted-list"><li style="list-style-type:disc">Size</li></ul><ul id="291113c0-c808-804b-adc3-d3923e63540f" class="bulleted-list"><li style="list-style-type:disc">Protection</li></ul><ul id="291113c0-c808-8085-b2ad-c11959aa0003" class="bulleted-list"><li style="list-style-type:disc">Creation/Modification dates</li></ul><ul id="291113c0-c808-80cc-9952-d99ddfac5c09" class="bulleted-list"><li style="list-style-type:disc">Location pointer</li></ul><h3 id="291113c0-c808-8098-aa9b-e096545da1ed" class="">⚡ Takeaway</h3><blockquote id="291113c0-c808-8063-b19f-c31140bb599b" class="">Files store data, and their attributes help OS manage them effectively.</blockquote><h3 id="291113c0-c808-80b2-97a8-f82bc29d9cd9" class="">🔍 Interview Focus</h3><ul id="291113c0-c808-8045-8fbe-cf208425ac0d" class="bulleted-list"><li style="list-style-type:disc">What are file attributes?</li></ul><ul id="291113c0-c808-8066-9921-c2e1594ccf05" class="bulleted-list"><li style="list-style-type:disc">How does the OS differentiate between text and binary files?</li></ul><hr id="291113c0-c808-801d-8d15-e934e65b71f4"/><h2 id="291113c0-c808-8059-8041-f658417bb1fd" class="">🗃️ <strong>3. File Access Methods</strong></h2><h3 id="291113c0-c808-80b2-b3bf-ea0fea89503c" class="">🔍 Access Types</h3><ol type="1" id="291113c0-c808-80cf-b11f-da360cc3dd1f" class="numbered-list" start="1"><li><strong>Sequential Access:</strong><ul id="291113c0-c808-807f-b5da-de3ce88b5c3d" class="bulleted-list"><li style="list-style-type:disc">Data accessed in order (like reading a tape).</li></ul><ul id="291113c0-c808-807a-8160-dc58ff2805c1" class="bulleted-list"><li style="list-style-type:disc">Example: Text files.</li></ul></li></ol><ol type="1" id="291113c0-c808-80e1-9637-c86717a3aa28" class="numbered-list" start="2"><li><strong>Direct Access:</strong><ul id="291113c0-c808-80ee-9312-d9e1028cfa11" class="bulleted-list"><li style="list-style-type:disc">Access by byte/block number (like random song playback).</li></ul><ul id="291113c0-c808-8058-93b8-ebd8930214cf" class="bulleted-list"><li style="list-style-type:disc">Example: Databases.</li></ul></li></ol><ol type="1" id="291113c0-c808-801d-b1f1-db88829376db" class="numbered-list" start="3"><li><strong>Indexed Access:</strong><ul id="291113c0-c808-80de-a1ae-e61caf55c2e6" class="bulleted-list"><li style="list-style-type:disc">Index points to data blocks, enabling faster retrieval.</li></ul><ul id="291113c0-c808-8037-ac11-f036fc3e4222" class="bulleted-list"><li style="list-style-type:disc">Example: Index-based retrieval in a phonebook app.</li></ul></li></ol><h3 id="291113c0-c808-803e-a32f-c712c3a9d1f1" class="">⚡ Takeaway</h3><blockquote id="291113c0-c808-80cd-8198-cbc0678787cf" class="">Choice of access method impacts speed and flexibility of file operations.</blockquote><h3 id="291113c0-c808-80de-8bde-ce5a45d96e91" class="">🔍 Interview Focus</h3><ul id="291113c0-c808-8075-a060-d302a7321257" class="bulleted-list"><li style="list-style-type:disc">Difference between sequential and direct access.</li></ul><hr id="291113c0-c808-8086-91c9-df29b3920703"/><h2 id="291113c0-c808-808e-bf9d-e3875c34338a" class="">📂 <strong>4. Directory Structure</strong></h2><h3 id="291113c0-c808-80d4-8be6-f540f89bfc7d" class="">🏗️ Directory Organization</h3><ul id="291113c0-c808-80e4-8fa0-efb949c06356" class="bulleted-list"><li style="list-style-type:disc"><strong>Single-Level:</strong> One directory for all files (simple, but name conflicts).</li></ul><ul id="291113c0-c808-8019-ba55-dac73e8bf39c" class="bulleted-list"><li style="list-style-type:disc"><strong>Two-Level:</strong> Separate directory for each user.</li></ul><ul id="291113c0-c808-808a-b4b7-d9214521e813" class="bulleted-list"><li style="list-style-type:disc"><strong>Tree-Structured:</strong> Hierarchical (most common).</li></ul><ul id="291113c0-c808-80ff-84be-c2b2e0ecc42d" class="bulleted-list"><li style="list-style-type:disc"><strong>Acyclic Graph:</strong> Allows shared subdirectories.</li></ul><ul id="291113c0-c808-8081-b7c7-c93fec10bfc1" class="bulleted-list"><li style="list-style-type:disc"><strong>General Graph:</strong> Supports links but may cause cycles.</li></ul><h3 id="291113c0-c808-80d9-8a79-f60d0b3915af" class="">🧩 Directory Operations</h3><ul id="291113c0-c808-8007-9842-c69c24844a1e" class="bulleted-list"><li style="list-style-type:disc">Create/Delete</li></ul><ul id="291113c0-c808-80e3-b491-fec9090ac4c5" class="bulleted-list"><li style="list-style-type:disc">Search</li></ul><ul id="291113c0-c808-807e-a09f-ce54251803a9" class="bulleted-list"><li style="list-style-type:disc">Rename</li></ul><ul id="291113c0-c808-804c-80b4-f387b14dea61" class="bulleted-list"><li style="list-style-type:disc">Traverse</li></ul><ul id="291113c0-c808-80c8-8c64-ee2f2ac24dc1" class="bulleted-list"><li style="list-style-type:disc">Display</li></ul><h3 id="291113c0-c808-8086-960f-f461a4900035" class="">⚡ Takeaway</h3><blockquote id="291113c0-c808-8010-9f9f-cb40514e3ce4" class="">Directory structures define how efficiently files can be organized and retrieved.</blockquote><h3 id="291113c0-c808-8030-9b2b-e75c62ee298c" class="">🔍 Interview Focus</h3><ul id="291113c0-c808-8025-ae54-cc5b69156580" class="bulleted-list"><li style="list-style-type:disc">What’s the difference between tree and acyclic directory structures?</li></ul><hr id="291113c0-c808-805f-bdb6-c11e32e50e6a"/><h2 id="291113c0-c808-80d1-9ad8-c32ec5ecc837" class="">💾 <strong>5. File Allocation Methods</strong></h2><h3 id="291113c0-c808-80fe-ba04-f132d1ec2aa2" class="">🧱 Techniques</h3><table id="291113c0-c808-80a1-960d-f2fd6b8a5af0" class="simple-table"><thead class="simple-table-header"><tr id="291113c0-c808-8095-96ad-f7b03c79dabb"><th id="pX{M" class="simple-table-header-color simple-table-header">Method</th><th id="|MiX" class="simple-table-header-color simple-table-header">Description</th><th id="ABnn" class="simple-table-header-color simple-table-header">Pros</th><th id="fOs~" class="simple-table-header-color simple-table-header">Cons</th></tr></thead><tbody><tr id="291113c0-c808-806b-86c3-d5c2d7e31ffa"><td id="pX{M" class=""><strong>Contiguous Allocation</strong></td><td id="|MiX" class="">Files occupy consecutive blocks</td><td id="ABnn" class="">Fast sequential access</td><td id="fOs~" class="">External fragmentation</td></tr><tr id="291113c0-c808-80fe-8424-c27c03bbc2fa"><td id="pX{M" class=""><strong>Linked Allocation</strong></td><td id="|MiX" class="">Each block points to the next</td><td id="ABnn" class="">No external fragmentation</td><td id="fOs~" class="">Slow random access</td></tr><tr id="291113c0-c808-807b-982c-e5d36167b7aa"><td id="pX{M" class=""><strong>Indexed Allocation</strong></td><td id="|MiX" class="">Index block stores pointers</td><td id="ABnn" class="">Direct access possible</td><td id="fOs~" class="">Overhead of index block</td></tr></tbody></table><h3 id="291113c0-c808-801b-be77-f9bcccfa2cde" class="">💡 Example</h3><p id="291113c0-c808-8063-abb8-dc7f4d4680e7" class="">For file “A”:</p><ul id="291113c0-c808-8079-87e5-dc08526d1efc" class="bulleted-list"><li style="list-style-type:disc">Contiguous → Blocks 1–5</li></ul><ul id="291113c0-c808-805c-b11b-ec15dcdad57e" class="bulleted-list"><li style="list-style-type:disc">Linked → 1 → 9 → 14 → 21</li></ul><ul id="291113c0-c808-8077-9c61-c23be4520144" class="bulleted-list"><li style="list-style-type:disc">Indexed → Index block points to all data blocks</li></ul><h3 id="291113c0-c808-80c2-a0cd-e2a753d101b2" class="">⚡ Takeaway</h3><blockquote id="291113c0-c808-801d-87e9-fc0da1aa28d7" class="">File allocation determines storage efficiency and access speed.</blockquote><h3 id="291113c0-c808-8042-b838-e322ec64f6f4" class="">🔍 Interview Focus</h3><ul id="291113c0-c808-80ad-b3e6-f07e92dda845" class="bulleted-list"><li style="list-style-type:disc">Compare contiguous, linked, and indexed allocation.</li></ul><hr id="291113c0-c808-80ff-9d10-d87c4826be69"/><h2 id="291113c0-c808-800d-89db-d94b4b8dd524" class="">🧱 <strong>6. Free Space Management</strong></h2><h3 id="291113c0-c808-80e4-b1f4-d21041c539a9" class="">📊 Techniques</h3><ul id="291113c0-c808-802c-a5a7-c38365152716" class="bulleted-list"><li style="list-style-type:disc"><strong>Bit Vector:</strong> 1 for used, 0 for free blocks.</li></ul><ul id="291113c0-c808-8030-b2b8-c142573271c5" class="bulleted-list"><li style="list-style-type:disc"><strong>Linked List:</strong> Free blocks linked together.</li></ul><ul id="291113c0-c808-804d-9854-cc3a4c837b16" class="bulleted-list"><li style="list-style-type:disc"><strong>Grouping:</strong> Stores addresses of free blocks in clusters.</li></ul><ul id="291113c0-c808-8011-98af-eb9f0c5abcf3" class="bulleted-list"><li style="list-style-type:disc"><strong>Counting:</strong> Tracks starting address and count of consecutive free blocks.</li></ul><h3 id="291113c0-c808-8027-8c4d-e0e87f2d062b" class="">⚡ Takeaway</h3><blockquote id="291113c0-c808-80af-a28a-d7e11a8e6ffd" class="">Efficient free space management avoids wasted storage and fragmentation.</blockquote><h3 id="291113c0-c808-806f-9bba-f2e7c33421b1" class="">🔍 Interview Focus</h3><ul id="291113c0-c808-8081-946b-cca44900833e" class="bulleted-list"><li style="list-style-type:disc">How does the OS track free space on disk?</li></ul><hr id="291113c0-c808-8029-a50c-cf0ffc66bdbd"/><h2 id="291113c0-c808-80f5-ad1b-d52ba17b60a2" class="">🧰 <strong>7. File System Mounting and Consistency</strong></h2><h3 id="291113c0-c808-80c4-aa10-e14e61d8a747" class="">⚙️ Mounting</h3><ul id="291113c0-c808-80ab-99a4-d168283a4a92" class="bulleted-list"><li style="list-style-type:disc">Attaching a file system to the existing directory tree.<p id="291113c0-c808-80dd-89e4-d2689b986da0" class="">Example: Mounting a USB drive under <code>/media</code> in Linux.</p></li></ul><h3 id="291113c0-c808-8031-bb6f-f21b6c81cef2" class="">🔄 Consistency Checking</h3><ul id="291113c0-c808-80a5-886d-f47ff1e5d770" class="bulleted-list"><li style="list-style-type:disc">Performed during boot or crash recovery.</li></ul><ul id="291113c0-c808-8044-95ce-ea102234f472" class="bulleted-list"><li style="list-style-type:disc"><strong>Tools:</strong> <code>fsck</code> (Linux), <code>chkdsk</code> (Windows).</li></ul><h3 id="291113c0-c808-80a4-9f93-cf586868307d" class="">🔍 Journaling File Systems</h3><ul id="291113c0-c808-809d-a5a4-d64c411b8e68" class="bulleted-list"><li style="list-style-type:disc">Log every change before applying it → quick recovery after crash.<p id="291113c0-c808-800d-ae8e-ec74e179065d" class="">Example: ext4, NTFS.</p></li></ul><h3 id="291113c0-c808-806a-8908-df0ebe1713d1" class="">⚡ Takeaway</h3><blockquote id="291113c0-c808-806b-af56-d132e83b9233" class="">Mounting connects new storage; consistency checks keep the file system healthy.</blockquote><h3 id="291113c0-c808-8019-83de-d3663fd9a7f1" class="">🔍 Interview Focus</h3><ul id="291113c0-c808-80eb-9e8a-c1d6072d007d" class="bulleted-list"><li style="list-style-type:disc">What is journaling in file systems?</li></ul><hr id="291113c0-c808-8031-8592-c98cdf2e288f"/><h2 id="291113c0-c808-80d2-9f55-eb3949808004" class="">🛡️ <strong>8. Backup and Recovery Mechanisms</strong></h2><h3 id="291113c0-c808-809a-930b-c0dae1173d17" class="">📦 Purpose</h3><p id="291113c0-c808-808c-b904-ed4342e26756" class="">Protects data against loss, corruption, or hardware failure.</p><h3 id="291113c0-c808-80d5-b0dc-d9f33ddc6dfd" class="">💡 Real-Life Analogy</h3><p id="291113c0-c808-80b8-bf09-dec7de9ece09" class="">Like saving your photos to a cloud before formatting your phone 📸</p><h3 id="291113c0-c808-803e-86a8-c29e7fbbbb97" class="">🔁 Types of Backups</h3><table id="291113c0-c808-808e-aeec-e59ee3a7d287" class="simple-table"><thead class="simple-table-header"><tr id="291113c0-c808-800c-b613-d85c48c9ddef"><th id="cdHk" class="simple-table-header-color simple-table-header">Type</th><th id="PyOb" class="simple-table-header-color simple-table-header">Description</th><th id="~U`\" class="simple-table-header-color simple-table-header">Pros</th><th id="eaow" class="simple-table-header-color simple-table-header">Cons</th></tr></thead><tbody><tr id="291113c0-c808-8082-8434-c00a7fd981a8"><td id="cdHk" class=""><strong>Full</strong></td><td id="PyOb" class="">Copies all data</td><td id="~U`\" class="">Complete restore</td><td id="eaow" class="">Time &amp; space heavy</td></tr><tr id="291113c0-c808-80eb-91fc-ead38a775fbb"><td id="cdHk" class=""><strong>Incremental</strong></td><td id="PyOb" class="">Copies only changed data since last backup</td><td id="~U`\" class="">Fast</td><td id="eaow" class="">Slower recovery</td></tr><tr id="291113c0-c808-803d-a98e-e304882325a1"><td id="cdHk" class=""><strong>Differential</strong></td><td id="PyOb" class="">Copies data changed since last full backup</td><td id="~U`\" class="">Simpler restore</td><td id="eaow" class="">Grows with time</td></tr><tr id="291113c0-c808-80f6-a380-c9f2701dde51"><td id="cdHk" class=""><strong>Mirror</strong></td><td id="PyOb" class="">Exact clone</td><td id="~U`\" class="">Quick restore</td><td id="eaow" class="">Risk of deleting live data</td></tr></tbody></table><h3 id="291113c0-c808-8073-80a0-c7be572d24ab" class="">🌐 Storage Locations</h3><ul id="291113c0-c808-80bf-a707-cee726928a32" class="bulleted-list"><li style="list-style-type:disc"><strong>Local:</strong> Hard drive, NAS</li></ul><ul id="291113c0-c808-8040-a5e4-db0d5d587e4c" class="bulleted-list"><li style="list-style-type:disc"><strong>Offsite:</strong> Remote data centers</li></ul><ul id="291113c0-c808-80a3-b12b-ea04278f40d7" class="bulleted-list"><li style="list-style-type:disc"><strong>Cloud:</strong> Scalable and automated</li></ul><h3 id="291113c0-c808-8042-ba8c-cf8cdb6463c1" class="">🧭 Recovery Strategies</h3><ul id="291113c0-c808-80a9-a1fa-d87d0bb5f8f8" class="bulleted-list"><li style="list-style-type:disc"><strong>Full Restore:</strong> After system crash</li></ul><ul id="291113c0-c808-8096-817b-f7a5a7419ac9" class="bulleted-list"><li style="list-style-type:disc"><strong>Selective Recovery:</strong> Specific files only</li></ul><ul id="291113c0-c808-808c-807c-eb0d984efc4b" class="bulleted-list"><li style="list-style-type:disc"><strong>Disaster Recovery (DR):</strong> Predefined plan after major failure</li></ul><h3 id="291113c0-c808-8051-80d0-ca009e6a99de" class="">⚙️ OS-Level Tools</h3><ul id="291113c0-c808-8012-b6d0-ed2621b08671" class="bulleted-list"><li style="list-style-type:disc"><strong>Automation:</strong> Cron jobs, Task Scheduler</li></ul><ul id="291113c0-c808-80e7-bb8d-dd6c37702a26" class="bulleted-list"><li style="list-style-type:disc"><strong>Snapshots:</strong> Instant state capture (e.g., ZFS, NTFS)</li></ul><ul id="291113c0-c808-808f-b183-e4d97f351725" class="bulleted-list"><li style="list-style-type:disc"><strong>Cloud Sync:</strong> Google Drive, OneDrive integration</li></ul><h3 id="291113c0-c808-8069-adee-caa98228fe60" class="">⚡ Takeaway</h3><blockquote id="291113c0-c808-804b-aa2a-e95c827aa761" class="">Backups ensure data survival; recovery ensures system resilience.</blockquote><h3 id="291113c0-c808-80e8-aff5-f8fd607732ae" class="">🔍 Interview Focus</h3><ul id="291113c0-c808-8094-a619-d15caa091a68" class="bulleted-list"><li style="list-style-type:disc">Differentiate full, incremental, and differential backups.</li></ul><ul id="291113c0-c808-8009-86b6-e94094b915b9" class="bulleted-list"><li style="list-style-type:disc">What is the purpose of journaling or snapshots?</li></ul><hr id="291113c0-c808-80d3-9d4d-db7d39013f59"/><h2 id="291113c0-c808-8038-8292-e16845da5051" class="">🧠 <strong>Summary &amp; Interview Highlights</strong></h2><table id="291113c0-c808-8042-9802-e16c18f684ba" class="simple-table"><thead class="simple-table-header"><tr id="291113c0-c808-80af-9e4e-c25b022d3f5b"><th id="rNV;" class="simple-table-header-color simple-table-header">Topic</th><th id="rSv?" class="simple-table-header-color simple-table-header">Key Point</th><th id="L`gf" class="simple-table-header-color simple-table-header">Common Interview Question</th></tr></thead><tbody><tr id="291113c0-c808-802a-8070-ee73356641b7"><td id="rNV;" class="">File Concepts</td><td id="rSv?" class="">Logical organization of data</td><td id="L`gf" class="">What are file attributes?</td></tr><tr id="291113c0-c808-8055-b72f-ea2407789718"><td id="rNV;" class="">Access Methods</td><td id="rSv?" class="">Sequential vs Direct</td><td id="L`gf" class="">Which method suits databases?</td></tr><tr id="291113c0-c808-80dc-9df6-da5b74f54636"><td id="rNV;" class="">Directory Structure</td><td id="rSv?" class="">Hierarchical arrangement</td><td id="L`gf" class="">Explain tree vs graph directories</td></tr><tr id="291113c0-c808-805c-afb4-d80b8455a381"><td id="rNV;" class="">Allocation Methods</td><td id="rSv?" class="">Determines storage pattern</td><td id="L`gf" class="">Compare contiguous and indexed allocation</td></tr><tr id="291113c0-c808-806b-bf0c-fe86bc8039d7"><td id="rNV;" class="">Free Space Management</td><td id="rSv?" class="">Tracks unused blocks</td><td id="L`gf" class="">What’s the role of bit vector?</td></tr><tr id="291113c0-c808-804c-8945-fd26d6bfec86"><td id="rNV;" class="">Mounting &amp; Consistency</td><td id="rSv?" class="">Ensures stability &amp; reliability</td><td id="L`gf" class="">What happens during a system crash?</td></tr><tr id="291113c0-c808-802c-908c-e19191bbd00a"><td id="rNV;" class="">Backup &amp; Recovery</td><td id="rSv?" class="">Safeguards data</td><td id="L`gf" class="">Difference between full &amp; incremental backup</td></tr></tbody></table><hr id="291113c0-c808-802e-b777-e87c8d887fdc"/><h3 id="291113c0-c808-80a0-a1e4-f9dc979493f3" class="">🧩 Quick Revision Mnemonic</h3><p id="291113c0-c808-8053-88e6-e6c3dd625e66" class=""><strong>FAD-FAB</strong></p><blockquote id="291113c0-c808-8070-a48a-e167fae86a0f" class="">File Concepts → Access Methods → Directory Structures → File Allocation → Available Space → Backup</blockquote></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

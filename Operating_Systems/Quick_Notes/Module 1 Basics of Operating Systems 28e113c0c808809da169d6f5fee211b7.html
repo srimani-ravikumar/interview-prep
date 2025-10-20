@@ -1,0 +1,706 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Module 1: Basics of Operating Systems</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(134, 131, 126, 1);
+	fill: rgba(134, 131, 126, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(134, 131, 126, 1);
+	fill: rgba(134, 131, 126, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="28e113c0-c808-809d-a169-d6f5fee211b7" class="page sans"><header><h1 class="page-title">Module 1: Basics of Operating Systems</h1><p class="page-description"></p></header><div class="page-body"><h3 id="28e113c0-c808-80c4-a4dd-efc4d3b37ed4" class="">🌍 1. Introduction to Operating System (OS)</h3><p id="28e113c0-c808-802f-aeba-defe63555cf9" class=""><strong>Definition:</strong></p><p id="28e113c0-c808-80cd-a26c-e0804c1e66fb" class="">An <strong>Operating System (OS)</strong> is system software that acts as an intermediary between the user and computer hardware, managing resources and providing services to applications.</p><p id="28e113c0-c808-80c1-8ad6-c6e6164196ff" class=""><strong>Key Roles:</strong></p><ul id="28e113c0-c808-8013-808e-fd79fe69098e" class="bulleted-list"><li style="list-style-type:disc">Acts as a <strong>resource manager</strong> 🧩 (CPU, memory, I/O, etc.)</li></ul><ul id="28e113c0-c808-802d-bfaa-e0ed087507a4" class="bulleted-list"><li style="list-style-type:disc">Provides a <strong>user interface</strong> 🧑‍💻 (CLI or GUI)</li></ul><ul id="28e113c0-c808-80f6-a2af-ecb0897e652f" class="bulleted-list"><li style="list-style-type:disc">Ensures <strong>process coordination</strong> and <strong>security</strong></li></ul><p id="28e113c0-c808-806b-b48a-c0ffd6f3c1b9" class=""><strong>Examples:</strong> Windows, Linux, macOS, Android</p><p id="28e113c0-c808-80cd-a0f0-fba53ab42565" class=""><strong>One-liner takeaway:</strong></p><p id="28e113c0-c808-8098-b1bc-ef5d028a068b" class="">👉 <em>OS is the backbone that bridges hardware and user applications.</em></p><p id="28e113c0-c808-8001-b7b5-fe912ad4b7a8" class=""><strong>🔍 Interview Focus:</strong></p><p id="28e113c0-c808-8032-b2e5-d59578992cc6" class="">Explain OS as an interface and resource manager; list basic functions.</p><hr id="28e113c0-c808-809f-b48d-f355671e54b8"/><h3 id="28e113c0-c808-8097-88ff-d898a3e1202e" class="">⚙️ 2. Functions of Operating System</h3><p id="28e113c0-c808-80b1-8b54-fcd64706789a" class=""><strong>Core Functions:</strong></p><ul id="28e113c0-c808-805c-85e8-c0176027bc60" class="bulleted-list"><li style="list-style-type:disc"><strong>Process Management:</strong> Handles process creation, scheduling, and termination.</li></ul><ul id="28e113c0-c808-8079-a081-ee57936876fc" class="bulleted-list"><li style="list-style-type:disc"><strong>Memory Management:</strong> Allocates/deallocates RAM efficiently.</li></ul><ul id="28e113c0-c808-8071-ad02-c3c9f22ca7e7" class="bulleted-list"><li style="list-style-type:disc"><strong>File System Management:</strong> Organizes and controls access to data.</li></ul><ul id="28e113c0-c808-8031-8717-c60eb4c9727f" class="bulleted-list"><li style="list-style-type:disc"><strong>Device Management:</strong> Controls and coordinates I/O devices.</li></ul><ul id="28e113c0-c808-8047-9c7e-fd3c1ffde245" class="bulleted-list"><li style="list-style-type:disc"><strong>Security &amp; Protection:</strong> Prevents unauthorized access.</li></ul><ul id="28e113c0-c808-80d0-9588-db337ffd4ee2" class="bulleted-list"><li style="list-style-type:disc"><strong>Error Detection:</strong> Monitors and responds to errors.</li></ul><ul id="28e113c0-c808-8075-97b5-f67b105610a9" class="bulleted-list"><li style="list-style-type:disc"><strong>Networking:</strong> Manages data exchange between systems.</li></ul><p id="28e113c0-c808-809c-8a54-f3a7f144ec0f" class=""><strong>Example:</strong> In multitasking OS, CPU time is shared among processes.</p><p id="28e113c0-c808-8085-9517-f49925653af9" class=""><strong>One-liner takeaway:</strong></p><p id="28e113c0-c808-80b8-8ae2-f73cb2ba9205" class="">👉 <em>Every OS revolves around managing processes, memory, and I/O efficiently.</em></p><p id="28e113c0-c808-8004-b3ab-cca0658d2878" class=""><strong>🔍 Interview Focus:</strong></p><p id="28e113c0-c808-8078-83be-d66a3909b667" class="">Name all 6 functions and briefly describe process management.</p><hr id="28e113c0-c808-808f-8465-c887a288ac95"/><h3 id="28e113c0-c808-804c-a764-d8e1a02d01c9" class="">🧩 3. Types of Operating Systems</h3><table id="28e113c0-c808-802c-be94-f334012cad26" class="simple-table"><thead class="simple-table-header"><tr id="28e113c0-c808-8041-bef0-fba8b25b2bb2"><th id="sWx;" class="simple-table-header-color simple-table-header">Type</th><th id="tI|{" class="simple-table-header-color simple-table-header">Description</th><th id="@Gzy" class="simple-table-header-color simple-table-header">Example</th></tr></thead><tbody><tr id="28e113c0-c808-80c5-b297-c9add0af0706"><td id="sWx;" class=""><strong>Batch OS</strong></td><td id="tI|{" class="">Executes batches of jobs without user interaction.</td><td id="@Gzy" class="">IBM Mainframes</td></tr><tr id="28e113c0-c808-80ba-8d80-f0cbbc64966e"><td id="sWx;" class=""><strong>Multiprogramming OS</strong></td><td id="tI|{" class="">Multiple programs in memory simultaneously.</td><td id="@Gzy" class="">UNIX</td></tr><tr id="28e113c0-c808-800d-8b8e-d8a2e79566d4"><td id="sWx;" class=""><strong>Multitasking OS</strong></td><td id="tI|{" class="">Runs multiple tasks for one user concurrently.</td><td id="@Gzy" class="">Windows</td></tr><tr id="28e113c0-c808-801a-be0e-d12890752531"><td id="sWx;" class=""><strong>Multiprocessing OS</strong></td><td id="tI|{" class="">Uses multiple CPUs for parallel processing.</td><td id="@Gzy" class="">Linux servers</td></tr><tr id="28e113c0-c808-8004-89e0-f62c183c1cab"><td id="sWx;" class=""><strong>Real-Time OS (RTOS)</strong></td><td id="tI|{" class="">Responds within strict timing constraints.</td><td id="@Gzy" class="">VxWorks</td></tr><tr id="28e113c0-c808-80af-8406-fea8ef1cc0eb"><td id="sWx;" class=""><strong>Distributed OS</strong></td><td id="tI|{" class="">Manages a group of computers as one.</td><td id="@Gzy" class="">Amoeba, Google Infra</td></tr><tr id="28e113c0-c808-80a8-883b-da16ff45a94b"><td id="sWx;" class=""><strong>Clustered OS</strong></td><td id="tI|{" class="">Multiple nodes act as one high-availability system.</td><td id="@Gzy" class="">Hadoop, Kubernetes</td></tr><tr id="28e113c0-c808-8000-8d46-df79c47f84f5"><td id="sWx;" class=""><strong>Embedded OS</strong></td><td id="tI|{" class="">Lightweight OS for specific-purpose devices.</td><td id="@Gzy" class="">RTOS in IoT</td></tr></tbody></table><p id="28e113c0-c808-80b9-981f-c5c15178cdc6" class=""><strong>One-liner takeaway:</strong></p><p id="28e113c0-c808-80a6-b97e-e6227513b308" class="">👉 <em>Different OS types exist to balance speed, multitasking, and real-time needs.</em></p><p id="28e113c0-c808-80ab-9999-ef7fefaadbc6" class=""><strong>🔍 Interview Focus:</strong></p><p id="28e113c0-c808-80c6-930d-ee11ccba6859" class="">Explain difference between <em>multiprogramming</em>, <em>multitasking</em>, and <em>multiprocessing.</em></p><hr id="28e113c0-c808-8080-999a-ec2915152a34"/><h3 id="28e113c0-c808-80aa-80ee-f00ca9abce9e" class="">⚡ 4. Distributed Operating System (DOS)</h3><p id="28e113c0-c808-8085-87bc-d35b747863d5" class=""><strong>Definition:</strong></p><p id="28e113c0-c808-8035-ab1e-f76c5aa72827" class="">A <strong>Distributed OS</strong> manages a collection of independent systems and makes them appear as one coherent system to the user.</p><p id="28e113c0-c808-8082-b355-e46c2c2e8f87" class=""><strong>🚗 Real-Life Analogy:</strong></p><p id="28e113c0-c808-8021-93c7-f730c8abed00" class="">Like a <strong>ride-sharing platform</strong> — each driver (computer) operates independently but under one coordinated system.</p><p id="28e113c0-c808-80e2-8363-ccd19fc7b3ee" class=""><strong>✨ Key Features:</strong></p><ul id="28e113c0-c808-80fe-8ab3-ea2201f7d4ca" class="bulleted-list"><li style="list-style-type:disc"><strong>Transparency:</strong> Hides resource location and execution details.</li></ul><ul id="28e113c0-c808-803a-9762-d18b1c420af3" class="bulleted-list"><li style="list-style-type:disc"><strong>Resource Sharing:</strong> Optimizes use across systems.</li></ul><ul id="28e113c0-c808-8014-9fd6-dd2cb3dfa3db" class="bulleted-list"><li style="list-style-type:disc"><strong>Fault Tolerance:</strong> Continues even if one node fails.</li></ul><ul id="28e113c0-c808-80e0-ade0-fdc46652db45" class="bulleted-list"><li style="list-style-type:disc"><strong>Scalability:</strong> Add machines easily.</li></ul><ul id="28e113c0-c808-8013-8b46-e66d120041a1" class="bulleted-list"><li style="list-style-type:disc"><strong>Concurrency:</strong> Supports parallel processing.</li></ul><p id="28e113c0-c808-800f-a2aa-f75fdd95aa33" class=""><strong>💪 Benefits:</strong></p><ul id="28e113c0-c808-80df-aaa5-e59143797d70" class="bulleted-list"><li style="list-style-type:disc">Improved performance and reliability</li></ul><ul id="28e113c0-c808-800a-a24d-d7cf5a8fc36b" class="bulleted-list"><li style="list-style-type:disc">High scalability and cost-effectiveness</li></ul><ul id="28e113c0-c808-8020-80a0-d2d54e1d9a81" class="bulleted-list"><li style="list-style-type:disc">Efficient fault handling</li></ul><p id="28e113c0-c808-801d-a998-e40a9321545a" class=""><strong>🌍 Example:</strong> Google’s distributed infrastructure for Search, Gmail, and Cloud.</p><p id="28e113c0-c808-807d-8d50-e27fef0eb1fa" class=""><strong>One-liner takeaway:</strong></p><p id="28e113c0-c808-8064-ad6a-de961159f577" class="">👉 <em>Distributed OS = Multiple systems behaving as one fault-tolerant supercomputer.</em></p><p id="28e113c0-c808-804c-8cbd-d212053b6224" class=""><strong>🔍 Interview Focus:</strong></p><p id="28e113c0-c808-801f-b6d8-dcdf9be86e6b" class="">Be ready to define transparency and fault tolerance in distributed systems.</p><hr id="28e113c0-c808-8050-be07-deefbc810848"/><h3 id="28e113c0-c808-80ae-8b59-ece7957eb3ba" class="">💻 5. Clustered Operating System</h3><p id="28e113c0-c808-80d4-ba3b-d290447462f4" class=""><strong>Definition:</strong></p><p id="28e113c0-c808-8040-91ba-dd2e01d4bca1" class="">Manages a <strong>group of interconnected computers (nodes)</strong> that work together to improve <strong>availability, scalability, and fault tolerance.</strong></p><p id="28e113c0-c808-808d-add6-d21e1144ac80" class=""><strong>🧱 Components:</strong></p><ul id="28e113c0-c808-80da-9fd2-eeb981d27fdc" class="bulleted-list"><li style="list-style-type:disc"><strong>Cluster Manager:</strong> Controls coordination.</li></ul><ul id="28e113c0-c808-80c9-92ff-d3e614e44194" class="bulleted-list"><li style="list-style-type:disc"><strong>Shared Storage:</strong> NAS/SAN for data consistency.</li></ul><ul id="28e113c0-c808-809d-acc2-eb43a9ebebfb" class="bulleted-list"><li style="list-style-type:disc"><strong>Interconnection Network:</strong> High-speed communication (Ethernet, InfiniBand).</li></ul><ul id="28e113c0-c808-804c-bb25-c42ac29a2b4e" class="bulleted-list"><li style="list-style-type:disc"><strong>Nodes:</strong> Independent systems forming the cluster.</li></ul><p id="28e113c0-c808-8051-9853-d231dc639ea8" class=""><strong>⚙️ Key Features:</strong></p><ul id="28e113c0-c808-807a-aef7-c9ae0de8c56d" class="bulleted-list"><li style="list-style-type:disc">Resource sharing across nodes</li></ul><ul id="28e113c0-c808-8048-abbd-ea18c0f19289" class="bulleted-list"><li style="list-style-type:disc">Load balancing for optimized performance</li></ul><ul id="28e113c0-c808-80f3-a569-fa2b2bc2e9dc" class="bulleted-list"><li style="list-style-type:disc">Automatic failover for reliability</li></ul><ul id="28e113c0-c808-800f-9126-dc5fc0893e86" class="bulleted-list"><li style="list-style-type:disc">Scalability with node addition</li></ul><p id="28e113c0-c808-803b-8c36-d057508ede7e" class=""><strong>🧩 Types:</strong></p><ul id="28e113c0-c808-8076-9fed-c0e7105f6f4a" class="bulleted-list"><li style="list-style-type:disc"><strong>Hardware Clusters:</strong> Physical servers connected together.</li></ul><ul id="28e113c0-c808-8097-972d-d407915754d4" class="bulleted-list"><li style="list-style-type:disc"><strong>Software Clusters:</strong> Virtual coordination via software (e.g., Kubernetes, Hadoop).</li></ul><p id="28e113c0-c808-802f-b5fe-c839f11dfa8d" class=""><strong>✅ Advantages:</strong></p><ul id="28e113c0-c808-803b-807a-e6410bc0b07b" class="bulleted-list"><li style="list-style-type:disc">Parallel task execution</li></ul><ul id="28e113c0-c808-8020-9d0e-c3ac25040ded" class="bulleted-list"><li style="list-style-type:disc">Redundancy &amp; continuous availability</li></ul><ul id="28e113c0-c808-804d-9c82-f5d4e0c21d1c" class="bulleted-list"><li style="list-style-type:disc">Scalable with commodity hardware</li></ul><p id="28e113c0-c808-80f1-b01c-e6b28095bf62" class=""><strong>⚠️ Disadvantages:</strong></p><ul id="28e113c0-c808-8081-beae-cffaa2fb0058" class="bulleted-list"><li style="list-style-type:disc">Complex setup &amp; maintenance</li></ul><ul id="28e113c0-c808-809d-b40f-c6fd3dfbcb55" class="bulleted-list"><li style="list-style-type:disc">Expensive interconnect hardware</li></ul><ul id="28e113c0-c808-808a-abce-de578d10c090" class="bulleted-list"><li style="list-style-type:disc">State synchronization challenges</li></ul><p id="28e113c0-c808-8031-986a-db5af659abf7" class=""><strong>One-liner takeaway:</strong></p><p id="28e113c0-c808-8086-9581-d76ec270ab00" class="">👉 <em>Clustered OS ensures high performance and uptime via coordinated multi-node systems.</em></p><p id="28e113c0-c808-8068-af1a-f38cbcef073e" class=""><strong>🔍 Interview Focus:</strong></p><p id="28e113c0-c808-807f-89b3-e2e54085729a" class="">Difference between <em>Distributed</em> and <em>Clustered OS</em> — Distributed focuses on transparency; Clustered focuses on availability.</p><hr id="28e113c0-c808-8060-a37f-de43001e0dfc"/><h3 id="28e113c0-c808-80c8-93c8-c441fa06a152" class="">🤖 6. Embedded Operating System</h3><p id="28e113c0-c808-802d-b81e-d8dadd95d44c" class=""><strong>Definition:</strong></p><p id="28e113c0-c808-802b-ba80-ca51505802af" class="">An <strong>Embedded OS</strong> is a compact, specialized system designed for dedicated hardware with limited resources.</p><p id="28e113c0-c808-8017-9a51-caed4d25bf1a" class=""><strong>⚙️ Key Features:</strong></p><ul id="28e113c0-c808-80ef-a11d-ef4d9f84f04b" class="bulleted-list"><li style="list-style-type:disc"><strong>Real-Time Response:</strong> Predictable execution timing.</li></ul><ul id="28e113c0-c808-805e-812f-c9340d77323e" class="bulleted-list"><li style="list-style-type:disc"><strong>Small Footprint:</strong> Minimal resource usage.</li></ul><ul id="28e113c0-c808-8005-860c-f8cc828cd893" class="bulleted-list"><li style="list-style-type:disc"><strong>High Reliability:</strong> Designed for continuous, unattended operation.</li></ul><ul id="28e113c0-c808-808c-b528-c810da5cee21" class="bulleted-list"><li style="list-style-type:disc"><strong>Task-Specific:</strong> Optimized for one function.</li></ul><ul id="28e113c0-c808-8047-8386-d6e327287630" class="bulleted-list"><li style="list-style-type:disc"><strong>Low Power Consumption:</strong> Essential for portable devices.</li></ul><p id="28e113c0-c808-804f-b405-ce596f74e643" class=""><strong>🔧 Core Components:</strong></p><ul id="28e113c0-c808-80c7-9afb-c19b72a7c9ee" class="bulleted-list"><li style="list-style-type:disc"><strong>Kernel</strong> – Controls core functions.</li></ul><ul id="28e113c0-c808-8017-889f-c55301e44877" class="bulleted-list"><li style="list-style-type:disc"><strong>Task Scheduler</strong> – Manages priorities.</li></ul><ul id="28e113c0-c808-80ca-a91a-f8f5d568817e" class="bulleted-list"><li style="list-style-type:disc"><strong>Device Drivers</strong> – Connect hardware.</li></ul><ul id="28e113c0-c808-8028-b9ef-eda993949e91" class="bulleted-list"><li style="list-style-type:disc"><strong>Memory Manager</strong> – Handles limited memory.</li></ul><ul id="28e113c0-c808-8073-bd05-f43653baf4b8" class="bulleted-list"><li style="list-style-type:disc"><strong>Communication Stack</strong> – Enables connectivity (Wi-Fi, Bluetooth).</li></ul><p id="28e113c0-c808-802e-8406-e41bb77c2278" class=""><strong>🧠 Examples:</strong></p><ul id="28e113c0-c808-80f7-aa53-f85e0318db0d" class="bulleted-list"><li style="list-style-type:disc"><strong>Smart TVs</strong> – WebOS, Google TV</li></ul><ul id="28e113c0-c808-802f-ac20-c96cd9969adc" class="bulleted-list"><li style="list-style-type:disc"><strong>Cars</strong> – Airbag &amp; engine controllers</li></ul><ul id="28e113c0-c808-80b5-a1d4-ee3a9f8c6efe" class="bulleted-list"><li style="list-style-type:disc"><strong>IoT Devices</strong> – Smart locks, thermostats</li></ul><p id="28e113c0-c808-8059-8f71-ead90e22074b" class=""><strong>One-liner takeaway:</strong></p><p id="28e113c0-c808-80d7-b4e7-ca9eef2147c7" class="">👉 <em>Embedded OS = lightweight, reliable brain inside dedicated devices.</em></p><p id="28e113c0-c808-80f1-a5fa-fcffd971bb1b" class=""><strong>🔍 Interview Focus:</strong></p><p id="28e113c0-c808-8065-96e7-f6c00d7e70c2" class="">Differentiate <em>RTOS</em> and <em>Embedded OS</em>; mention examples like automotive ECUs.</p><hr id="28e113c0-c808-80af-b1a9-fe41026286e5"/><h2 id="28e113c0-c808-8066-91ca-eeb4ec830431" class="">🧾 Summary Table — OS Types at a Glance</h2><table id="28e113c0-c808-800c-8825-debc4da4570f" class="simple-table"><thead class="simple-table-header"><tr id="28e113c0-c808-80c9-ac65-d12fb83847aa"><th id="`Yny" class="simple-table-header-color simple-table-header">OS Type</th><th id="Zw\d" class="simple-table-header-color simple-table-header">Key Goal</th><th id="yG=?" class="simple-table-header-color simple-table-header">Example</th></tr></thead><tbody><tr id="28e113c0-c808-806a-a1e2-e4062083177e"><td id="`Yny" class="">Batch</td><td id="Zw\d" class="">Automate job execution</td><td id="yG=?" class="">IBM Mainframe</td></tr><tr id="28e113c0-c808-80c2-adaf-da737c883f24"><td id="`Yny" class="">Multiprogramming</td><td id="Zw\d" class="">Increase CPU utilization</td><td id="yG=?" class="">UNIX</td></tr><tr id="28e113c0-c808-8026-8dfa-f1e17d13a26d"><td id="`Yny" class="">Multitasking</td><td id="Zw\d" class="">User-level concurrency</td><td id="yG=?" class="">Windows</td></tr><tr id="28e113c0-c808-8090-9292-f8ae5595b12f"><td id="`Yny" class="">Multiprocessing</td><td id="Zw\d" class="">Parallel computation</td><td id="yG=?" class="">Linux</td></tr><tr id="28e113c0-c808-80a1-ab1d-dc28151d07f2"><td id="`Yny" class="">Real-Time</td><td id="Zw\d" class="">Time-critical tasks</td><td id="yG=?" class="">VxWorks</td></tr><tr id="28e113c0-c808-80f4-aae3-d473177a717f"><td id="`Yny" class="">Distributed</td><td id="Zw\d" class="">Shared networked system</td><td id="yG=?" class="">Google Infra</td></tr><tr id="28e113c0-c808-80e2-92ae-d69e13710b96"><td id="`Yny" class="">Clustered</td><td id="Zw\d" class="">High availability</td><td id="yG=?" class="">Hadoop, Kubernetes</td></tr><tr id="28e113c0-c808-80a6-a2c0-e46b1087091e"><td id="`Yny" class="">Embedded</td><td id="Zw\d" class="">Task-specific reliability</td><td id="yG=?" class="">RTOS in IoT</td></tr></tbody></table><hr id="28e113c0-c808-800b-aee9-f60bcd783c18"/><h3 id="28e113c0-c808-80f3-9cb3-c67cfa6f64bb" class="">🧭 Ultimate Takeaways</h3><ul id="28e113c0-c808-806c-99a3-fbf0cc79af2e" class="bulleted-list"><li style="list-style-type:disc">OS = Interface + Resource Manager</li></ul><ul id="28e113c0-c808-800f-ba01-f49c31a389a7" class="bulleted-list"><li style="list-style-type:disc">Distributed OS → transparency &amp; fault tolerance</li></ul><ul id="28e113c0-c808-80d1-bd68-ceb52b7098ed" class="bulleted-list"><li style="list-style-type:disc">Clustered OS → high availability</li></ul><ul id="28e113c0-c808-8002-b23e-d1aeea961eaf" class="bulleted-list"><li style="list-style-type:disc">Embedded OS → small, reliable, task-focused</li></ul><ul id="28e113c0-c808-8082-b182-ce3419543844" class="bulleted-list"><li style="list-style-type:disc">Real-time OS → predictable response under deadlines</li></ul><hr id="28e113c0-c808-801e-8ee5-fba7ebe2c886"/><h3 id="28e113c0-c808-8047-aa52-fe71902e482f" class="">💬 Interview Focus Areas 🔍</h3><p id="28e113c0-c808-8038-be1e-d0355c79e918" class="">✅ Explain <strong>functions of OS</strong> clearly</p><p id="28e113c0-c808-8086-8a28-f43858472b5c" class="">✅ Compare <strong>Distributed vs Clustered OS</strong></p><p id="28e113c0-c808-8008-af89-d292825a665a" class="">✅ Discuss <strong>RTOS &amp; Embedded OS differences</strong></p><p id="28e113c0-c808-80dd-8cb1-cb25e99d3ba5" class="">✅ Give <strong>real-world examples</strong> (Google, Hadoop, IoT)</p><p id="28e113c0-c808-80ae-97d2-fcdb06b8a2f5" class="">✅ Know <strong>how scalability and fault tolerance</strong> are achieved</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

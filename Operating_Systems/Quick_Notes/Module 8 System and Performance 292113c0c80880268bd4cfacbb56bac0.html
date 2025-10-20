@@ -1,0 +1,706 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Module 8: System and Performance</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(134, 131, 126, 1);
+	fill: rgba(134, 131, 126, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(134, 131, 126, 1);
+	fill: rgba(134, 131, 126, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="292113c0-c808-8026-8bd4-cfacbb56bac0" class="page sans"><header><h1 class="page-title"><strong>Module 8: System and Performance</strong></h1><p class="page-description"></p></header><div class="page-body"><h2 id="292113c0-c808-8082-9872-fcf0196b27e4" class=""><strong>1. System Calls and Their Categories</strong> 🖥️</h2><p id="292113c0-c808-8081-be85-ef3b7198358c" class=""><strong>Definition:</strong></p><p id="292113c0-c808-809d-b764-d0cdefbb2b12" class="">A <strong>system call</strong> is a controlled interface provided by the OS for user applications to request services or resources from the kernel. User programs cannot access hardware directly, so system calls act as a secure bridge.</p><p id="292113c0-c808-80f3-9b9a-d2279b7552d7" class=""><strong>Real-Life Analogy:</strong></p><p id="292113c0-c808-803e-8be2-d55260a98ab5" class="">A customer asking a service representative to perform tasks on behalf of the company (kernel) safely.</p><p id="292113c0-c808-800d-8c35-c1ce72342648" class=""><strong>How System Calls Work:</strong></p><ul id="292113c0-c808-8093-9c02-c05ac9ec15cd" class="bulleted-list"><li style="list-style-type:disc"><strong>User → Kernel Transition:</strong> Switches from user mode to privileged kernel mode.</li></ul><ul id="292113c0-c808-8004-a0ed-d8fc6cb1053d" class="bulleted-list"><li style="list-style-type:disc"><strong>Request Handling:</strong> OS verifies parameters and permissions.</li></ul><ul id="292113c0-c808-806f-9dec-c6fd73ad642b" class="bulleted-list"><li style="list-style-type:disc"><strong>Result Delivery:</strong> Returns status or result to user application.</li></ul><p id="292113c0-c808-80f2-86d5-e602237d7059" class=""><strong>Categories of System Calls:</strong></p><ol type="1" id="292113c0-c808-8085-bd1b-c0473fd7ee94" class="numbered-list" start="1"><li><strong>Process Control:</strong> <code>fork()</code>, <code>exec()</code>, <code>wait()</code></li></ol><ol type="1" id="292113c0-c808-8043-b56f-c0797c4b21c5" class="numbered-list" start="2"><li><strong>File Management:</strong> <code>open()</code>, <code>read()</code>, <code>write()</code>, <code>close()</code></li></ol><ol type="1" id="292113c0-c808-80af-a4d5-da08bf7f97f5" class="numbered-list" start="3"><li><strong>Device Management:</strong> <code>ioctl()</code>, <code>read()/write()</code> on devices</li></ol><ol type="1" id="292113c0-c808-8074-9d50-e12e3c317d1c" class="numbered-list" start="4"><li><strong>Information Maintenance:</strong> <code>getpid()</code>, <code>gettimeofday()</code></li></ol><ol type="1" id="292113c0-c808-803f-a4fd-cbfcbf65c6dd" class="numbered-list" start="5"><li><strong>Communication:</strong> <code>pipe()</code>, <code>socket()</code>, <code>send()</code>, <code>recv()</code></li></ol><p id="292113c0-c808-805c-a62b-fdf8ec6fbd0f" class=""><strong>Significance:</strong></p><ul id="292113c0-c808-8016-8131-d2d9e1215b83" class="bulleted-list"><li style="list-style-type:disc">Security &amp; stability</li></ul><ul id="292113c0-c808-8086-a43d-e7692945237e" class="bulleted-list"><li style="list-style-type:disc">Hardware abstraction</li></ul><ul id="292113c0-c808-8066-b354-cd280f14ce50" class="bulleted-list"><li style="list-style-type:disc">Controlled resource management</li></ul><p id="292113c0-c808-8002-b1cd-edaf4582aeeb" class=""><strong>Drawbacks:</strong></p><ul id="292113c0-c808-809a-bda7-ea80c1ef10bf" class="bulleted-list"><li style="list-style-type:disc">Mode switching overhead</li></ul><ul id="292113c0-c808-8086-bcda-c6ca2600b61c" class="bulleted-list"><li style="list-style-type:disc">Complexity in usage</li></ul><ul id="292113c0-c808-80b8-8cf0-ff4fabb85b17" class="bulleted-list"><li style="list-style-type:disc">OS-specific compatibility</li></ul><p id="292113c0-c808-80e3-97dd-cbad32b1011f" class=""><strong>Takeaway:</strong> System calls are the backbone of OS-mediated access to hardware and resources.</p><p id="292113c0-c808-8086-82de-f0774323717a" class=""><strong>Interview Focus 🔍:</strong> System call examples, categories, user/kernel mode transition, advantages/disadvantages.</p><hr id="292113c0-c808-8073-bd22-f179cd04f805"/><h2 id="292113c0-c808-8020-8e86-d93c95d36875" class=""><strong>2. System Boot Process</strong> ⚡</h2><p id="292113c0-c808-8070-a685-d22cf8dc3e17" class=""><strong>Definition:</strong></p><p id="292113c0-c808-80be-b9bc-f531be4c1719" class="">Sequence from powering on a system to being fully operational.</p><p id="292113c0-c808-8091-8788-e28007c1de64" class=""><strong>Real-Life Analogy:</strong></p><p id="292113c0-c808-80e7-91ee-f259c98c41f7" class="">Restaurant setup: staff check tools (hardware), chef sets menu (bootloader), services ready to serve customers (OS and services).</p><p id="292113c0-c808-8034-86f5-fc35978c23b5" class=""><strong>Key Stages:</strong></p><ol type="1" id="292113c0-c808-8055-98de-fd22a5751368" class="numbered-list" start="1"><li><strong>POST:</strong> Hardware check (CPU, RAM, storage)</li></ol><ol type="1" id="292113c0-c808-8057-bd54-fec0e96f1409" class="numbered-list" start="2"><li><strong>BIOS/UEFI Initialization:</strong> Identify bootable devices</li></ol><ol type="1" id="292113c0-c808-801a-a05c-e846b8db9be8" class="numbered-list" start="3"><li><strong>Bootloader Execution:</strong> Load OS kernel (<code>GRUB</code>, Windows Boot Manager)</li></ol><ol type="1" id="292113c0-c808-806e-8c58-dae9c0b06c7d" class="numbered-list" start="4"><li><strong>Kernel Loading &amp; Initialization:</strong> Resource management, device drivers setup</li></ol><ol type="1" id="292113c0-c808-80ab-a06a-cca2d0efd286" class="numbered-list" start="5"><li><strong>Init/System Services Startup:</strong> Start essential services (<code>systemd</code>, daemons), show login/desktop</li></ol><p id="292113c0-c808-807e-b2ca-eaea2f71dfef" class=""><strong>Legacy BIOS vs UEFI:</strong></p><ul id="292113c0-c808-8088-bca9-db6345713ff8" class="bulleted-list"><li style="list-style-type:disc">BIOS: Fixed memory, MBR-only, limited hardware init</li></ul><ul id="292113c0-c808-80f5-a28b-f4203a12db11" class="bulleted-list"><li style="list-style-type:disc">UEFI: Modular, GPT support, secure boot, richer interface</li></ul><p id="292113c0-c808-8076-99fa-ca63f3c26d5e" class=""><strong>Takeaway:</strong> Understanding boot stages helps troubleshooting, optimization, and secure startup.</p><p id="292113c0-c808-8040-a0b8-e7750e8a8a18" class=""><strong>Interview Focus 🔍:</strong> POST, bootloader, kernel init, differences between BIOS &amp; UEFI.</p><hr id="292113c0-c808-80bd-baf4-fabb1b8bcc7f"/><h2 id="292113c0-c808-80c2-b8ce-fa56d5f45738" class=""><strong>3. Interrupts</strong> ⏱️</h2><p id="292113c0-c808-8041-8a89-d50f0a6505a5" class=""><strong>Definition:</strong></p><p id="292113c0-c808-80b0-8ff6-f8febaee1424" class="">Signals that temporarily halt CPU execution to handle urgent events.</p><p id="292113c0-c808-8004-bca6-cccdf3e6f090" class=""><strong>Types:</strong></p><ul id="292113c0-c808-8063-b860-f69a8bb7eac6" class="bulleted-list"><li style="list-style-type:disc"><strong>Hardware Interrupts:</strong> Triggered by external devices (keyboard, network card)</li></ul><ul id="292113c0-c808-801f-a11a-c48f4e994279" class="bulleted-list"><li style="list-style-type:disc"><strong>Software Interrupts:</strong> Triggered by programs or exceptions (<code>division by zero</code>)</li></ul><p id="292113c0-c808-80ba-90f8-c2d143ca2d9f" class=""><strong>Working Mechanism:</strong></p><ol type="1" id="292113c0-c808-8023-a961-f346744aa6a0" class="numbered-list" start="1"><li>Interrupt occurs</li></ol><ol type="1" id="292113c0-c808-80e4-ad22-da88582a7c9f" class="numbered-list" start="2"><li>CPU saves state</li></ol><ol type="1" id="292113c0-c808-805a-a6c2-e0c9f903e0d4" class="numbered-list" start="3"><li>ISR (Interrupt Service Routine) executes</li></ol><ol type="1" id="292113c0-c808-802d-8552-ee64ad7bd529" class="numbered-list" start="4"><li>CPU resumes main program</li></ol><p id="292113c0-c808-809c-aef6-f9816569d619" class=""><strong>Advantages:</strong></p><ul id="292113c0-c808-80f9-9403-d5850d555b21" class="bulleted-list"><li style="list-style-type:disc">Responsive system</li></ul><ul id="292113c0-c808-80e9-abd5-e9dbfe19f290" class="bulleted-list"><li style="list-style-type:disc">Efficient CPU utilization</li></ul><ul id="292113c0-c808-80f9-a65d-e09092601735" class="bulleted-list"><li style="list-style-type:disc">Scalable with multiple devices</li></ul><p id="292113c0-c808-800c-8283-cced032e4735" class=""><strong>Drawbacks:</strong></p><ul id="292113c0-c808-80f6-823b-c6cf2b0b79ba" class="bulleted-list"><li style="list-style-type:disc">Context switching overhead</li></ul><ul id="292113c0-c808-8075-a569-d24013c1fcbd" class="bulleted-list"><li style="list-style-type:disc">ISR complexity</li></ul><ul id="292113c0-c808-8066-b425-f40059f0fcef" class="bulleted-list"><li style="list-style-type:disc">Priority conflicts</li></ul><p id="292113c0-c808-8024-b825-f230150e79bf" class=""><strong>Real-World Usage:</strong> Keyboard input, network packet arrival, system calls, error handling</p><p id="292113c0-c808-80cb-846e-e8e62f79a0d6" class=""><strong>Takeaway:</strong> Interrupts allow reactive and efficient OS behavior.</p><p id="292113c0-c808-8013-935b-d396c718d3b3" class=""><strong>Interview Focus 🔍:</strong> Hardware vs software interrupts, ISR mechanism, advantages/disadvantages.</p><hr id="292113c0-c808-801f-a16f-c4f920e57e6b"/><h2 id="292113c0-c808-802f-9447-d44a115ffc6f" class=""><strong>4. Event-Driven Programming in OS</strong> 🌀</h2><p id="292113c0-c808-8043-8a07-ccf59a06b25b" class=""><strong>Definition:</strong></p><p id="292113c0-c808-8084-a6f9-d7edb5bc5dea" class="">Flow of execution determined by external/internal events instead of sequential code.</p><p id="292113c0-c808-80bf-85bb-ef07274c276f" class=""><strong>Working:</strong></p><ol type="1" id="292113c0-c808-80f4-a1ba-d607f722b2a0" class="numbered-list" start="1"><li><strong>Event Registration:</strong> Handlers/callbacks linked to events</li></ol><ol type="1" id="292113c0-c808-808d-9e03-d8edf9e8b184" class="numbered-list" start="2"><li><strong>Event Detection:</strong> OS monitors inputs, interrupts, queues</li></ol><ol type="1" id="292113c0-c808-809a-b0a4-cbe63110404c" class="numbered-list" start="3"><li><strong>Event Dispatching:</strong> Event triggers corresponding handler</li></ol><ol type="1" id="292113c0-c808-8067-a912-c4f9f223f326" class="numbered-list" start="4"><li><strong>Event Handling:</strong> Handler executes, then returns control</li></ol><p id="292113c0-c808-80d2-8887-d53eab1007dc" class=""><strong>Key Features:</strong></p><ul id="292113c0-c808-800b-9715-c8db747d042d" class="bulleted-list"><li style="list-style-type:disc">Asynchronous execution</li></ul><ul id="292113c0-c808-80c6-b21b-c4041af64338" class="bulleted-list"><li style="list-style-type:disc">Event loops and handlers</li></ul><ul id="292113c0-c808-8068-b86d-e9159fdd0b3f" class="bulleted-list"><li style="list-style-type:disc">Callback functions</li></ul><ul id="292113c0-c808-80ec-a5b0-feac275bc71f" class="bulleted-list"><li style="list-style-type:disc">Interrupt-driven processing</li></ul><p id="292113c0-c808-80df-9492-d6ded2de0c9b" class=""><strong>Advantages:</strong></p><ul id="292113c0-c808-805d-82c9-e3faf76dc3a5" class="bulleted-list"><li style="list-style-type:disc">High responsiveness</li></ul><ul id="292113c0-c808-800e-a3de-ed34e62ba868" class="bulleted-list"><li style="list-style-type:disc">Efficient resource use</li></ul><ul id="292113c0-c808-8074-838f-d61878978c37" class="bulleted-list"><li style="list-style-type:disc">Scalable and modular</li></ul><p id="292113c0-c808-8062-b0cc-e7584d56c66b" class=""><strong>Disadvantages:</strong></p><ul id="292113c0-c808-8056-b91a-d5cabaae3f15" class="bulleted-list"><li style="list-style-type:disc">Debugging complexity</li></ul><ul id="292113c0-c808-805d-9d6a-f6913403dfd4" class="bulleted-list"><li style="list-style-type:disc">Event overload risk</li></ul><ul id="292113c0-c808-8073-a88e-d8e8528de274" class="bulleted-list"><li style="list-style-type:disc">Steep learning curve</li></ul><p id="292113c0-c808-8063-803b-ec6500370aa8" class=""><strong>Real-World Usage:</strong> GUI apps, network servers, kernel interrupt handling</p><p id="292113c0-c808-8070-8d65-f3bfb84b8343" class=""><strong>Takeaway:</strong> Event-driven OS design improves responsiveness and efficiency.</p><p id="292113c0-c808-80b5-a0b6-f20a006b483a" class=""><strong>Interview Focus 🔍:</strong> Event loops, callbacks, asynchronous handling, advantages/disadvantages.</p><hr id="292113c0-c808-8061-94fd-e7525756bfb1"/><h2 id="292113c0-c808-809a-ad77-e12d539ad039" class=""><strong>5. Resource Management in Operating Systems</strong> 🔧</h2><p id="292113c0-c808-809b-8586-f918dd80fe25" class=""><strong>Definition:</strong></p><p id="292113c0-c808-8092-8c22-c99bb3052bbb" class="">OS ensures efficient, fair, and secure allocation of CPU, memory, storage, I/O, and network resources.</p><p id="292113c0-c808-80ec-8616-e4ed0104f832" class=""><strong>Goals:</strong></p><ul id="292113c0-c808-8053-9074-d037938e0148" class="bulleted-list"><li style="list-style-type:disc">Efficiency, fairness, reliability, scalability, security</li></ul><p id="292113c0-c808-807b-bdf6-f50c3edccb1b" class=""><strong>CPU Management:</strong></p><ul id="292113c0-c808-80b0-b291-fa9144ae4cc3" class="bulleted-list"><li style="list-style-type:disc"><strong>Scheduling:</strong> Round Robin, SJF, Priority</li></ul><ul id="292113c0-c808-80d5-b386-f09ed2c3e4a1" class="bulleted-list"><li style="list-style-type:disc"><strong>Context Switching &amp; Load Balancing</strong></li></ul><ul id="292113c0-c808-8058-827d-faebd654de1c" class="bulleted-list"><li style="list-style-type:disc"><strong>Example:</strong> Video player, browser, text editor share CPU seamlessly</li></ul><p id="292113c0-c808-80cc-a537-d41c3ea42605" class=""><strong>Memory Management:</strong></p><ul id="292113c0-c808-8036-95d4-c6effa953069" class="bulleted-list"><li style="list-style-type:disc">Allocation &amp; deallocation</li></ul><ul id="292113c0-c808-809c-842d-c7c8aa294ee5" class="bulleted-list"><li style="list-style-type:disc">Virtual memory &amp; address translation</li></ul><ul id="292113c0-c808-80fa-8004-dfd405c81837" class="bulleted-list"><li style="list-style-type:disc">Paging, segmentation, and memory protection</li></ul><p id="292113c0-c808-8057-9fc4-e6086a8e0998" class=""><strong>Storage/File Management:</strong></p><ul id="292113c0-c808-80e5-80c9-cf5a750cf8b1" class="bulleted-list"><li style="list-style-type:disc">File allocation, directories, disk scheduling, access control</li></ul><p id="292113c0-c808-80a1-9b97-dd50bb7a6522" class=""><strong>I/O Device Management:</strong></p><ul id="292113c0-c808-8046-9197-e8c5a160949a" class="bulleted-list"><li style="list-style-type:disc">Device drivers, buffering, caching, interrupts, access control</li></ul><p id="292113c0-c808-8091-9fc8-edaa8cfaafc9" class=""><strong>Network Resource Management:</strong></p><ul id="292113c0-c808-80a2-9877-fca03926a5cb" class="bulleted-list"><li style="list-style-type:disc">Connection management, routing, bandwidth allocation, security</li></ul><p id="292113c0-c808-80cd-b39e-edd32dbbdafb" class=""><strong>Resource Allocation Algorithms:</strong></p><ul id="292113c0-c808-809d-993f-c163adc37d60" class="bulleted-list"><li style="list-style-type:disc">FCFS, Priority, Round Robin, Deadlock detection/avoidance</li></ul><p id="292113c0-c808-8046-acd1-cb2d895dec23" class=""><strong>Takeaway:</strong> Efficient resource management ensures smooth system operation and user experience.</p><p id="292113c0-c808-8064-9409-cfd745bd521b" class=""><strong>Interview Focus 🔍:</strong> CPU/memory scheduling, storage and I/O management, deadlocks, allocation policies.</p><hr id="292113c0-c808-80b8-82f5-f103b0cb17a3"/><h2 id="292113c0-c808-80a4-bec1-d632638e946b" class=""><strong>6. Priority Inversion</strong> ⚠️</h2><p id="292113c0-c808-80a2-944e-deedc408dcca" class=""><strong>Definition:</strong></p><p id="292113c0-c808-80d8-9c3c-f49dd2c67494" class="">High-priority tasks blocked by lower-priority tasks holding shared resources.</p><p id="292113c0-c808-8013-bbc8-e91923b2502f" class=""><strong>Causes:</strong></p><ul id="292113c0-c808-8011-860b-f57ec6be1fc7" class="bulleted-list"><li style="list-style-type:disc">Non-preemptive resources</li></ul><ul id="292113c0-c808-8006-a328-d8e654f86fe0" class="bulleted-list"><li style="list-style-type:disc">No priority inheritance</li></ul><ul id="292113c0-c808-8063-9ef4-c8732e7da357" class="bulleted-list"><li style="list-style-type:disc">Long critical sections</li></ul><p id="292113c0-c808-8010-b32e-d3f4e9ebd7e4" class=""><strong>Effects:</strong></p><ul id="292113c0-c808-8008-b275-c36711714dbe" class="bulleted-list"><li style="list-style-type:disc">Delayed critical tasks</li></ul><ul id="292113c0-c808-8080-9f9e-c135cfbe48fa" class="bulleted-list"><li style="list-style-type:disc">Inconsistent system behavior</li></ul><ul id="292113c0-c808-8059-8cf2-f6a528e0a0cf" class="bulleted-list"><li style="list-style-type:disc">Missed deadlines in real-time systems</li></ul><p id="292113c0-c808-80ff-bb65-c4f2226ca701" class=""><strong>Solutions:</strong></p><ul id="292113c0-c808-803e-995b-ecba7216136b" class="bulleted-list"><li style="list-style-type:disc"><strong>Priority Inheritance:</strong> Temporarily boost low-priority task</li></ul><ul id="292113c0-c808-80a0-a960-ca185ae7ac72" class="bulleted-list"><li style="list-style-type:disc"><strong>Priority Ceiling Protocol:</strong> Resource-level priority ceiling</li></ul><ul id="292113c0-c808-8021-a6ad-f6ef2ff46c2b" class="bulleted-list"><li style="list-style-type:disc">Well-defined locking strategies</li></ul><p id="292113c0-c808-806c-a4e0-d74a5ed52a46" class=""><strong>Example:</strong> High-priority task waiting for sensor buffer held by low-priority task; medium-priority task preempts low-priority task.</p><p id="292113c0-c808-80b6-b29b-da1ce66dd3e3" class=""><strong>Takeaway:</strong> Priority inversion can degrade system performance; mitigated via inheritance/ceiling protocols.</p><p id="292113c0-c808-804c-8cc7-fb479acf3b3b" class=""><strong>Interview Focus 🔍:</strong> Causes, effects, and mitigation strategies.</p><hr id="292113c0-c808-8047-b497-f1854d4dd8ab"/><h2 id="292113c0-c808-80d1-be32-f11936c3bec2" class=""><strong>7. Load Balancing in Operating Systems</strong> ⚖️</h2><p id="292113c0-c808-8084-a931-c76605025067" class=""><strong>Definition:</strong></p><p id="292113c0-c808-80cc-9d6b-f80bfa1f01b7" class="">Distributing workloads across processors/resources to optimize performance and avoid overload.</p><p id="292113c0-c808-8007-bc39-d44ae69a1454" class=""><strong>Types:</strong></p><ul id="292113c0-c808-8067-a67c-cf3c77b46c92" class="bulleted-list"><li style="list-style-type:disc"><strong>Static:</strong> Predefined allocation rules, simpler but less flexible</li></ul><ul id="292113c0-c808-80dc-8a8f-e9468bd6101d" class="bulleted-list"><li style="list-style-type:disc"><strong>Dynamic:</strong> Runtime decisions based on current load</li></ul><p id="292113c0-c808-809d-b5dd-fd3337a83e01" class=""><strong>Common Algorithms:</strong></p><ul id="292113c0-c808-805a-af5d-cb33987beda2" class="bulleted-list"><li style="list-style-type:disc">Round-Robin</li></ul><ul id="292113c0-c808-8007-a73b-f0baaab4224e" class="bulleted-list"><li style="list-style-type:disc">Least Connections</li></ul><ul id="292113c0-c808-80f5-bede-e37053bb8a28" class="bulleted-list"><li style="list-style-type:disc">Weighted Distribution</li></ul><p id="292113c0-c808-80f4-bf60-e0f516a18e33" class=""><strong>Advantages:</strong></p><ul id="292113c0-c808-8093-b56e-d7c2bd433a29" class="bulleted-list"><li style="list-style-type:disc">Maximizes resource utilization</li></ul><ul id="292113c0-c808-800c-bca1-db912296bb5c" class="bulleted-list"><li style="list-style-type:disc">Reduces response time, increases throughput</li></ul><ul id="292113c0-c808-808d-922d-d9e6c470257f" class="bulleted-list"><li style="list-style-type:disc">Improves fault tolerance</li></ul><p id="292113c0-c808-806f-a7ff-e2a9d20dd13b" class=""><strong>Challenges:</strong></p><ul id="292113c0-c808-80de-b1f6-db39fe24c17b" class="bulleted-list"><li style="list-style-type:disc">Overhead in monitoring</li></ul><ul id="292113c0-c808-8097-b7aa-d141924aa639" class="bulleted-list"><li style="list-style-type:disc">Fairness in dynamic conditions</li></ul><ul id="292113c0-c808-80e6-bf1a-d225071cd7e7" class="bulleted-list"><li style="list-style-type:disc">Heterogeneous system handling</li></ul><p id="292113c0-c808-8017-9dae-d52a2424c915" class=""><strong>Real-World Usage:</strong> Web servers, cloud platforms, data centers</p><p id="292113c0-c808-803b-a23e-d5bf806b934f" class=""><strong>Takeaway:</strong> Load balancing ensures efficient, stable, and fault-tolerant system operation.</p><p id="292113c0-c808-8063-b57c-f0d71c1ed291" class=""><strong>Interview Focus 🔍:</strong> Load balancing types, algorithms, advantages/challenges.</p><hr id="292113c0-c808-80bf-b2de-ce933861c8e9"/><h2 id="292113c0-c808-8044-8494-c75903025f24" class=""><strong>8. Performance Measurement and Tuning</strong> 📊</h2><p id="292113c0-c808-80d7-86d6-dc63aa8efd5c" class=""><strong>Definition:</strong></p><p id="292113c0-c808-804c-b219-e8d42c7ef9e0" class="">Monitoring and optimizing OS performance by identifying bottlenecks and tuning resources.</p><p id="292113c0-c808-8016-affc-cb2a5afed9ac" class=""><strong>Key Concepts:</strong></p><ul id="292113c0-c808-8070-9382-f3ac503c5814" class="bulleted-list"><li style="list-style-type:disc">Resource utilization (CPU, memory, I/O, network)</li></ul><ul id="292113c0-c808-80b3-b68b-d2746c5f30f2" class="bulleted-list"><li style="list-style-type:disc">Throughput &amp; response time</li></ul><ul id="292113c0-c808-8089-a37d-d95e5e9c3043" class="bulleted-list"><li style="list-style-type:disc">Bottleneck identification</li></ul><ul id="292113c0-c808-805f-bdb2-c0e0737a1714" class="bulleted-list"><li style="list-style-type:disc">Workload characterization</li></ul><p id="292113c0-c808-80d6-8034-e0b958e5b418" class=""><strong>Tools &amp; Techniques:</strong></p><ul id="292113c0-c808-805e-b817-fd871acafe23" class="bulleted-list"><li style="list-style-type:disc">System monitors (<code>top</code>, <code>vmstat</code>)</li></ul><ul id="292113c0-c808-801c-b271-e53a0a377c46" class="bulleted-list"><li style="list-style-type:disc">Profilers and benchmarks</li></ul><ul id="292113c0-c808-8049-83e8-ffb99a3f199a" class="bulleted-list"><li style="list-style-type:disc">Logs &amp; traces</li></ul><p id="292113c0-c808-8083-9baa-ca16f611c33d" class=""><strong>Performance Metrics:</strong></p><ul id="292113c0-c808-8039-8f2a-ece4548d90f0" class="bulleted-list"><li style="list-style-type:disc">CPU utilization</li></ul><ul id="292113c0-c808-8024-b4f3-fc7617739a21" class="bulleted-list"><li style="list-style-type:disc">Memory usage</li></ul><ul id="292113c0-c808-80c0-b9e8-e5fe9695b45c" class="bulleted-list"><li style="list-style-type:disc">Disk I/O wait</li></ul><ul id="292113c0-c808-8009-9ccb-f28919dd85d0" class="bulleted-list"><li style="list-style-type:disc">Network latency &amp; bandwidth</li></ul><p id="292113c0-c808-8084-96ba-f01f8795f426" class=""><strong>Tuning Strategies:</strong></p><ul id="292113c0-c808-80d5-b81c-ec7b22fa3ec0" class="bulleted-list"><li style="list-style-type:disc">Adjust system parameters</li></ul><ul id="292113c0-c808-803a-acb8-d8b859660637" class="bulleted-list"><li style="list-style-type:disc">Optimize applications</li></ul><ul id="292113c0-c808-80e2-bb7c-e6dc7ce51a52" class="bulleted-list"><li style="list-style-type:disc">Upgrade hardware</li></ul><ul id="292113c0-c808-80d8-a6ea-c301ff636acf" class="bulleted-list"><li style="list-style-type:disc">Load balancing</li></ul><p id="292113c0-c808-80b5-945c-cad5feacc796" class=""><strong>Measurement vs Tuning:</strong></p><ul id="292113c0-c808-8079-9e18-c7745cf83c1e" class="bulleted-list"><li style="list-style-type:disc">Measurement = analyze metrics</li></ul><ul id="292113c0-c808-8098-9d6c-f1500d8ae01e" class="bulleted-list"><li style="list-style-type:disc">Tuning = apply improvements</li></ul><p id="292113c0-c808-80e8-951f-f0ba46bdcb34" class=""><strong>Takeaway:</strong> Continuous measurement and tuning maintain optimal OS performance.</p><p id="292113c0-c808-8015-afc2-c88d60dc3ab3" class=""><strong>Interview Focus 🔍:</strong> Performance metrics, bottlenecks, tuning strategies, measurement vs tuning.</p><hr id="292113c0-c808-8021-ae91-ff76e36df72a"/><p id="292113c0-c808-8093-9d79-d539cafd1cf4" class=""><strong>Overall Module Takeaways:</strong></p><ul id="292113c0-c808-80d2-9631-c41f61d0db5e" class="bulleted-list"><li style="list-style-type:disc">OS performance relies on controlled access to resources, responsive event handling, and proper scheduling.</li></ul><ul id="292113c0-c808-8000-adb9-eee8b0bd9898" class="bulleted-list"><li style="list-style-type:disc">Interrupts, event-driven programming, and load balancing ensure efficiency and scalability.</li></ul><ul id="292113c0-c808-8002-8555-c54637c4b0a8" class="bulleted-list"><li style="list-style-type:disc">Understanding priority inversion, boot process, and system calls is crucial for designing robust systems.</li></ul><ul id="292113c0-c808-80c3-afd7-f431f3fb6aab" class="bulleted-list"><li style="list-style-type:disc">Regular measurement and tuning maintain high system throughput and responsiveness.</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

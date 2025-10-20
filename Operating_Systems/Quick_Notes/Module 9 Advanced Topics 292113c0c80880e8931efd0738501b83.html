@@ -1,0 +1,706 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Module 9: Advanced Topics</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(134, 131, 126, 1);
+	fill: rgba(134, 131, 126, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(134, 131, 126, 1);
+	fill: rgba(134, 131, 126, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="292113c0-c808-80e8-931e-fd0738501b83" class="page sans"><header><h1 class="page-title"><strong>Module 9: Advanced Topics</strong></h1><p class="page-description"></p></header><div class="page-body"><h2 id="292113c0-c808-8074-ada6-ee9f54c4062e" class=""><strong>1. Cache Mapping Techniques</strong> 🖥️</h2><p id="292113c0-c808-8049-9364-d35e8ac04067" class=""><strong>Definition:</strong></p><p id="292113c0-c808-803a-ae3a-eeea2cec8f75" class="">A cache is a small, fast memory component between CPU and main memory that stores frequently accessed data to reduce average access time. Cache mapping determines <strong>which memory block goes into which cache line</strong>.</p><h3 id="292113c0-c808-800d-88fb-d40db527618d" class=""><strong>Why Cache Mapping Matters</strong> 🔍</h3><ul id="292113c0-c808-80c5-a240-d2e7d1125391" class="bulleted-list"><li style="list-style-type:disc">Efficient memory block location in cache.</li></ul><ul id="292113c0-c808-8056-a9bc-fae347af4650" class="bulleted-list"><li style="list-style-type:disc">Determines which cache line a memory block occupies.</li></ul><ul id="292113c0-c808-8018-be92-dd9e49423d84" class="bulleted-list"><li style="list-style-type:disc">Reduces cache misses and improves performance.</li></ul><h3 id="292113c0-c808-80c3-a723-c265d383530d" class=""><strong>Types of Cache Mapping</strong></h3><h3 id="292113c0-c808-8099-9d4c-f0a874badea1" class=""><strong>Direct Mapping</strong></h3><ul id="292113c0-c808-8067-91d1-fdedba59613d" class="bulleted-list"><li style="list-style-type:disc">Each memory block maps to exactly <strong>one cache line</strong> using modulus operation.</li></ul><ul id="292113c0-c808-80d1-9510-d7e82aabdfde" class="bulleted-list"><li style="list-style-type:disc"><strong>Analogy:</strong> A specific type of book always goes in one pre-assigned shelf compartment.</li></ul><ul id="292113c0-c808-808f-b85e-d661545076d2" class="bulleted-list"><li style="list-style-type:disc"><strong>Advantages:</strong><ul id="292113c0-c808-80e3-9f0a-d24ab5a9f83f" class="bulleted-list"><li style="list-style-type:circle">Simple implementation. ✅</li></ul><ul id="292113c0-c808-8030-a684-d5a79fa96f2d" class="bulleted-list"><li style="list-style-type:circle">Fast access to cache line. ⚡</li></ul></li></ul><ul id="292113c0-c808-805c-996a-f4f7f7893d53" class="bulleted-list"><li style="list-style-type:disc"><strong>Disadvantages:</strong><ul id="292113c0-c808-80fc-bcde-c4e91873d2fb" class="bulleted-list"><li style="list-style-type:circle">High conflict misses. ❌</li></ul><ul id="292113c0-c808-80d6-8b48-ccad6b4eda9d" class="bulleted-list"><li style="list-style-type:circle">Less flexible if multiple blocks map to the same line.</li></ul></li></ul><h3 id="292113c0-c808-8096-9ce2-f781cef507c5" class=""><strong>Associative Mapping</strong></h3><ul id="292113c0-c808-8037-8779-e8eeeb387efe" class="bulleted-list"><li style="list-style-type:disc">Any memory block can be placed in <strong>any cache line</strong>.</li></ul><ul id="292113c0-c808-80aa-a7bb-f28db29b8da4" class="bulleted-list"><li style="list-style-type:disc"><strong>Analogy:</strong> Books can go anywhere on a flexible shelf.</li></ul><ul id="292113c0-c808-80db-8476-e32ad132090e" class="bulleted-list"><li style="list-style-type:disc"><strong>Advantages:</strong><ul id="292113c0-c808-806e-93a1-ca09729e57f1" class="bulleted-list"><li style="list-style-type:circle">Fewer conflict misses. ✅</li></ul><ul id="292113c0-c808-80ec-8a17-d762b71759c2" class="bulleted-list"><li style="list-style-type:circle">Flexible memory access patterns.</li></ul></li></ul><ul id="292113c0-c808-80f1-85fe-edd716b0db9e" class="bulleted-list"><li style="list-style-type:disc"><strong>Disadvantages:</strong><ul id="292113c0-c808-8016-860d-c99ff1d9cd64" class="bulleted-list"><li style="list-style-type:circle">Complex hardware. ⚙️</li></ul><ul id="292113c0-c808-80cf-9e92-ff56490df79f" class="bulleted-list"><li style="list-style-type:circle">Slightly longer hit times.</li></ul></li></ul><h3 id="292113c0-c808-80bb-bb39-e7f7e69504c2" class=""><strong>Direct vs. Associative Mapping</strong></h3><table id="292113c0-c808-8057-bfa5-efd3a2568820" class="simple-table"><thead class="simple-table-header"><tr id="292113c0-c808-8076-ad34-eab340a0bed2"><th id="SdjM" class="simple-table-header-color simple-table-header">Feature</th><th id="WIxj" class="simple-table-header-color simple-table-header">Direct Mapping</th><th id="fGIK" class="simple-table-header-color simple-table-header">Associative Mapping</th></tr></thead><tbody><tr id="292113c0-c808-80be-9451-e9357428b079"><td id="SdjM" class="">Placement</td><td id="WIxj" class="">Fixed line per block</td><td id="fGIK" class="">Any line can store block</td></tr><tr id="292113c0-c808-80e2-a002-d2029c05e369"><td id="SdjM" class="">Speed</td><td id="WIxj" class="">Fast indexing</td><td id="fGIK" class="">Slower due to multiple line search</td></tr><tr id="292113c0-c808-80e6-94ee-dfc8dae863c7"><td id="SdjM" class="">Conflict Miss</td><td id="WIxj" class="">High</td><td id="fGIK" class="">Low</td></tr></tbody></table><p id="292113c0-c808-8016-96e7-e81025e0e120" class=""><strong>One-liner takeaway:</strong> Direct mapping is fast but rigid; associative mapping is flexible but complex.</p><p id="292113c0-c808-806d-9294-fb3399b902a7" class=""><strong>Interview focus 🔍:</strong> Cache misses, mapping trade-offs, LRU replacement, hardware design implications.</p><hr id="292113c0-c808-80a1-896f-d2cd106921b3"/><h2 id="292113c0-c808-80bc-b7f5-f45e92e58667" class=""><strong>2. Virtual Machines (VMs) &amp; Hypervisors</strong> 🌐</h2><p id="292113c0-c808-806a-b258-e70fe9a291d3" class=""><strong>Definition:</strong></p><ul id="292113c0-c808-804e-8289-e0e35b95f86e" class="bulleted-list"><li style="list-style-type:disc"><strong>VM:</strong> Isolated environment simulating a full computer, running independently on shared physical hardware.</li></ul><ul id="292113c0-c808-8046-b740-fccd7de890c5" class="bulleted-list"><li style="list-style-type:disc"><strong>Hypervisor:</strong> Software/firmware managing VMs and allocating resources.</li></ul><p id="292113c0-c808-8002-9462-de602c5f5727" class=""><strong>Analogy:</strong> Apartment building (host) → apartments (VMs), manager (hypervisor) assigns electricity, water, and space.</p><h3 id="292113c0-c808-80a2-9301-f621c7d06205" class=""><strong>Key Concepts</strong></h3><ul id="292113c0-c808-8031-a1a8-fb4a264dd4f6" class="bulleted-list"><li style="list-style-type:disc"><strong>Hardware Abstraction:</strong> Hypervisor presents virtual hardware to VMs.</li></ul><ul id="292113c0-c808-8029-acbb-d55deefc4de5" class="bulleted-list"><li style="list-style-type:disc"><strong>Resource Allocation:</strong> CPU, memory, storage divided per VM.</li></ul><ul id="292113c0-c808-80b8-97ff-f9488cd32f10" class="bulleted-list"><li style="list-style-type:disc"><strong>Isolation:</strong> One VM crash does not affect others.</li></ul><ul id="292113c0-c808-809d-a402-ebf83d759edd" class="bulleted-list"><li style="list-style-type:disc"><strong>Concurrent Execution:</strong> Multiple VMs run simultaneously.</li></ul><h3 id="292113c0-c808-800e-86b3-f3d5a8f03802" class=""><strong>Advantages</strong></h3><ul id="292113c0-c808-8078-85f8-e62c4a79cb1d" class="bulleted-list"><li style="list-style-type:disc">Efficient hardware utilization. ✅</li></ul><ul id="292113c0-c808-80f2-8a06-f6077980389e" class="bulleted-list"><li style="list-style-type:disc">Easy deployment &amp; testing. ⚡</li></ul><ul id="292113c0-c808-8070-a95f-fd6bff729a57" class="bulleted-list"><li style="list-style-type:disc">Enhanced security &amp; isolation.</li></ul><h3 id="292113c0-c808-80c5-8504-e3eace56e98f" class=""><strong>Disadvantages</strong></h3><ul id="292113c0-c808-8064-966b-f8e28065705d" class="bulleted-list"><li style="list-style-type:disc">Performance overhead. ⏱️</li></ul><ul id="292113c0-c808-8089-8103-f65538e7004c" class="bulleted-list"><li style="list-style-type:disc">Resource contention. ⚠️</li></ul><ul id="292113c0-c808-8059-a291-e0af7b084cc7" class="bulleted-list"><li style="list-style-type:disc">Complex management.</li></ul><h3 id="292113c0-c808-80b4-9a91-cb3ef9b8d6e8" class=""><strong>Use Cases</strong></h3><ul id="292113c0-c808-80f1-a5f6-dd88b1d59439" class="bulleted-list"><li style="list-style-type:disc">Cloud computing: Multiple virtual servers per physical machine.</li></ul><ul id="292113c0-c808-80c5-b7ce-fe9e18bd01b0" class="bulleted-list"><li style="list-style-type:disc">Testing multiple OS environments.</li></ul><hr id="292113c0-c808-80fd-8777-f795cae8572a"/><h2 id="292113c0-c808-80c2-ba99-dba0bb9abeee" class=""><strong>3. Spooling</strong> 🖨️</h2><p id="292113c0-c808-805d-a7cd-cd5ca07b1ab7" class=""><strong>Definition:</strong></p><p id="292113c0-c808-8000-8244-e28d5e37d949" class="">Simultaneous Peripheral Operations On-Line – OS uses a buffer to store I/O data temporarily for devices like printers.</p><p id="292113c0-c808-8008-b96d-ef711cd20b60" class=""><strong>Analogy:</strong> Bakery queue: Orders are taken while baking happens in the background.</p><h3 id="292113c0-c808-809f-80a2-d234d30ebdf0" class=""><strong>How it Works</strong></h3><ul id="292113c0-c808-8090-8cb6-cb41c8cfdfe2" class="bulleted-list"><li style="list-style-type:disc">Input Collection → Store in buffer (spool).</li></ul><ul id="292113c0-c808-80af-984a-fbf543722ab4" class="bulleted-list"><li style="list-style-type:disc">Queued Operations → Multiple jobs wait for device.</li></ul><ul id="292113c0-c808-80a3-a8fa-c595e92c56a7" class="bulleted-list"><li style="list-style-type:disc">Asynchronous Execution → CPU continues other tasks.</li></ul><h3 id="292113c0-c808-80f5-9061-f183e8894895" class=""><strong>Advantages</strong></h3><ul id="292113c0-c808-8046-80c8-c20bcf049673" class="bulleted-list"><li style="list-style-type:disc">Higher throughput. ✅</li></ul><ul id="292113c0-c808-80ce-80ef-d4edb5bc6cb6" class="bulleted-list"><li style="list-style-type:disc">Efficient CPU &amp; I/O overlap.</li></ul><ul id="292113c0-c808-801d-b998-f3fd63eedb15" class="bulleted-list"><li style="list-style-type:disc">Simplified user experience.</li></ul><h3 id="292113c0-c808-80c2-a50f-dc8040a7ab2a" class=""><strong>Disadvantages</strong></h3><ul id="292113c0-c808-80c9-b9bb-ec8426923341" class="bulleted-list"><li style="list-style-type:disc">Needs extra storage. 💾</li></ul><ul id="292113c0-c808-8029-802c-ccc9352062be" class="bulleted-list"><li style="list-style-type:disc">Potential delays for queued jobs.</li></ul><ul id="292113c0-c808-8044-ad4c-c8c547dabfa0" class="bulleted-list"><li style="list-style-type:disc">Complex error handling.</li></ul><h3 id="292113c0-c808-80ed-a502-ff643cdbde8b" class=""><strong>Examples</strong></h3><ul id="292113c0-c808-80ab-a804-cb7460fc67e2" class="bulleted-list"><li style="list-style-type:disc">Print servers.</li></ul><ul id="292113c0-c808-80e9-ae13-c07d66d39eb2" class="bulleted-list"><li style="list-style-type:disc">Batch data processing.</li></ul><p id="292113c0-c808-8080-90f7-c096a9559409" class=""><strong>Takeaway:</strong> Spooling allows asynchronous I/O, increasing system efficiency.</p><hr id="292113c0-c808-809f-bbe8-da48724f4885"/><h2 id="292113c0-c808-8038-957e-ff57408f6fdf" class=""><strong>4. Network File System (NFS)</strong> 🌐📁</h2><p id="292113c0-c808-8000-a400-f0db55e49b69" class=""><strong>Definition:</strong></p><p id="292113c0-c808-806b-9c8a-e263cef6a9eb" class="">Protocol for distributed file access over a network, making remote files appear local.</p><p id="292113c0-c808-80c5-8fe4-ff0470768538" class=""><strong>Analogy:</strong> Central office filing room accessed by all employees.</p><h3 id="292113c0-c808-805e-9c43-cdc2bcaea994" class=""><strong>How NFS Works</strong></h3><ul id="292113c0-c808-8016-9616-d1befbbb20d9" class="bulleted-list"><li style="list-style-type:disc">Server Setup → Shares directories with permissions.</li></ul><ul id="292113c0-c808-80f9-9bbf-d12534eda4a5" class="bulleted-list"><li style="list-style-type:disc">Client Mount → Appears part of local filesystem.</li></ul><ul id="292113c0-c808-80b8-b61a-f1aaede72e42" class="bulleted-list"><li style="list-style-type:disc">Remote Access → Read/write handled remotely.</li></ul><h3 id="292113c0-c808-80e4-9d0f-e52827bd4436" class=""><strong>Key Features</strong></h3><ul id="292113c0-c808-8070-90ff-db660e0176ea" class="bulleted-list"><li style="list-style-type:disc">Transparency, centralized management, compatibility, scalability, security.</li></ul><h3 id="292113c0-c808-806f-890d-cb9f01006534" class=""><strong>Advantages</strong></h3><ul id="292113c0-c808-8024-ba53-c29637039a63" class="bulleted-list"><li style="list-style-type:disc">Resource sharing ✅</li></ul><ul id="292113c0-c808-80cb-a8d1-cd6cf331b038" class="bulleted-list"><li style="list-style-type:disc">Consistent data</li></ul><ul id="292113c0-c808-80da-a3eb-f2a58237229a" class="bulleted-list"><li style="list-style-type:disc">Centralized backup</li></ul><ul id="292113c0-c808-8083-8d32-edddd6d538a5" class="bulleted-list"><li style="list-style-type:disc">Cost-effective</li></ul><h3 id="292113c0-c808-80fa-8058-d1e7a8079836" class=""><strong>Disadvantages</strong></h3><ul id="292113c0-c808-8012-be9d-e3dff18d1fbe" class="bulleted-list"><li style="list-style-type:disc">Network dependency ⚠️</li></ul><ul id="292113c0-c808-80d3-a711-e214f43888ec" class="bulleted-list"><li style="list-style-type:disc">Single point of failure</li></ul><ul id="292113c0-c808-80ae-875c-ceb107485c81" class="bulleted-list"><li style="list-style-type:disc">Security concerns</li></ul><ul id="292113c0-c808-802c-b6b7-e9c799862d53" class="bulleted-list"><li style="list-style-type:disc">Performance overhead</li></ul><p id="292113c0-c808-8068-aea7-fb4dc0d03f7a" class=""><strong>Use Cases:</strong> Enterprise shared storage, cloud VMs, software dev/testing.</p><hr id="292113c0-c808-8037-8633-eaba7988500b"/><h2 id="292113c0-c808-80f1-80b3-cb634707f4c6" class=""><strong>5. Thread Safety &amp; Reentrancy</strong> 🧵</h2><p id="292113c0-c808-806c-b9dd-d2c74d4254e3" class=""><strong>Definitions:</strong></p><ul id="292113c0-c808-809e-8263-cc0b10650d19" class="bulleted-list"><li style="list-style-type:disc"><strong>Thread Safety:</strong> Code behaves correctly when accessed by multiple threads concurrently.</li></ul><ul id="292113c0-c808-8092-9905-c06eea934335" class="bulleted-list"><li style="list-style-type:disc"><strong>Reentrancy:</strong> Function can be safely re-entered before previous call completes.</li></ul><p id="292113c0-c808-8073-9895-d641cd7da970" class=""><strong>Analogy:</strong></p><ul id="292113c0-c808-80c2-9ad7-ef1882c8c64a" class="bulleted-list"><li style="list-style-type:disc">Thread-safe → Shared coffee machine handles multiple employees without errors.</li></ul><ul id="292113c0-c808-8018-9a39-c8b580294690" class="bulleted-list"><li style="list-style-type:disc">Reentrant → Recipe that multiple cooks can follow independently without interference.</li></ul><h3 id="292113c0-c808-80a1-8d4e-db683afd5806" class=""><strong>Characteristics</strong></h3><ul id="292113c0-c808-8037-88ee-f281b1f2de72" class="bulleted-list"><li style="list-style-type:disc">Thread-safe: Synchronization, atomic operations, consistent state.</li></ul><ul id="292113c0-c808-8044-9553-ef3afa9ae8ef" class="bulleted-list"><li style="list-style-type:disc">Reentrant: No global/static state, uses local data, deterministic.</li></ul><h3 id="292113c0-c808-8054-92a6-dca8669919d8" class=""><strong>Key Differences</strong></h3><table id="292113c0-c808-809a-a56a-cbc0e7b10109" class="simple-table"><thead class="simple-table-header"><tr id="292113c0-c808-80bf-bf35-ca9e3a0aa299"><th id="RXeJ" class="simple-table-header-color simple-table-header">Feature</th><th id="]]Zi" class="simple-table-header-color simple-table-header">Thread-Safe</th><th id="h;|u" class="simple-table-header-color simple-table-header">Reentrant</th></tr></thead><tbody><tr id="292113c0-c808-8019-a1fa-cf2a9beaf3c9"><td id="RXeJ" class="">Scope</td><td id="]]Zi" class="">Prevents concurrent data corruption</td><td id="h;|u" class="">Each call independent</td></tr><tr id="292113c0-c808-805a-b341-cf83c41c8c7f"><td id="RXeJ" class="">Shared State</td><td id="]]Zi" class="">May use synchronized shared state</td><td id="h;|u" class="">Avoids global state entirely</td></tr><tr id="292113c0-c808-80f7-bd6f-cc84d8598985"><td id="RXeJ" class="">Complexity</td><td id="]]Zi" class="">Locks, semaphores</td><td id="h;|u" class="">Avoid global/static data</td></tr></tbody></table><p id="292113c0-c808-80f8-976b-fef93da1d668" class=""><strong>Techniques to Achieve Both</strong></p><ul id="292113c0-c808-806a-ad00-dcd4b16e7643" class="bulleted-list"><li style="list-style-type:disc">Avoid global state</li></ul><ul id="292113c0-c808-80eb-8f54-c87bafbf7f2a" class="bulleted-list"><li style="list-style-type:disc">Use immutable data</li></ul><ul id="292113c0-c808-80c1-8e21-f07a6f9fbbf3" class="bulleted-list"><li style="list-style-type:disc">Fine-grained synchronization</li></ul><ul id="292113c0-c808-8082-b65c-d8e881b4747c" class="bulleted-list"><li style="list-style-type:disc">Stateless functions</li></ul><ul id="292113c0-c808-8087-b57c-f4a9950062a4" class="bulleted-list"><li style="list-style-type:disc">Careful memory management</li></ul><p id="292113c0-c808-8056-a3d6-d742226707c1" class=""><strong>Advantages:</strong> Reliability, scalability, reusability.</p><p id="292113c0-c808-8066-aa76-c59cfce5604d" class=""><strong>Disadvantages:</strong> Complexity, performance overhead, maintenance challenge.</p><p id="292113c0-c808-8026-912e-c05245ec281b" class=""><strong>Interview focus 🔍:</strong> Concurrency, mutexes, semaphores, reentrant vs thread-safe examples.</p><hr id="292113c0-c808-80d1-8555-d38684eabbbf"/><h2 id="292113c0-c808-80f1-a5cf-fd299c224571" class=""><strong>6. OS Security Mechanisms</strong> 🔒</h2><p id="292113c0-c808-805f-b8d5-fbd3c0ce69ff" class=""><strong>Definition:</strong></p><p id="292113c0-c808-8098-b923-d1dbfb084b1c" class="">Tools, policies, and controls in OS to protect resources from unauthorized access.</p><p id="292113c0-c808-8094-aef8-fdccc91da805" class=""><strong>Analogy:</strong> Guarded building → passwords, encryption, monitoring control access.</p><h3 id="292113c0-c808-80cf-9195-dc1f38ef1586" class=""><strong>Key Concepts</strong></h3><ul id="292113c0-c808-802c-8bd3-dc4348500e83" class="bulleted-list"><li style="list-style-type:disc"><strong>Authentication:</strong> Verify user identity.</li></ul><ul id="292113c0-c808-80f4-a1ac-c2e421cf7590" class="bulleted-list"><li style="list-style-type:disc"><strong>Authorization:</strong> Define user actions.</li></ul><ul id="292113c0-c808-802c-95fa-eac7e106e25c" class="bulleted-list"><li style="list-style-type:disc"><strong>Access Control:</strong> MAC, DAC, RBAC.</li></ul><ul id="292113c0-c808-804d-9d60-d6ea38905209" class="bulleted-list"><li style="list-style-type:disc"><strong>Auditing &amp; Logging:</strong> Track activities.</li></ul><ul id="292113c0-c808-8077-aff5-dcbd1ac4cdb6" class="bulleted-list"><li style="list-style-type:disc"><strong>Encryption &amp; Data Protection</strong></li></ul><ul id="292113c0-c808-8069-8f7d-fcf4e8d22d50" class="bulleted-list"><li style="list-style-type:disc"><strong>Intrusion Detection &amp; Prevention (IDPS)</strong></li></ul><ul id="292113c0-c808-80ef-af8b-dfb66d7b872c" class="bulleted-list"><li style="list-style-type:disc"><strong>Sandboxing &amp; Isolation</strong></li></ul><h3 id="292113c0-c808-8078-92cf-fa0cdf25a48a" class=""><strong>Security Models</strong></h3><ul id="292113c0-c808-8050-8ec5-ca904ffdf654" class="bulleted-list"><li style="list-style-type:disc"><strong>Bell-LaPadula:</strong> Confidentiality.</li></ul><ul id="292113c0-c808-8002-afda-fef7a40aba0e" class="bulleted-list"><li style="list-style-type:disc"><strong>Biba:</strong> Data integrity.</li></ul><ul id="292113c0-c808-808f-8e3c-e7281f0c961f" class="bulleted-list"><li style="list-style-type:disc"><strong>Clark-Wilson:</strong> Transaction integrity.</li></ul><h3 id="292113c0-c808-806b-be26-ca15b44f4888" class=""><strong>OS Implementations</strong></h3><ul id="292113c0-c808-805e-ab9d-f89af50b4826" class="bulleted-list"><li style="list-style-type:disc">Linux: SELinux, AppArmor</li></ul><ul id="292113c0-c808-801c-8b0b-f245d9f3cd10" class="bulleted-list"><li style="list-style-type:disc">Windows: UAC, BitLocker, Defender</li></ul><ul id="292113c0-c808-808e-a060-f188ca5a08ba" class="bulleted-list"><li style="list-style-type:disc">macOS: Gatekeeper, FileVault</li></ul><ul id="292113c0-c808-8002-8c87-f5d2c0fb26de" class="bulleted-list"><li style="list-style-type:disc">Mobile: Sandbox apps, permission frameworks</li></ul><h3 id="292113c0-c808-8001-b882-c1e4cb338788" class=""><strong>Challenges</strong></h3><ul id="292113c0-c808-806f-9eaa-d46189d61579" class="bulleted-list"><li style="list-style-type:disc">Performance overhead</li></ul><ul id="292113c0-c808-809e-b847-c57c2f6368cd" class="bulleted-list"><li style="list-style-type:disc">Configuration complexity</li></ul><ul id="292113c0-c808-80b7-a6cc-db16535adc40" class="bulleted-list"><li style="list-style-type:disc">Zero-day attacks</li></ul><ul id="292113c0-c808-8087-abce-d2ed3421e195" class="bulleted-list"><li style="list-style-type:disc">User negligence</li></ul><p id="292113c0-c808-8041-a7b9-f2b39841e92a" class=""><strong>Takeaway:</strong> OS security mechanisms protect data, maintain integrity, and enforce user trust.</p><hr id="292113c0-c808-809a-ba75-d1269687c894"/><h2 id="292113c0-c808-8088-812d-eaee5dd93e8a" class=""><strong>7. Future Trends in OS</strong> 🌟</h2><h3 id="292113c0-c808-800e-898e-de5ccaeba0d9" class=""><strong>Microkernels</strong></h3><ul id="292113c0-c808-8090-967f-ecacfe4610fc" class="bulleted-list"><li style="list-style-type:disc">Minimal kernel → only essential services.</li></ul><ul id="292113c0-c808-8086-8b10-fae4e2a8e7af" class="bulleted-list"><li style="list-style-type:disc">Other services run in user space.</li></ul><ul id="292113c0-c808-80d3-9651-c02f76609e1e" class="bulleted-list"><li style="list-style-type:disc"><strong>Advantages:</strong> Security, stability, maintainability.</li></ul><ul id="292113c0-c808-8007-b489-eab2d5fe56be" class="bulleted-list"><li style="list-style-type:disc"><strong>Disadvantages:</strong> Increased IPC overhead.</li></ul><p id="292113c0-c808-8033-933b-c3e88cc9406f" class=""><strong>Analogy:</strong> Restaurant split into specialized stations → faults isolated.</p><h3 id="292113c0-c808-803c-bcdf-cc9fc6df432b" class=""><strong>Containers</strong></h3><ul id="292113c0-c808-8064-8b0b-e5cc7d51846c" class="bulleted-list"><li style="list-style-type:disc">Lightweight virtualization packaging app + dependencies.</li></ul><ul id="292113c0-c808-80f2-bc8a-ed523f327dd2" class="bulleted-list"><li style="list-style-type:disc">Share host kernel, isolated filesystem &amp; libraries.</li></ul><ul id="292113c0-c808-80a0-b95c-eb13d7328f40" class="bulleted-list"><li style="list-style-type:disc"><strong>Advantages:</strong> Lightweight, fast startup, portable.</li></ul><ul id="292113c0-c808-803a-8d72-ce9f97fe4c96" class="bulleted-list"><li style="list-style-type:disc"><strong>Challenges:</strong> Host kernel compromise, orchestration complexity.</li></ul><p id="292113c0-c808-8053-8550-f43460e09b73" class=""><strong>Analogy:</strong> Shipping containers → easy, standardized, isolated transport.</p><h3 id="292113c0-c808-8019-a3fc-e8bbb5e8176a" class=""><strong>Other Trends</strong></h3><ul id="292113c0-c808-806e-aeee-e02cd8102e9b" class="bulleted-list"><li style="list-style-type:disc">Unikernels → single-purpose OS images.</li></ul><ul id="292113c0-c808-80ee-8445-c300bd5926a9" class="bulleted-list"><li style="list-style-type:disc">Cloud-native OS → optimized for distributed workloads.</li></ul><ul id="292113c0-c808-80fb-9466-f3304d2655ec" class="bulleted-list"><li style="list-style-type:disc">Serverless → abstract server management.</li></ul><ul id="292113c0-c808-800e-9501-e66f5e89a88c" class="bulleted-list"><li style="list-style-type:disc">Edge &amp; IoT OS → lightweight for constrained devices.</li></ul><p id="292113c0-c808-80e8-b091-cb86b116d4e8" class=""><strong>Takeaway:</strong> OS evolution emphasizes modularity, isolation, scalability, and portability.</p><hr id="292113c0-c808-801b-9694-dff469019ac7"/><h1 id="292113c0-c808-808c-a057-d40c246d46af" class="">✅ <strong>Summary One-Liners</strong></h1><ul id="292113c0-c808-804d-9b93-cd12ec4801b2" class="bulleted-list"><li style="list-style-type:disc"><strong>Cache Mapping:</strong> Direct = fast/fixed, Associative = flexible/complex.</li></ul><ul id="292113c0-c808-8007-8465-c0e2824ec485" class="bulleted-list"><li style="list-style-type:disc"><strong>VMs &amp; Hypervisors:</strong> Virtualize hardware for isolation and resource efficiency.</li></ul><ul id="292113c0-c808-80e1-b07e-cd4b12b877bf" class="bulleted-list"><li style="list-style-type:disc"><strong>Spooling:</strong> Async I/O boosts CPU &amp; device efficiency.</li></ul><ul id="292113c0-c808-803c-9c2a-c02a0c1d31c4" class="bulleted-list"><li style="list-style-type:disc"><strong>NFS:</strong> Network file access feels local.</li></ul><ul id="292113c0-c808-80de-9b38-c7732437ddf8" class="bulleted-list"><li style="list-style-type:disc"><strong>Thread Safety &amp; Reentrancy:</strong> Safe concurrent execution vs independent calls.</li></ul><ul id="292113c0-c808-8081-9b88-fe2d4a35ca06" class="bulleted-list"><li style="list-style-type:disc"><strong>OS Security:</strong> Protect, authenticate, authorize, monitor, isolate.</li></ul><ul id="292113c0-c808-80bf-8287-c5170b8f82a5" class="bulleted-list"><li style="list-style-type:disc"><strong>Future OS:</strong> Microkernels &amp; containers for modular, scalable computing.</li></ul><hr id="292113c0-c808-808d-b296-f397dc468f4f"/><h1 id="292113c0-c808-80f5-b8cd-f44f92558b2c" class=""><strong>Interview Focus Areas 🔍</strong></h1><ul id="292113c0-c808-80d0-ba0a-ee9ee201fea8" class="bulleted-list"><li style="list-style-type:disc">Cache mapping trade-offs, LRU, miss types</li></ul><ul id="292113c0-c808-8075-9ee6-e7743404e2dd" class="bulleted-list"><li style="list-style-type:disc">Virtualization: Hypervisors vs VMs, resource allocation</li></ul><ul id="292113c0-c808-80d4-8c83-f5a1712fe17a" class="bulleted-list"><li style="list-style-type:disc">NFS vs SMB/DFS, centralized storage</li></ul><ul id="292113c0-c808-80a2-81c9-c4099f90bbb4" class="bulleted-list"><li style="list-style-type:disc">Thread safety, reentrancy, mutex, atomic operations</li></ul><ul id="292113c0-c808-8043-9bdc-d74aa0edfe04" class="bulleted-list"><li style="list-style-type:disc">OS security models, access control mechanisms</li></ul><ul id="292113c0-c808-8012-b083-f438147f7c6d" class="bulleted-list"><li style="list-style-type:disc">Microkernels vs Monolithic kernels, container architecture</li></ul><ul id="292113c0-c808-8003-98d3-e71b257b77a7" class="bulleted-list"><li style="list-style-type:disc">Future OS trends: cloud-native, serverless, IoT</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

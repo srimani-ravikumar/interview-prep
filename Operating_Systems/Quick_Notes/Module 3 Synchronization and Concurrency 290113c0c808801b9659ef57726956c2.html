@@ -1,0 +1,706 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Module 3: Synchronization and Concurrency</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(134, 131, 126, 1);
+	fill: rgba(134, 131, 126, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(134, 131, 126, 1);
+	fill: rgba(134, 131, 126, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="290113c0-c808-801b-9659-ef57726956c2" class="page sans"><header><h1 class="page-title"><strong>Module 3: Synchronization and Concurrency</strong></h1><p class="page-description"></p></header><div class="page-body"><h2 id="290113c0-c808-8078-a50f-cb677a88dad7" class=""><strong>1. Process Synchronization</strong> 🔄</h2><p id="290113c0-c808-8077-89c1-f50d0a8c3dc9" class=""><strong>Definition:</strong></p><p id="290113c0-c808-8074-af6f-f3d4213ae865" class="">Process synchronization ensures multiple processes can execute concurrently without interfering with each other or corrupting shared resources (critical section).</p><p id="290113c0-c808-80c6-b418-e9ec5cd78bb0" class=""><strong>Real-Life Analogy:</strong></p><p id="290113c0-c808-80f5-8c84-e83f72a69d18" class="">Traffic management at a four-way intersection – traffic signals prevent collisions by controlling flow.</p><p id="290113c0-c808-8049-841f-e21d6568ae87" class=""><strong>Need for Synchronization:</strong></p><ul id="290113c0-c808-8045-9894-e5bd0a41c3fb" class="bulleted-list"><li style="list-style-type:disc">✅ <strong>Shared Resource Management:</strong> Ensures safe access to memory, files, devices.</li></ul><ul id="290113c0-c808-809a-85cb-db72d0488938" class="bulleted-list"><li style="list-style-type:disc">✅ <strong>Prevent Race Conditions:</strong> Avoids conflicts from simultaneous access.</li></ul><ul id="290113c0-c808-8053-8d55-e9a5cd76b978" class="bulleted-list"><li style="list-style-type:disc">✅ <strong>Data Consistency:</strong> Ensures predictable updates to shared data.</li></ul><ul id="290113c0-c808-80f8-b506-e9466061e322" class="bulleted-list"><li style="list-style-type:disc">✅ <strong>Deadlock &amp; Starvation Avoidance:</strong> Prevents processes from indefinite waiting.</li></ul><p id="290113c0-c808-80a6-adcd-d1eac06fd58e" class=""><strong>Tools for Synchronization:</strong></p><ul id="290113c0-c808-80db-809d-dac0d1ed5f21" class="bulleted-list"><li style="list-style-type:disc"><strong>Semaphores:</strong> Integer counters controlling resource access (<code>wait()</code>, <code>signal()</code>).<ul id="290113c0-c808-806c-a9e5-c462a9ae4f08" class="bulleted-list"><li style="list-style-type:circle">Binary (0 or 1) and Counting (range &gt;1).</li></ul></li></ul><ul id="290113c0-c808-8037-a04e-fe42cc038410" class="bulleted-list"><li style="list-style-type:disc"><strong>Mutexes:</strong> Locks for mutual exclusion in critical sections.</li></ul><ul id="290113c0-c808-805c-90aa-d17e5940d926" class="bulleted-list"><li style="list-style-type:disc"><strong>Monitors:</strong> High-level construct combining shared resources &amp; code.</li></ul><ul id="290113c0-c808-807f-8749-c8f30489ee95" class="bulleted-list"><li style="list-style-type:disc"><strong>Barriers:</strong> Pause processes until all reach a point (used in parallel computing).</li></ul><p id="290113c0-c808-8056-aefc-f65050af803f" class=""><strong>Challenges:</strong> Deadlocks, starvation, race conditions, priority inversion.</p><p id="290113c0-c808-8026-8358-c428896ff410" class=""><strong>Advantages:</strong> Prevent conflicts, improve resource utilization, enable concurrency.</p><p id="290113c0-c808-8064-8524-e2d7fe672362" class=""><strong>Disadvantages:</strong> Overhead, complexity, potential deadlocks.</p><p id="290113c0-c808-80fe-a09c-e53e0e83b703" class=""><strong>Example Problems:</strong> Producer-Consumer, Readers-Writers, Dining Philosophers.</p><p id="290113c0-c808-804d-a52e-cbaf3efb5b35" class=""><strong>Takeaway:</strong> Proper synchronization is crucial for data integrity and stable concurrent systems.</p><p id="290113c0-c808-802b-be5f-d6221327713e" class=""><strong>Interview Focus 🔍:</strong> Semaphores vs Mutex, classic synchronization problems, race conditions.</p><hr id="290113c0-c808-8098-a347-cdf3760285b3"/><h2 id="290113c0-c808-802c-bd47-d4dab5aac578" class=""><strong>2. Critical Section Problem</strong> 🛡️</h2><p id="290113c0-c808-801f-9e8f-c7538932d001" class=""><strong>Definition:</strong></p><p id="290113c0-c808-8014-a355-f129d6991c3f" class="">Occurs when multiple processes attempt to access shared resources simultaneously, risking inconsistency.</p><p id="290113c0-c808-8011-b2f5-ff7d1e72624d" class=""><strong>Real-Life Analogy:</strong></p><p id="290113c0-c808-805f-83ce-e35f269cd2d0" class="">Bank teller counter – only one customer can transact at a time.</p><p id="290113c0-c808-805d-91fd-cbd3642363c2" class=""><strong>Components:</strong></p><ol type="1" id="290113c0-c808-8055-a9c5-e11330070840" class="numbered-list" start="1"><li><strong>Entry Section:</strong> Requests access.</li></ol><ol type="1" id="290113c0-c808-800c-b21c-e1c40d21d31a" class="numbered-list" start="2"><li><strong>Critical Section:</strong> Accesses shared resource.</li></ol><ol type="1" id="290113c0-c808-801e-80d6-e74589b84090" class="numbered-list" start="3"><li><strong>Exit Section:</strong> Leaves critical section.</li></ol><ol type="1" id="290113c0-c808-80e5-97f9-e61c201889f6" class="numbered-list" start="4"><li><strong>Remainder Section:</strong> Outside critical section.</li></ol><p id="290113c0-c808-8086-9ac4-dee024b1e2e5" class=""><strong>Requirements for Solution:</strong></p><ul id="290113c0-c808-8024-b27f-c3f800321d1a" class="bulleted-list"><li style="list-style-type:disc"><strong>Mutual Exclusion:</strong> Only one process in CS.</li></ul><ul id="290113c0-c808-80ea-aedc-eab5ee53ee6e" class="bulleted-list"><li style="list-style-type:disc"><strong>Progress:</strong> Processes decide who enters next.</li></ul><ul id="290113c0-c808-80d3-8a0d-de0a6b22d9c2" class="bulleted-list"><li style="list-style-type:disc"><strong>Bounded Waiting:</strong> No indefinite waiting.</li></ul><p id="290113c0-c808-80b5-baae-f032e64424c0" class=""><strong>Solution Approaches:</strong></p><ul id="290113c0-c808-8031-ae9a-fdff1d5aa5c5" class="bulleted-list"><li style="list-style-type:disc"><strong>Software:</strong> Peterson’s, Dekker’s Algorithm.</li></ul><ul id="290113c0-c808-805f-bac1-e5f5118c7bad" class="bulleted-list"><li style="list-style-type:disc"><strong>Hardware:</strong> TestAndSet, CompareAndSwap instructions.</li></ul><ul id="290113c0-c808-8024-9501-ee9fee8ba4cd" class="bulleted-list"><li style="list-style-type:disc"><strong>OS-level:</strong> Semaphores, Mutexes, Monitors.</li></ul><p id="290113c0-c808-80e1-b013-c89824db684f" class=""><strong>Advantages:</strong> Data integrity, race condition prevention, reliability.</p><p id="290113c0-c808-808f-9cbd-e7ec843d534c" class=""><strong>Challenges:</strong> Efficiency, complexity, handling failures.</p><p id="290113c0-c808-80e0-8156-fecb20c08333" class=""><strong>Examples:</strong> DBMS, Printer spooler, multithreaded apps.</p><p id="290113c0-c808-8035-96ec-c1b3a9987b5c" class=""><strong>Takeaway:</strong> Solving CS Problem ensures safe concurrent execution.</p><p id="290113c0-c808-8032-a90c-dc477f7f0fa4" class=""><strong>Interview Focus 🔍:</strong> Mutual exclusion, bounded waiting, progress property, Peterson’s algorithm.</p><hr id="290113c0-c808-802f-9c80-c7f1ea41013e"/><h2 id="290113c0-c808-805f-888b-e2210ebf9800" class=""><strong>3. Semaphores</strong> ⚙️</h2><p id="290113c0-c808-80dd-868d-f9ae00f2522b" class=""><strong>Definition:</strong></p><p id="290113c0-c808-8066-aec0-c585faf78208" class="">Semaphore = integer counter managing concurrent process access to resources.</p><p id="290113c0-c808-8048-af65-c4cd30aa0e53" class=""><strong>Real-Life Analogy:</strong></p><p id="290113c0-c808-806c-9ce7-c0ebbb16cf60" class="">Single-lane bridge with traffic lights controlling flow.</p><p id="290113c0-c808-80ed-ab2d-c95ccc37aef2" class=""><strong>Types:</strong></p><ul id="290113c0-c808-8074-8eea-f779f66be538" class="bulleted-list"><li style="list-style-type:disc"><strong>Counting Semaphore:</strong> Manages multiple identical resources.</li></ul><ul id="290113c0-c808-8037-bd4a-ed2549c5b7c2" class="bulleted-list"><li style="list-style-type:disc"><strong>Binary Semaphore:</strong> Acts as lock for single resource.</li></ul><p id="290113c0-c808-803a-a5e9-d03dd624597c" class=""><strong>Operations:</strong></p><ul id="290113c0-c808-8009-a814-dd97b0c970e0" class="bulleted-list"><li style="list-style-type:disc"><strong>wait(P):</strong> Decrements value; waits if 0.</li></ul><ul id="290113c0-c808-80e9-91dd-ec3c96e4de09" class="bulleted-list"><li style="list-style-type:disc"><strong>signal(V):</strong> Increments value; signals resource release.</li></ul><p id="290113c0-c808-805d-980a-d655806fa158" class=""><strong>Advantages:</strong> Prevent race conditions, safe resource use, IPC facilitation.</p><p id="290113c0-c808-80e4-a375-c4da3a625a3c" class=""><strong>Disadvantages:</strong> Deadlocks if misused, complex handling, performance overhead.</p><p id="290113c0-c808-8024-9178-ec6fc18424ee" class=""><strong>Examples:</strong> Producer-Consumer, Readers-Writers, Traffic light control.</p><p id="290113c0-c808-8002-95ce-e91cd1180c49" class=""><strong>Takeaway:</strong> Semaphores are versatile tools for process synchronization.</p><p id="290113c0-c808-800a-8a49-c7ad225b9de4" class=""><strong>Interview Focus 🔍:</strong> Counting vs Binary semaphore, wait/signal operations, deadlock scenarios.</p><hr id="290113c0-c808-80f8-9c41-ce22506f99ff"/><h2 id="290113c0-c808-8062-b26b-f76a6713d0b5" class=""><strong>4. Producer-Consumer Problem</strong> 🍵</h2><p id="290113c0-c808-809b-a6e6-d08c663fcd3d" class=""><strong>Definition:</strong></p><p id="290113c0-c808-80ee-a264-f8df81588696" class="">Classic synchronization problem using a bounded buffer for producers (generate data) and consumers (process data).</p><p id="290113c0-c808-8026-a121-d0f86bd0b5b2" class=""><strong>Challenges:</strong></p><ul id="290113c0-c808-804c-95f4-eacd1cdf0342" class="bulleted-list"><li style="list-style-type:disc">Prevent buffer overflow (producer) and underflow (consumer).</li></ul><ul id="290113c0-c808-8010-9887-fc3c3d7b3603" class="bulleted-list"><li style="list-style-type:disc">Ensure mutual exclusion and coordination.</li></ul><p id="290113c0-c808-804e-b9b8-f6b51937b9a1" class=""><strong>Real-Life Analogies:</strong></p><ul id="290113c0-c808-8028-a9c8-fce43937f928" class="bulleted-list"><li style="list-style-type:disc">Washroom with one key (mutual exclusion).</li></ul><ul id="290113c0-c808-8095-a348-f878f278fe56" class="bulleted-list"><li style="list-style-type:disc">Coffee machine (producer) &amp; customer (consumer).</li></ul><p id="290113c0-c808-8074-a07c-e903657d3027" class=""><strong>Solution (Java example):</strong></p><ul id="290113c0-c808-80ce-b0cf-c13c71a955be" class="bulleted-list"><li style="list-style-type:disc"><code>wait()</code> → pause thread, release lock.</li></ul><ul id="290113c0-c808-8084-ba21-cddc43e471a8" class="bulleted-list"><li style="list-style-type:disc"><code>notify()</code> / <code>notifyAll()</code> → resume waiting threads.</li></ul><ul id="290113c0-c808-80f2-9598-e7f9b2dbac7b" class="bulleted-list"><li style="list-style-type:disc">Bounded queue handles fast producers and slow consumers.</li></ul><p id="290113c0-c808-809e-b4ef-fd5392c0696d" class=""><strong>Key Points:</strong></p><ul id="290113c0-c808-8036-96d8-ec5d27d82ba7" class="bulleted-list"><li style="list-style-type:disc">Single-slot buffer → prevents over-production.</li></ul><ul id="290113c0-c808-8012-8157-ee733a044cc7" class="bulleted-list"><li style="list-style-type:disc">Buffered queue → supports multiple submissions like TUF+ judge system.</li></ul><ul id="290113c0-c808-80e4-ad0b-ff994e6183c0" class="bulleted-list"><li style="list-style-type:disc">Always use <code>while</code> loops with wait() to handle spurious wake-ups.</li></ul><p id="290113c0-c808-80bd-a85c-d7bc3f648fce" class=""><strong>Takeaway:</strong> Thread coordination using wait-notify ensures safe and efficient communication.</p><p id="290113c0-c808-809d-881e-d1b6a6d2cea2" class=""><strong>Interview Focus 🔍:</strong> wait(), notify(), notifyAll(), bounded buffer implementation, handling fast producer/slow consumer.</p><hr id="290113c0-c808-807d-bde3-e68df9f29705"/><h2 id="290113c0-c808-8078-b2a4-e592235da850" class=""><strong>5. Deadlock</strong> ⛔</h2><p id="290113c0-c808-802d-ad1d-c4691660d459" class=""><strong>Definition:</strong></p><p id="290113c0-c808-8003-8aa0-ed8d438fe17b" class="">Deadlock = processes cannot proceed because each waits for a resource held by the other.</p><p id="290113c0-c808-8023-a44b-f33f92090cd2" class=""><strong>Real-Life Analogy:</strong></p><p id="290113c0-c808-800b-99f1-f681f891472e" class="">Two drivers on a single-lane bridge waiting for the other to move.</p><p id="290113c0-c808-803c-a38d-d23c498a9b46" class=""><strong>Necessary Conditions:</strong></p><ol type="1" id="290113c0-c808-8094-8a3a-fd8bb1b4ac60" class="numbered-list" start="1"><li>Mutual Exclusion</li></ol><ol type="1" id="290113c0-c808-8004-a16d-e1767757d539" class="numbered-list" start="2"><li>Hold &amp; Wait</li></ol><ol type="1" id="290113c0-c808-808f-ac31-d8657946a2bd" class="numbered-list" start="3"><li>No Preemption</li></ol><ol type="1" id="290113c0-c808-8046-b122-fb213360263b" class="numbered-list" start="4"><li>Circular Wait</li></ol><p id="290113c0-c808-809d-b39d-f7d76947a691" class=""><strong>Handling Deadlock:</strong></p><ul id="290113c0-c808-80aa-ba3b-e205a6ef0ac8" class="bulleted-list"><li style="list-style-type:disc"><strong>Prevention:</strong> Ensure at least one condition cannot occur.</li></ul><ul id="290113c0-c808-80d8-939d-d6f2611614cc" class="bulleted-list"><li style="list-style-type:disc"><strong>Avoidance:</strong> Dynamically check for safe states (Banker’s Algorithm).</li></ul><ul id="290113c0-c808-800c-8ba0-edb905d92919" class="bulleted-list"><li style="list-style-type:disc"><strong>Detection &amp; Recovery:</strong> Detect deadlock; terminate or preempt resources.</li></ul><p id="290113c0-c808-8009-874f-c9b6a4e35e08" class=""><strong>Banker’s Algorithm:</strong></p><ul id="290113c0-c808-80b8-b4b8-ea8f35f332e3" class="bulleted-list"><li style="list-style-type:disc">Simulates allocation to ensure safe state.</li></ul><ul id="290113c0-c808-808a-a8c8-fe228b10ff88" class="bulleted-list"><li style="list-style-type:disc"><strong>Steps:</strong> Resource request → safety check → allocate if safe.</li></ul><ul id="290113c0-c808-80a6-9e6c-fd7ab1d15d85" class="bulleted-list"><li style="list-style-type:disc"><strong>Pros:</strong> Avoids unsafe states, maximizes utilization.</li></ul><ul id="290113c0-c808-80b8-8fbd-d88cd691c7b3" class="bulleted-list"><li style="list-style-type:disc"><strong>Cons:</strong> Needs max resource knowledge, high computation in large systems.</li></ul><p id="290113c0-c808-8047-8cf6-e600440abbbc" class=""><strong>Takeaway:</strong> Deadlocks require careful handling via prevention, avoidance, or detection.</p><p id="290113c0-c808-8033-b9f1-f7ee52b5138c" class=""><strong>Interview Focus 🔍:</strong> Banker&#x27;s Algorithm, safe state, deadlock conditions, prevention vs avoidance.</p><hr id="290113c0-c808-80c5-9d50-c51a43eb369e"/><h2 id="290113c0-c808-80c1-be20-c99e8f8b454b" class=""><strong>6. Starvation and Aging</strong> ⏳</h2><p id="290113c0-c808-8048-a8ca-e4fbc15e339e" class=""><strong>Definition:</strong></p><ul id="290113c0-c808-8090-84f7-db27c964aad7" class="bulleted-list"><li style="list-style-type:disc"><strong>Starvation:</strong> Process waits indefinitely due to low priority.</li></ul><ul id="290113c0-c808-80b8-b636-ff30cd852d66" class="bulleted-list"><li style="list-style-type:disc"><strong>Aging:</strong> Gradually increases waiting process priority to prevent starvation.</li></ul><p id="290113c0-c808-80af-a1cc-ed1c1be5d581" class=""><strong>Real-Life Analogy:</strong></p><p id="290113c0-c808-8090-a71c-f6fc7b5bb6d4" class="">Shy customer in grocery line → Starvation; store moves them forward → Aging.</p><p id="290113c0-c808-803a-9e35-d2f29b06efbf" class=""><strong>Causes of Starvation:</strong></p><ul id="290113c0-c808-8048-b684-dbb9995502e0" class="bulleted-list"><li style="list-style-type:disc">Strict priority scheduling</li></ul><ul id="290113c0-c808-802e-9ccb-ff2c0ff6ad24" class="bulleted-list"><li style="list-style-type:disc">High-priority resource monopolization</li></ul><ul id="290113c0-c808-8032-b0e9-fc7b301e3dd1" class="bulleted-list"><li style="list-style-type:disc">Lack of fairness</li></ul><p id="290113c0-c808-8042-8d23-ddf5c46ba5da" class=""><strong>Solutions:</strong></p><ul id="290113c0-c808-80ae-b1c6-faf3f4faf9f9" class="bulleted-list"><li style="list-style-type:disc">Aging</li></ul><ul id="290113c0-c808-80d1-a242-f76d75dce7f3" class="bulleted-list"><li style="list-style-type:disc">Fair scheduling algorithms (Round Robin, Fair Share)</li></ul><ul id="290113c0-c808-80c1-870f-eeec73c5a035" class="bulleted-list"><li style="list-style-type:disc">Limit resource holding time</li></ul><p id="290113c0-c808-8039-9861-f51fb0076569" class=""><strong>Advantages of Aging:</strong></p><ul id="290113c0-c808-80fe-9296-dd4528a0d0c9" class="bulleted-list"><li style="list-style-type:disc">Ensures fairness</li></ul><ul id="290113c0-c808-8008-bc52-eb6059b6f439" class="bulleted-list"><li style="list-style-type:disc">Improves system responsiveness</li></ul><ul id="290113c0-c808-806b-a64a-ea09573b6ba1" class="bulleted-list"><li style="list-style-type:disc">Compatible with multiple scheduling algorithms</li></ul><p id="290113c0-c808-80e6-939e-ed88fc315983" class=""><strong>Examples:</strong></p><ul id="290113c0-c808-80f8-a97e-ffe41268531d" class="bulleted-list"><li style="list-style-type:disc">Disk scheduling (SCAN, C-SCAN)</li></ul><ul id="290113c0-c808-8097-816e-f36e254c61e4" class="bulleted-list"><li style="list-style-type:disc">Priority-based CPU scheduling</li></ul><p id="290113c0-c808-8018-9c8b-f412f2b6d996" class=""><strong>Takeaway:</strong> Aging prevents starvation and ensures fairness in resource allocation.</p><p id="290113c0-c808-8040-aa58-c5e3145b64f1" class=""><strong>Interview Focus 🔍:</strong> Starvation scenarios, aging implementation, priority scheduling fairness.</p><hr id="290113c0-c808-80f3-a3cc-e6c12cc8c193"/><h3 id="290113c0-c808-80c7-a4aa-db47166b26d1" class=""><strong>Overall Key Takeaways</strong> ✅</h3><ul id="290113c0-c808-808b-b369-f2f322666997" class="bulleted-list"><li style="list-style-type:disc">Synchronization ensures data consistency, prevents race conditions, and avoids deadlocks.</li></ul><ul id="290113c0-c808-8053-893a-c1665ea79e4f" class="bulleted-list"><li style="list-style-type:disc">Critical Section, Semaphores, Mutexes, Monitors, and wait-notify are essential tools.</li></ul><ul id="290113c0-c808-80f2-abb1-d86f358af143" class="bulleted-list"><li style="list-style-type:disc">Producer-Consumer problem models real-world concurrent coordination.</li></ul><ul id="290113c0-c808-8094-9c13-ebfdfaeba8a3" class="bulleted-list"><li style="list-style-type:disc">Deadlocks are prevented, avoided, or detected using Banker’s Algorithm and resource allocation strategies.</li></ul><ul id="290113c0-c808-8091-8f78-c87b8067d748" class="bulleted-list"><li style="list-style-type:disc">Starvation can be mitigated using aging to ensure fairness.</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
