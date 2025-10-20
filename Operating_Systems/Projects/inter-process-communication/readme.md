@@ -28,6 +28,8 @@ Open a MinGW-w64 shell (or any environment with gcc that targets Windows) and ru
 gcc -o parent.exe main.c ipc_utils.c -lws2_32 -static -O2
 gcc -o child.exe child.c ipc_utils.c -lws2_32 -static -O2
 
+```
+
 > Note: -lws2_32 is harmless here though we don't use Winsock; adjust flags to fit your toolchain. If you use Microsoft Visual C (cl.exe), open a Developer Command Prompt and compile accordingly.
 > 
 
