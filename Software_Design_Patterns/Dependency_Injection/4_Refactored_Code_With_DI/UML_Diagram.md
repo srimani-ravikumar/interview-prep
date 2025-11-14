@@ -1,32 +1,79 @@
-@startuml
+```mermaid
+%%{init: {'theme': 'default'}}%%
 
-' Interfaces
-interface IPaymentGateway {
-    +Authorize(amount: decimal, currency: string, metadata: Dictionary<string,string>): AuthorizationResult
-}
+classDiagram
 
-' Payment Gateway Implementations
-class StripeGateway
-class PayPalGateway
+    %% Interfaces
+    class IPaymentGateway {
+        +Authorize(amount : decimal, currency : string, metadata : Dictionary<string,string>) AuthorizationResult
+    }
 
-' Repository Interface
-interface IOrderRepository {
-    +MarkPaid(orderId: int)
-    +MarkFailed(orderId: int)
-}
+    class IOrderRepository {
+        +MarkPaid(orderId : int) void
+        +MarkFailed(orderId : int) void
+    }
 
-' Service Class
-class OrderService {
-    -_gateway: IPaymentGateway
-    -_repository: IOrderRepository
-    +Process(order: Order): AuthorizationResult
-}
+    %% Payment Gateway Implementations
+    class StripeGateway {
+        -_apiKey : string
+        +StripeGateway(apiKey : string)
+        +Authorize(amount : decimal, currency : string, metadata : Dictionary<string,string>) AuthorizationResult
+    }
 
-' Relationships
-OrderService o-- IPaymentGateway
-OrderService o-- IOrderRepository
+    class PayPalGateway {
+        +Authorize(amount : decimal, currency : string, metadata : Dictionary<string,string>) AuthorizationResult
+    }
 
-StripeGateway ..|> IPaymentGateway
-PayPalGateway ..|> IPaymentGateway
+    %% Repository Implementations
+    class SqlOrderRepository {
+        -_dbConnection : string
+        +SqlOrderRepository(conn : string)
+        +MarkPaid(orderId : int) void
+        +MarkFailed(orderId : int) void
+    }
 
-@enduml
+    %% Business Logic
+    class OrderService {
+        -_gateway : IPaymentGateway
+        -_repository : IOrderRepository
+        +OrderService(gateway : IPaymentGateway, repo : IOrderRepository)
+        +Process(order : Order) AuthorizationResult
+    }
+
+    %% Models
+    class Order {
+        +Id : int
+        +Amount : decimal
+        +Currency : string
+    }
+
+    class AuthorizationResult {
+        +Success : bool
+        +Message : string
+    }
+
+    %% Test Doubles
+    class FakeGateway {
+        +Authorize(amount : decimal, currency : string, metadata : Dictionary<string,string>) AuthorizationResult
+    }
+
+    class InMemoryOrderRepository {
+        +PaidOrders : List<int>
+        +FailedOrders : List<int>
+        +MarkPaid(orderId : int) void
+        +MarkFailed(orderId : int) void
+    }
+
+    %% DI Relationships
+    IPaymentGateway <|.. StripeGateway
+    IPaymentGateway <|.. PayPalGateway
+    IOrderRepository <|.. SqlOrderRepository
+
+    IOrderRepository <|.. InMemoryOrderRepository
+    IPaymentGateway <|.. FakeGateway
+
+    OrderService --> IPaymentGateway : uses
+    OrderService --> IOrderRepository : uses
+    OrderService --> Order
+    IPaymentGateway --> AuthorizationResult
+```
