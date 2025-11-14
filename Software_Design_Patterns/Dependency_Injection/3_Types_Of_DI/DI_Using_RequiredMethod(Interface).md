@@ -1,17 +1,41 @@
+# Interface / Method Injection
+In Method Injection, a dependency is passed **directly into the method** that needs it instead of being injected through the constructor or stored as a class-level field.
 
 ---
 
-## 📁 3_Types_Of_DI / **DI_Using_RequiredMethod(Interface).txt**
-```md
-# Interface / Method Injection
-A dependency is passed directly into the method that needs it.
+## Example — C# (Method Injection)
 
-## Example
-```pseudo
-class OrderService:
-    process(order, gateway: PaymentGateway):
-        return gateway.authorize(order.amount)
+```csharp
+// Payment gateway interface
+public interface IPaymentGateway
+{
+    AuthorizationResult Authorize(decimal amount);
+}
 
+// Order service that receives its dependency directly in the method
+public class OrderService
+{
+    // ✅ Method Injection
+    // The dependency (IPaymentGateway) is passed only when this method is called.
+    public AuthorizationResult Process(Order order, IPaymentGateway gateway)
+    {
+        return gateway.Authorize(order.Amount);
+    }
+}
+
+// Supporting models
+public class Order
+{
+    public decimal Amount { get; set; }
+}
+
+public class AuthorizationResult
+{
+    public bool Success { get; set; }
+    public string Message { get; set; }
+}
+
+```
 
 ## When To Use?
 

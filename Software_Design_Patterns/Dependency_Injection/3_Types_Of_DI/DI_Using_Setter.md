@@ -1,19 +1,54 @@
+# Setter Injection
+Setter Injection allows dependencies to be **assigned or replaced after the object is created**.  
+This provides flexibility when the dependency is optional or changeable at runtime.
 
 ---
 
-## 📁 3_Types_Of_DI / **DI_Using_Setter.txt**
-```md
-# Setter Injection
-Dependencies can be assigned or swapped after object creation.
+## Example — C# (Setter Injection)
 
-## Example
-```pseudo
-class OrderService:
-    setGateway(gateway: PaymentGateway):
-        this.gateway = gateway
+```csharp
+// Payment gateway interface
+public interface IPaymentGateway
+{
+    AuthorizationResult Authorize(decimal amount);
+}
 
-    process(order):
-        return this.gateway.authorize(order.amount)
+// Order service using Setter Injection
+public class OrderService
+{
+    private IPaymentGateway _gateway;
+
+    // ✅ Setter Injection
+    // The dependency can be assigned or swapped anytime after object creation.
+    public void SetGateway(IPaymentGateway gateway)
+    {
+        _gateway = gateway;
+    }
+
+    public AuthorizationResult Process(Order order)
+    {
+        if (_gateway == null)
+        {
+            throw new InvalidOperationException("Payment gateway is not set.");
+        }
+
+        return _gateway.Authorize(order.Amount);
+    }
+}
+
+// Supporting models
+public class Order
+{
+    public decimal Amount { get; set; }
+}
+
+public class AuthorizationResult
+{
+    public bool Success { get; set; }
+    public string Message { get; set; }
+}
+
+```
 
 ## When To Use?
 
