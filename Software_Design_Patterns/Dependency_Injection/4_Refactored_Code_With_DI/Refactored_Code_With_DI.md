@@ -190,10 +190,4 @@ var result = service.Process(new Order { Id = 10, Amount = 50, Currency = "USD" 
 // Assert.True(result.Success);
 ```
 
----
-
-If you want, I can also convert this into:
-
-✅ UML diagram for refactored DI design
-✅ A GitHub-ready README.md that includes all DI concepts
-✅ Separate files for each class (C# project structure)
+```
