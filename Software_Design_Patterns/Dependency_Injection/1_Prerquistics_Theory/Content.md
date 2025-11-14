@@ -1,5 +1,8 @@
 # Prerequisites — Dependency Injection
 
+## What are Dependencies?
+In software design, a dependency refers to any object that a class needs in order to function properly.
+
 ## What Is Dependency Injection?
 Dependency Injection (DI) is a design pattern in which an object receives its dependencies from an external source rather than creating them itself.  
 In simple terms, instead of creating objects directly inside a class, you *inject* them from outside.
@@ -9,6 +12,12 @@ In simple terms, instead of creating objects directly inside a class, you *injec
 - Allows swapping implementations easily  
 - Makes code testable using mocks/fakes  
 - Supports SOLID principles (especially Dependency Inversion)
+
+## Real-life Analogy
+Imagine you are a chef in a restaurant. You need several ingredients (e.g., tomatoes, onions, spices) to cook a dish. Now, instead of growing these ingredients in your garden (creating them yourself), you could simply ask the supplier to deliver them to your kitchen (injecting the dependencies). This way, you don't need to worry about the sourcing of ingredients yourself, making your job simpler and more flexible.
+
+Similarly, in software development, Dependency Injection allows you to focus on what your class does (like cooking a dish), while an external entity 
+(like a supplier) takes care of providing the necessary dependencies.
 
 ## Real Industry Use Case
 **Payment Authorization System** — An order service must use Stripe, PayPal, or any other provider.  
