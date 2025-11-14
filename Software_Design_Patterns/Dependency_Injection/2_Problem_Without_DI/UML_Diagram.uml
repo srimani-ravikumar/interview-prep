@@ -1,3 +1,7 @@
+
+```mermaid
+%%{init: {'theme': 'default'}}%%
+
 classDiagram
 
     class IPaymentGateway {
@@ -25,3 +29,5 @@ classDiagram
     OrderService --> StripeGateway : creates
     OrderService --> Order
     StripeGateway --> AuthorizationResult
+
+```
