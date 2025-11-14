@@ -189,5 +189,3 @@ var result = service.Process(new Order { Id = 10, Amount = 50, Currency = "USD" 
 // Assertion Example
 // Assert.True(result.Success);
 ```
-
-```
