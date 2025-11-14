@@ -1,28 +1,27 @@
-@startuml
+classDiagram
 
-interface IPaymentGateway {
-    +Authorize(amount : decimal) : AuthorizationResult
-}
+    class IPaymentGateway {
+        +Authorize(amount : decimal) AuthorizationResult
+    }
 
-class StripeGateway {
-    +Authorize(amount : decimal) : AuthorizationResult
-}
+    class StripeGateway {
+        +Authorize(amount : decimal) AuthorizationResult
+    }
 
-class OrderService {
-    +Process(order : Order) : AuthorizationResult
-}
+    class OrderService {
+        +Process(order : Order) AuthorizationResult
+    }
 
-class Order {
-    +Amount : decimal
-}
+    class Order {
+        +Amount : decimal
+    }
 
-class AuthorizationResult {
-    +Success : bool
-    +Message : string
-}
+    class AuthorizationResult {
+        +Success : bool
+        +Message : string
+    }
 
-IPaymentGateway <|.. StripeGateway
-OrderService --> StripeGateway : creates
-OrderService --> Order
-StripeGateway --> AuthorizationResult
-@enduml
+    IPaymentGateway <|.. StripeGateway
+    OrderService --> StripeGateway : creates
+    OrderService --> Order
+    StripeGateway --> AuthorizationResult
