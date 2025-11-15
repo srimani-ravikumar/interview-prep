@@ -125,8 +125,8 @@ class FileReaderExample {
 
 ### KeyPoints
 
-- ***No Compiler Requirement to Handle:**The compiler does not require the programmer to handle unchecked exceptions, so they do not need to be caught or declared in method signatures.*
-- ***Represents Programming Bugs:**These exceptions usually indicate errors in the code, such as logic mistakes or invalid assumptions, that should be fixed rather than handled at runtime.*
+- ***No Compiler Requirement to Handle:*** The compiler does not require the programmer to handle unchecked exceptions, so they do not need to be caught or declared in method signatures.*
+- ***Represents Programming Bugs:*** These exceptions usually indicate errors in the code, such as logic mistakes or invalid assumptions, that should be fixed rather than handled at runtime.*
 
 ### Examples in Java:
 
@@ -181,10 +181,10 @@ class InventoryService{
 
 ### **When to Use Custom Exceptions:**
 
-- ***To Represent Specific Domain Errors:**When a particular scenario in your application needs to be captured with a unique error message, such as **`UserNotFoundException`** or **`ProductOutOfStockException`**.*
-- ***To Wrap Lower-Level Exceptions:**When you need to abstract lower-level errors, such as database connection issues, and present them in a more user-friendly way.*
-- ***For Clear Separation of Concerns:**Custom exceptions allow you to separate different types of errors (validation errors, network errors, etc.), making your error handling clearer and more structured.*
-- ***When Building APIs:**Custom exceptions are helpful when building APIs, as they allow you to define specific error codes and messages that clients can handle easily. For instance, an API might return InvalidRequestException when the input request is malformed.*
+- ***To Represent Specific Domain Errors:*** When a particular scenario in your application needs to be captured with a unique error message, such as **`UserNotFoundException`** or **`ProductOutOfStockException`**.*
+- ***To Wrap Lower-Level Exceptions:*** When you need to abstract lower-level errors, such as database connection issues, and present them in a more user-friendly way.*
+- ***For Clear Separation of Concerns:*** Custom exceptions allow you to separate different types of errors (validation errors, network errors, etc.), making your error handling clearer and more structured.*
+- ***When Building APIs:*** Custom exceptions are helpful when building APIs, as they allow you to define specific error codes and messages that clients can handle easily. For instance, an API might return InvalidRequestException when the input request is malformed.
 
 > *In conclusion, exception handling is a critical part of writing robust and reliable software. By understanding the different types of exceptions — checked, unchecked, and custom — you can design error-handling mechanisms that make your code more maintainable, expressive, and user-friendly*
 > 
