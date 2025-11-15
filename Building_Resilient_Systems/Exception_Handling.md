@@ -1,5 +1,4 @@
 ## Exception Handling
----
 
 ### Why do we need to do learn exception handling?
 
