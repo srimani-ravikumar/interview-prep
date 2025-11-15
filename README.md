@@ -18,7 +18,5 @@ The primary focus is on **general programming concepts** rather than language-sp
 
 - The focus is on clarity, understanding, and practical application for skill development and rather focusing on the cream layer called "Tech Stack"
 
----
-
 >Feel free to explore, learn, and use the concepts shared in this repository!
 >
