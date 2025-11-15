@@ -135,8 +135,8 @@ class Library {
     }
 }
 
-// ---------------------------- MAIN ----------------------------
-public class Solution {
+// ---------------------------- Client Code ----------------------------
+public class LibraryBookManagement {
     public static void main(String[] args) throws InterruptedException {
 
         Library library = new Library("Village Library");
@@ -149,8 +149,17 @@ public class Solution {
         User srimani = new User("Srimani");
         library.registerUser(srimani);
 
+        // assuming that srimani wants to unlearn, relearn fundamentals in the right way
+        // so he borrowed the "Computer Networks" book
         library.borrowBook(srimani.getId(), cn.getId());
-        Thread.sleep(1500);
+        
+        // assuming he was taking 15 days to wrap up the learning (15 secs treated as 15 days)
+        Thread.sleep(15000);
+
+        // he went to library to return it
         library.returnBook(srimani.getId(), cn.getId());
+
+        // now he switching to "Operating Systems"... Journery continues untill he rooting his entire fundamentals :)
+        library.borrowBook(srimani.getId(), os.getId());
     }
 }
