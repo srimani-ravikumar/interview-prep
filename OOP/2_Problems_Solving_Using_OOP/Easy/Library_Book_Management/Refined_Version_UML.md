@@ -1,47 +1,41 @@
-UML Class Diagram (ASCII Version)
-+---------------------+
-|       Library       |
-+---------------------+
-| - name: String      |
-| - books: Map<int,Book> |
-| - users: Map<int,User> |
-+---------------------+
-| + addBook(Book)     |
-| + registerUser(User)|
-| + borrowBook(userId:int, bookId:int) |
-| + returnBook(userId:int, bookId:int) |
-+---------------------+
-            |
-            | 1..*
-            v
-+---------------------+
-|        Book         |
-+---------------------+
-| - id: int           |
-| - title: String     |
-| - author: String    |
-| - available: boolean|
-| - borrowedByUserId: Integer |
-+---------------------+
-| + getId(): int      |
-| + getTitle(): String|
-| + isAvailable(): boolean |
-| + borrow(userId:int)|
-| + returnBook()      |
-+---------------------+
+```mermaid
 
-            ^
-            | *
-            |
-+---------------------+
-|        User         |
-+---------------------+
-| - id: int           |
-| - name: String      |
-| - borrowedBookIds: Set<int> |
-+---------------------+
-| + getId(): int      |
-| + getName(): String |
-| + addBorrowedBook(int) |
-| + removeBorrowedBook(int) |
-+---------------------+
+classDiagram
+
+    class Library {
+        - String name
+        - Map~int, Book~ books
+        - Map~int, User~ users
+        + addBook(Book)
+        + registerUser(User)
+        + borrowBook(userId int, bookId int)
+        + returnBook(userId int, bookId int)
+    }
+
+    class Book {
+        - int id
+        - String title
+        - String author
+        - boolean available
+        - Integer borrowedByUserId
+        + getId() int
+        + getTitle() String
+        + isAvailable() boolean
+        + borrow(userId int)
+        + returnBook()
+    }
+
+    class User {
+        - int id
+        - String name
+        - Set~int~ borrowedBookIds
+        + getId() int
+        + getName() String
+        + addBorrowedBook(int)
+        + removeBorrowedBook(int)
+    }
+
+    Library "1" --> "*" Book : manages
+    User "*" --> "1" Book : borrows
+
+```
