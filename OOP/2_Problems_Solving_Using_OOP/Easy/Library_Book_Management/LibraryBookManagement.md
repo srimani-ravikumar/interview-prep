@@ -36,6 +36,6 @@ classDiagram
     }
 
     Library "1" --> "*" Book : manages
-    User "*" --> "1" Book : borrows
+    User "1" --> "*" Book : borrows
 
 ```
