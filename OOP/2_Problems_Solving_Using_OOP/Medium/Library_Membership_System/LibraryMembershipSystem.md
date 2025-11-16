@@ -25,7 +25,6 @@ classDiagram
     }
 
     class Book {
-        - static int bookCounter
         - int id
         - String title
         - boolean available
@@ -38,7 +37,6 @@ classDiagram
     }
 
     class Member {
-        - static int memberCounter
         - int id
         - String name
         - Membership membership
@@ -66,10 +64,10 @@ classDiagram
     Membership <|-- RegularMembership
     Membership <|-- PremiumMembership
 
-    Member --> Membership : "has-a"
-    LibrarySystem --> Book : "manages"
-    LibrarySystem --> Member : "manages"
+    Member "1" --> "1" Membership : "has-a"
+    LibrarySystem "1" --> "*" Book : "manages"
+    LibrarySystem "1" --> "*" Member : "manages"
 
-    Member --> Book : "borrows (via IDs)"
+    Member "1" --> "*" Book : "borrows (via IDs)"
 
 ```
