@@ -37,7 +37,7 @@ classDiagram
     }
 
     class RestaurantSystem {
-        - Map~String, List~Dish~~ menu
+        - Map&lt;String, List&lt;Dish&gt;&gt; menu
         - Map~int,Order~ orders
         + addDishToMenu(category, Dish) void
         + createOrder() Order
