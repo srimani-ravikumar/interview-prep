@@ -3,6 +3,7 @@ import java.util.*;
 // ===================== ABSTRACT USER =====================
 abstract class User {
     private static int idCounter = 1;
+    
     private final int id;
     private String name;
 
