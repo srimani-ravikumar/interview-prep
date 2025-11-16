@@ -1,18 +1,18 @@
 ```mermaid
 
 classDiagram
-    %% ===================== Interfaces =====================
+    %% ===================== Interfaces & Implemenations of Payment Mode =====================
     class PaymentStrategy {
         <<interface>>
-        +pay(amount: double)
+        +pay(amount: double) void
     }
 
     class CardPayment {
-        +pay(amount: double)
+        +pay(amount: double) void
     }
 
     class UPIPayment {
-        +pay(amount: double)
+        +pay(amount: double) void
     }
 
     PaymentStrategy <|.. CardPayment
@@ -20,48 +20,54 @@ classDiagram
 
     %% ===================== Passenger =====================
     class Passenger {
-        -id: int
-        -name: String
-        +getId(): int
-        +getName(): String
+        -final id: int
+        -final name: String
+        +Passenger(id: int, name: String)
+        +getId() int
+        +getName() String
     }
 
     %% ===================== Ticket =====================
     class Ticket {
-        -ticketId: int
-        -passenger: Passenger
-        -flight: Flight
-        -seatNumber: String
-        +getTicketId(): int
-        +getPassenger(): Passenger
-        +getFlight(): Flight
-        +getSeatNumber(): String
+        -final ticketId: int
+        -final passenger: Passenger
+        -final flight: Flight
+        -final seatNumber: String
+        +Ticket(ticketId: int, passenger: Passenger, flight: Flight, seatNumber: String)
+        +getTicketId() int
+        +getPassenger() Passenger
+        +getFlight() Flight
+        +getSeatNumber() String
+        +toString() String
     }
 
     Ticket --> Passenger
     Ticket --> Flight
 
-    %% ===================== Abstract Flight =====================
+    %% ===================== Abstract Flight & its types =====================
     class Flight {
         <<abstract>>
-        #flightNumber: String
-        #maxSeats: int
-        #bookedSeats: Set~String~
-        #tickets: List~Ticket~
+        #final flightNumber: String
+        #final maxSeats: int
+        #final bookedSeats: Set~String~
+        #final tickets: List~Ticket~
         -nextTicketId: int
-        +getFlightNumber(): String
-        +isSeatAvailable(): boolean
-        +getBaseFare(): double
-        +bookSeat(p: Passenger, seat: String, payment: PaymentStrategy): Ticket
-        +cancelTicket(ticket: Ticket)
+        +Flight(flightNumber: String, maxSeats: int)
+        +getFlightNumber() String
+        +isSeatAvailable() boolean
+        +getBaseFare() double*
+        +bookSeat(p: Passenger, seat: String, payment: PaymentStrategy) Ticket
+        +cancelTicket(ticket: Ticket) void
     }
 
     class DomesticFlight {
-        +getBaseFare(): double
+        +DomesticFlight(number: String)
+        +getBaseFare() double
     }
 
     class InternationalFlight {
-        +getBaseFare(): double
+        +InternationalFlight(number: String)
+        +getBaseFare() double
     }
 
     Flight <|-- DomesticFlight
@@ -69,14 +75,14 @@ classDiagram
 
     %% ===================== Flight Factory =====================
     class FlightFactory {
-        +createFlight(type: String, number: String): Flight
+        +static createFlight(type: String, number: String) Flight
     }
 
     %% ===================== Airline Reservation System =====================
     class AirlineReservationSystem {
-        -flights: List~Flight~
-        +addFlight(f: Flight)
-        +findFlight(num: String): Flight
+        -final flights: List~Flight~
+        +addFlight(f: Flight) void
+        +findFlight(flightNumber: String) Flight
     }
 
     AirlineReservationSystem --> Flight
