@@ -61,10 +61,6 @@ classDiagram
         + returnBook(int, int) void
     }
 
-    class Main {
-        + main(String[]) void
-    }
-
     %% Relationships
     Membership <|-- RegularMembership
     Membership <|-- PremiumMembership
