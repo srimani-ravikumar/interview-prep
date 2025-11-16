@@ -2,6 +2,7 @@
 
 classDiagram
     class Product {
+        <<abstract>>
         -int id
         -String name
         -double price
