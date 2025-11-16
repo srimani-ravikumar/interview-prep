@@ -28,6 +28,7 @@ class Passenger {
         this.id = id;
         this.name = name;
     }
+
     public int getId() { return id; }
     public String getName() { return name; }
 }
@@ -46,19 +47,25 @@ class Ticket {
         this.seatNumber = seatNumber;
     }
 
+    public int getTicketId() { return ticketId; }
+    public Passenger getPassenger() { return passenger; }
+    public Flight getFlight() { return flight; }
+    public String getSeatNumber() { return seatNumber; }
+
     @Override
     public String toString() {
-        return "Ticket#" + ticketId + " | " + passenger.getName() + " | Seat: " + seatNumber +
-               " | Flight: " + flight.getFlightNumber();
+        return "Ticket#" + ticketId + " | " + passenger.getName() +
+               " | Seat: " + seatNumber + " | Flight: " + flight.getFlightNumber();
     }
 }
 
 // ------------------------ ABSTRACT FLIGHT ------------------------
 abstract class Flight {
-    protected String flightNumber;
-    protected int maxSeats;
-    protected Set<String> bookedSeats = new HashSet<>();
-    protected List<Ticket> tickets = new ArrayList<>();
+    protected final String flightNumber;
+    protected final int maxSeats;
+    protected final Set<String> bookedSeats = new HashSet<>();
+    protected final List<Ticket> tickets = new ArrayList<>();
+    private int nextTicketId = 1;
 
     public Flight(String flightNumber, int maxSeats) {
         this.flightNumber = flightNumber;
@@ -67,20 +74,27 @@ abstract class Flight {
 
     public String getFlightNumber() { return flightNumber; }
 
-    public abstract double getBaseFare(); // polymorphic fare logic
-
     public boolean isSeatAvailable() {
         return bookedSeats.size() < maxSeats;
     }
 
+    public abstract double getBaseFare(); // polymorphic fare logic
+
     public Ticket bookSeat(Passenger p, String seatNumber, PaymentStrategy payment) {
+
         if (!isSeatAvailable()) {
             System.out.println("⚠️ Overbooked! No seats left in flight " + flightNumber);
             return null;
         }
 
+        if (bookedSeats.contains(seatNumber)) {
+            System.out.println("❌ Seat " + seatNumber + " already booked!");
+            return null;
+        }
+
         bookedSeats.add(seatNumber);
-        Ticket ticket = new Ticket(tickets.size() + 1, p, this, seatNumber);
+
+        Ticket ticket = new Ticket(nextTicketId++, p, this, seatNumber);
         tickets.add(ticket);
 
         payment.pay(getBaseFare());
@@ -89,8 +103,9 @@ abstract class Flight {
     }
 
     public void cancelTicket(Ticket ticket) {
-        bookedSeats.remove(ticket.toString());
+        bookedSeats.remove(ticket.getSeatNumber());
         tickets.remove(ticket);
+        System.out.println("❎ Ticket " + ticket.getTicketId() + " canceled for seat " + ticket.getSeatNumber());
     }
 }
 
@@ -118,15 +133,16 @@ class InternationalFlight extends Flight {
 }
 
 // ------------------------ FLIGHT FACTORY ------------------------
-// We can use Factory Design Pattern but for the sake of simplicity 
-// I'm stick with just OOP
 class FlightFactory {
     public static Flight createFlight(String type, String number) {
-        return switch (type.toLowerCase()) {
-            case "domestic" -> new DomesticFlight(number);
-            case "international" -> new InternationalFlight(number);
-            default -> throw new RuntimeException("Unknown flight type!");
-        };
+        switch (type.toLowerCase()) {
+            case "domestic":
+                return new DomesticFlight(number);
+            case "international":
+                return new InternationalFlight(number);
+            default:
+                throw new IllegalArgumentException("Unknown flight type: " + type);
+        }
     }
 }
 
@@ -152,7 +168,7 @@ public class AirlineApp {
 
         AirlineReservationSystem system = new AirlineReservationSystem();
 
-        // Srimani chooses flights
+        // Flights created using factory
         Flight domestic = FlightFactory.createFlight("domestic", "AI123");
         Flight international = FlightFactory.createFlight("international", "AI999");
 
@@ -163,10 +179,13 @@ public class AirlineApp {
 
         System.out.println("\n--- Domestic Flight Booking ---");
         Ticket t1 = domestic.bookSeat(srimani, "12B", new UPIPayment());
-        System.out.println("Booked: " + t1);
+        if (t1 != null) System.out.println("Booked: " + t1);
 
         System.out.println("\n--- International Flight Booking ---");
         Ticket t2 = international.bookSeat(srimani, "45A", new CardPayment());
-        System.out.println("Booked: " + t2);
+        if (t2 != null) System.out.println("Booked: " + t2);
+
+        System.out.println("\n--- Trying to re-book same seat ---");
+        domestic.bookSeat(srimani, "12B", new UPIPayment()); // will show error
     }
 }
