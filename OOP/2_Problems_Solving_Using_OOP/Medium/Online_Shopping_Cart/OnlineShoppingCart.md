@@ -46,6 +46,6 @@ classDiagram
     Product <|-- BookProduct
 
     ShoppingCart "1" *-- "many" CartItem
-    CartItem "1" *-- "1" Product
+    CartItem "1" *-- "1" Product Contains
 
 ```
