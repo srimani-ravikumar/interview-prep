@@ -4,6 +4,7 @@ classDiagram
     direction TB
 
     class Membership {
+        <<abstract>>
         - String type
         + Membership(String)
         + getType() String
