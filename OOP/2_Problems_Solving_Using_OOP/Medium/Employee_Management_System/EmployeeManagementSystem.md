@@ -24,7 +24,7 @@ classDiagram
     }
 
     class Company {
-        -Map~String, List~Employee~~ departmentMap
+        -Map~String,List~Employee~~ departmentMap
         +addEmployee(e)
         +showEmployeesByDepartment()
         +showTotalSalaries()
