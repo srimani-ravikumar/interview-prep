@@ -41,8 +41,8 @@ classDiagram
         +toString() String
     }
 
-    Ticket "1" --> "1" Passenger assigned to
-    Ticket "1" --> "1" Flight for
+    Ticket "1" --> "1" Passenger "assigned to"
+    Ticket "1" --> "1" Flight "for"
 
     %% ===================== Abstract Flight & its types =====================
     class Flight {
@@ -85,7 +85,7 @@ classDiagram
         +findFlight(flightNumber: String) Flight
     }
 
-    AirlineReservationSystem "1" --> "*" Flight manages
+    AirlineReservationSystem "1" --> "*" Flight "manages"
 
     %% ===================== Main App =====================
     class AirlineApp {
