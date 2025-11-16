@@ -40,10 +40,10 @@ classDiagram
 
     class RentalSystem {
         -Map~String, Vehicle~ vehicles
-        +addVehicle(v)
-        +rentVehicle(id, customer, days)
-        +returnVehicle(id)
-        +showRentalHistory(id)
+        +addVehicle(v) void
+        +rentVehicle(id, customer, days) void
+        +returnVehicle(id) void
+        +showRentalHistory(id) void
     }
 
     Rentable <|.. Vehicle
