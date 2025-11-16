@@ -62,7 +62,7 @@ class CurrentAccount extends Account {
 // ===================== Loan System =====================
 abstract class Loan {
     private static int loanCounter = 1;
-    
+
     protected final int loanId;
     protected double principal;
     protected double interestRate; // per year
@@ -121,7 +121,7 @@ class PersonalLoan extends Loan {
 // Home Loan
 class HomeLoan extends Loan {
     public HomeLoan(Account account, double principal, int tenureMonths) {
-        super(account, principal, 8.5, tenureMonths);
+        super(account, principal, 8.5, tenureMonths); // 8.5% interest
     }
 
     @Override
@@ -134,7 +134,7 @@ class HomeLoan extends Loan {
 // Vehicle Loan
 class VehicleLoan extends Loan {
     public VehicleLoan(Account account, double principal, int tenureMonths) {
-        super(account, principal, 10.5, tenureMonths);
+        super(account, principal, 10.5, tenureMonths); // 10.5% interest
     }
 
     @Override
@@ -144,30 +144,57 @@ class VehicleLoan extends Loan {
     }
 }
 
-// ===================== Simulation =====================
+// ===================== Simulation with Three Persons =====================
 public class BankApp {
     public static void main(String[] args) {
         System.out.println("🏦 Banking System Simulation Started\n");
 
-        // Srimani creates a savings account
+        // ---------------- Person 1: Srimani ----------------
         Account srimaniAccount = new SavingsAccount("Srimani", 50000);
         srimaniAccount.displayAccountType();
-
-        // Deposit and Withdraw
         srimaniAccount.deposit(20000);
         srimaniAccount.withdraw(15000);
 
         // Srimani applies for a Personal Loan
-        Loan personalLoan = new PersonalLoan(srimaniAccount, 100000, 12); // 1-year loan
-        personalLoan.printLoanDetails();
-
-        // Pay first EMI
-        double emi = personalLoan.calculateEMI();
-        System.out.println("\nCalculated EMI: ₹" + Math.round(emi));
-        personalLoan.payEMI(Math.round(emi));
-
-        // Show updated account and loan
+        Loan srimaniLoan = new PersonalLoan(srimaniAccount, 100000, 12); // 1-year loan
+        srimaniLoan.printLoanDetails();
+        double srimaniEMI = srimaniLoan.calculateEMI();
+        System.out.println("\nCalculated EMI for Srimani: ₹" + Math.round(srimaniEMI));
+        srimaniLoan.payEMI(Math.round(srimaniEMI));
         System.out.println("\nAccount Balance: ₹" + srimaniAccount.getBalance());
-        personalLoan.printLoanDetails();
+        srimaniLoan.printLoanDetails();
+
+        // ---------------- Person 2: Ananya ----------------
+        Account ananyaAccount = new CurrentAccount("Ananya", 75000);
+        ananyaAccount.displayAccountType();
+        ananyaAccount.deposit(10000);
+        ananyaAccount.withdraw(20000);
+
+        // Ananya applies for a Home Loan
+        Loan ananyaLoan = new HomeLoan(ananyaAccount, 500000, 60); // 5-year loan
+        ananyaLoan.printLoanDetails();
+        double ananyaEMI = ananyaLoan.calculateEMI();
+        System.out.println("\nCalculated EMI for Ananya: ₹" + Math.round(ananyaEMI));
+        ananyaLoan.payEMI(Math.round(ananyaEMI));
+        System.out.println("\nAccount Balance: ₹" + ananyaAccount.getBalance());
+        ananyaLoan.printLoanDetails();
+
+        // ---------------- Person 3: Rohan ----------------
+        Account rohanAccount = new SavingsAccount("Rohan", 40000);
+        rohanAccount.displayAccountType();
+        rohanAccount.deposit(15000);
+        rohanAccount.withdraw(10000);
+
+        // Rohan applies for a Vehicle Loan
+        Loan rohanLoan = new VehicleLoan(rohanAccount, 200000, 36); // 3-year loan
+        rohanLoan.printLoanDetails();
+        double rohanEMI = rohanLoan.calculateEMI();
+        System.out.println("\nCalculated EMI for Rohan: ₹" + Math.round(rohanEMI));
+        rohanLoan.payEMI(Math.round(rohanEMI));
+        System.out.println("\nAccount Balance: ₹" + rohanAccount.getBalance());
+        rohanLoan.printLoanDetails();
+
+        // ---------------- Summary ----------------
+        System.out.println("\n🏁 Banking System Simulation Ended");
     }
 }

@@ -1,9 +1,19 @@
 # 🏦 Banking System with Loan Management — Story
 
-Srimani logs into **SafeBank**:
+1. **Srimani** logs in:
 
-1. He already has a **Savings Account**.
-2. He wants to apply for a **Personal Loan** to buy a laptop for his learning journey.
-3. The system checks eligibility, calculates interest dynamically, and schedules repayment.
-4. Srimani sees his **account balance**, **loan amount**, **interest**, and **repayment schedule** in real-time.
-5. Later, he pays an **EMI**, and the system updates the account and remaining loan balance.
+   * Already has a **Savings Account**.
+   * Applies for a **Personal Loan** to buy a laptop.
+   * System calculates EMI at **12% interest**, pays first installment, and updates balance in real-time.
+
+2. **Ananya** logs in:
+
+   * Already has a **Current Account**.
+   * Applies for a **Home Loan** to buy her first home.
+   * System calculates EMI at **8.5% interest**, pays first installment, and updates balance and loan status.
+
+3. **Rohan** logs in:
+
+   * Already has a **Savings Account**.
+   * Applies for a **Vehicle Loan** to buy a car.
+   * System calculates EMI at **10.5% interest**, pays first installment, and updates balance and loan info.
