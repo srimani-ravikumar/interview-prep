@@ -43,7 +43,7 @@ classDiagram
         + getBaseFare() double
     }
 
-    interface PaymentStrategy {
+    class PaymentStrategy {
         <<interface>>
         + pay(double) void
     }
