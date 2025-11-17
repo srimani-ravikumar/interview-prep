@@ -2,21 +2,27 @@ import java.util.*;
 
 // ---------------------------- BASE ACCOUNT ----------------------------
 abstract class BankAccount {
-    private static int accCounter = 1001;
-
-    private final int accountNumber;
+    private final UUID accountNumber;
     private final String accountHolder;
-    protected double balance;   // protected → subclasses can use it
+    protected double balance; // protected → subclasses can use it
 
     public BankAccount(String accountHolder, double openingBalance) {
-        this.accountNumber = accCounter++;
+        this.accountNumber = UUID.randomUUID();
         this.accountHolder = accountHolder;
         this.balance = openingBalance;
     }
 
-    public int getAccountNumber() { return accountNumber; }
-    public String getAccountHolder() { return accountHolder; }
-    public double getBalance() { return balance; }
+    public UUID getAccountNumber() {
+        return accountNumber;
+    }
+
+    public String getAccountHolder() {
+        return accountHolder;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
 
     public void deposit(double amount) {
         if (amount <= 0) {
@@ -31,11 +37,9 @@ abstract class BankAccount {
     public abstract void withdraw(double amount);
 }
 
-
 // ---------------------------- SAVINGS ACCOUNT ----------------------------
 // Rules: Minimum balance = ₹1000
 class SavingsAccount extends BankAccount {
-
     private static final double MIN_BALANCE = 1000;
 
     public SavingsAccount(String accountHolder, double openingBalance) {
@@ -50,8 +54,8 @@ class SavingsAccount extends BankAccount {
         }
 
         if (balance - amount < MIN_BALANCE) {
-            System.out.println("❌ Cannot withdraw ₹" + amount + 
-                               ". Min Balance of ₹" + MIN_BALANCE + " must be maintained.");
+            System.out.println("❌ Cannot withdraw ₹" + amount +
+                    ". Min Balance of ₹" + MIN_BALANCE + " must be maintained.");
             return;
         }
 
@@ -60,11 +64,9 @@ class SavingsAccount extends BankAccount {
     }
 }
 
-
 // ---------------------------- CURRENT ACCOUNT ----------------------------
 // Rules: Allows overdraft up to ₹10,000
 class CurrentAccount extends BankAccount {
-
     private static final double OVERDRAFT_LIMIT = -10000;
 
     public CurrentAccount(String accountHolder, double openingBalance) {
@@ -88,11 +90,10 @@ class CurrentAccount extends BankAccount {
     }
 }
 
-
 // ---------------------------- BANK ----------------------------
 class Bank {
     private final String bankName;
-    private final Map<Integer, BankAccount> accounts;
+    private final Map<UUID, BankAccount> accounts;
 
     public Bank(String name) {
         this.bankName = name;
@@ -106,14 +107,13 @@ class Bank {
                 " | Account No: " + account.getAccountNumber());
     }
 
-    public BankAccount getAccount(int accNo) {
+    public BankAccount getAccount(UUID accNo) {
         return accounts.get(accNo);
     }
 }
 
-
 // ---------------------------- CLIENT CODE ----------------------------
-public class BankAccountManagement {
+public class BankAccountManagementApp {
     public static void main(String[] args) throws InterruptedException {
 
         Bank bank = new Bank("Indian National Bank");
@@ -128,13 +128,13 @@ public class BankAccountManagement {
         // Savings account — strict rules
         System.out.println("\n===== Savings Account Operations =====");
         savings.deposit(2000);
-        savings.withdraw(1000);  // allowed
-        savings.withdraw(4500);  // NOT allowed due to minimum balance rule
+        savings.withdraw(1000); // allowed
+        savings.withdraw(4500); // NOT allowed due to minimum balance rule
 
         // Current account — overdraft allowed
         System.out.println("\n===== Current Account Operations =====");
         current.deposit(3000);
-        current.withdraw(4000);  // allowed (balance goes negative)
+        current.withdraw(4000); // allowed (balance goes negative)
         current.withdraw(15000); // overdraft limit exceeded
 
         // Simulating delay like your library story
@@ -143,7 +143,7 @@ public class BankAccountManagement {
 
         // Continue operations
         System.out.println("\n===== More Savings Account Actions =====");
-        savings.withdraw(2000);  // allowed
+        savings.withdraw(2000); // allowed
 
         System.out.println("\n✨ Banking session completed successfully!");
     }
