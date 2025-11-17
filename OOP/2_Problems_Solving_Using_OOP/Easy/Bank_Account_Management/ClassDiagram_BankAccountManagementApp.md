@@ -29,7 +29,7 @@ direction TB
 	    + getAccount(UUID) BankAccount
     }
     class BankAccountManagementApp {
-	    + main(String [] args)
+	    + main(String [] args) static
     }
 
 	<<abstract>> BankAccount
