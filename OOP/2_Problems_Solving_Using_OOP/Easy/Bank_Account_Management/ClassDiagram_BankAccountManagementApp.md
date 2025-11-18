@@ -15,11 +15,11 @@ direction TB
 	    + withdraw(double) void* 
     }
     class SavingsAccount {
-	    - static double MIN_BALANCE
+	    - double MIN_BALANCE static
 	    + withdraw(double) void*
     }
     class CurrentAccount {
-	    - static double OVERDRAFT_LIMIT
+	    - double OVERDRAFT_LIMIT static
 	    + withdraw(double) void*
     }
     class Bank {
