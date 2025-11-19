@@ -28,7 +28,7 @@ direction TB
         + computeArea() double*
     }
     class ShapeAreaCalculator {
-        + main(String[] args) static
+        + main(String[] args) void static
     }
     <<abstract>> Shape
     Shape <|-- Circle

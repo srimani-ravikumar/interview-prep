@@ -2,27 +2,39 @@ import java.util.*;
 
 // ---------------------------- TASK ----------------------------
 class Task {
-    private static int idCounter = 1;
-
-    private final int id;
-    private final String description;
-    private final String category;   // e.g., Work / Personal / Study
-    private final int priority;      // 1 = High, 2 = Medium, 3 = Low
+    private final UUID id;
+    private final String category; // e.g., Work / Personal / Study
+    private String description;
+    private int priority; // 1 = High, 2 = Medium, 3 = Low
     private boolean completed;
 
     public Task(String description, String category, int priority) {
-        this.id = idCounter++;
+        this.id = UUID.randomUUID();
         this.description = description;
         this.category = category;
         this.priority = priority;
         this.completed = false;
     }
 
-    public int getId() { return id; }
-    public String getDescription() { return description; }
-    public String getCategory() { return category; }
-    public int getPriority() { return priority; }
-    public boolean isCompleted() { return completed; }
+    public UUID getId() {
+        return id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public boolean isCompleted() {
+        return completed;
+    }
 
     public void markCompleted() {
         completed = true;
@@ -31,11 +43,10 @@ class Task {
     @Override
     public String toString() {
         return "[#" + id + "] (" + category + ") " + description +
-               " | Priority: " + priority +
-               " | Status: " + (completed ? "✅ Done" : "⏳ Pending");
+                " | Priority: " + priority +
+                " | Status: " + (completed ? "✅ Done" : "⏳ Pending");
     }
 }
-
 
 // ---------------------------- TO-DO LIST ----------------------------
 class ToDoList {
@@ -51,12 +62,12 @@ class ToDoList {
         System.out.println("➕ Added Task: " + task.getDescription());
     }
 
-    public void removeTask(int id) {
+    public void removeTask(UUID id) {
         tasks.removeIf(t -> t.getId() == id);
         System.out.println("❌ Removed Task #" + id);
     }
 
-    public void markTaskAsComplete(int id) {
+    public void markTaskAsComplete(UUID id) {
         for (Task t : tasks) {
             if (t.getId() == id) {
                 t.markCompleted();
@@ -65,6 +76,14 @@ class ToDoList {
             }
         }
         System.out.println("⚠️ Task #" + id + " not found.");
+    }
+
+    public void printAll() {
+        System.out.println("\n---- Current To-Do List ----");
+        for (Task t : tasks) {
+            System.out.println(t);
+        }
+        System.out.println("-----------------------------\n");
     }
 
     // Optional: Sorting
@@ -78,18 +97,10 @@ class ToDoList {
         System.out.println("📊 Sorted tasks by completion status.");
     }
 
-    public void printAll() {
-        System.out.println("\n---- Current To-Do List ----");
-        for (Task t : tasks) {
-            System.out.println(t);
-        }
-        System.out.println("-----------------------------\n");
-    }
 }
 
-
-// ---------------------------- CLIENT SIMULATION ----------------------------
-public class ToDoApp {
+// ---------------------------- CLIENT CODE ----------------------------
+public class SimpleToDoListApp {
     public static void main(String[] args) throws InterruptedException {
 
         ToDoList list = new ToDoList();
