@@ -2,13 +2,15 @@ import java.util.*;
 
 // ---------------------------- ABSTRACT SHAPE ----------------------------
 abstract class Shape {
-    private final String name; // Encapsulation
+    private final String name;
 
     public Shape(String name) {
         this.name = name;
     }
 
-    public String getName() { return name; }
+    public String getName() {
+        return name;
+    }
 
     // Polymorphic behavior: each shape computes area differently
     public abstract double computeArea();
@@ -63,11 +65,9 @@ class Triangle extends Shape {
     }
 }
 
-
-// ---------------------------- CLIENT (REAL-TIME STORY) ----------------------------
+// ---------------------------- CLIENT CODE ----------------------------
 public class ShapeAreaCalculator {
     public static void main(String[] args) throws InterruptedException {
-
         System.out.println("🧮 Shape Area Calculator Initialized...\n");
 
         List<Shape> shapes = new ArrayList<>();
