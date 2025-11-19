@@ -1,72 +1,9 @@
 import java.util.*;
 
-// ---------------------------- SUBJECT ----------------------------
-class Subject {
-    private final String name;
-    private double marks;
-
-    public Subject(String name, double marks) {
-        this.name = name;
-        this.marks = marks;
-    }
-
-    public String getName() { return name; }
-    public double getMarks() { return marks; }
-
-    public void setMarks(double marks) {
-        this.marks = marks;
-    }
-}
-
-// ---------------------------- STUDENT ----------------------------
-class Student {
-    private static int idCounter = 1;
-
-    private final int id;
-    private final String name;
-    private final String gradeLevel; // e.g., "Grade 10", "First Year"
-    private final Map<String, Subject> subjects; // dynamic subjects
-
-    public Student(String name, String gradeLevel) {
-        this.id = idCounter++;
-        this.name = name;
-        this.gradeLevel = gradeLevel;
-        this.subjects = new HashMap<>();
-    }
-
-    public int getId() { return id; }
-    public String getName() { return name; }
-    public String getGradeLevel() { return gradeLevel; }
-
-    public void addSubject(String subjectName, double marks) {
-        subjects.put(subjectName, new Subject(subjectName, marks));
-        System.out.println("📘 Added subject: " + subjectName + " for " + name);
-    }
-
-    public double calculateAverage() {
-        if (subjects.isEmpty()) return 0;
-
-        double total = 0;
-        for (Subject s : subjects.values()) {
-            total += s.getMarks();
-        }
-        return total / subjects.size();
-    }
-
-    public void printReport() {
-        System.out.println("\n----- Report Card: " + name + " -----");
-        System.out.println("Grade Level: " + gradeLevel);
-        for (Subject s : subjects.values()) {
-            System.out.println("📚 " + s.getName() + " : " + s.getMarks());
-        }
-        System.out.println("🎯 Average Marks: " + calculateAverage());
-    }
-}
-
 // ---------------------------- SCHOOL ----------------------------
 class School {
     private final String name;
-    private final Map<Integer, Student> students;
+    private final Map<UUID, Student> students;
 
     public School(String name) {
         this.name = name;
@@ -74,12 +11,16 @@ class School {
         System.out.println("🏫 School \"" + name + "\" session started!\n");
     }
 
+    public String getName() {
+        return name;
+    }
+
     public void addStudent(Student student) {
         students.put(student.getId(), student);
         System.out.println("🧑‍🎓 Student added: " + student.getName());
     }
 
-    public Student getStudent(int id) {
+    public Student getStudent(UUID id) {
         return students.get(id);
     }
 
@@ -98,9 +39,83 @@ class School {
     }
 }
 
+// ---------------------------- STUDENT ----------------------------
+class Student {
+    private final UUID id;
+    private final String name;
+    private final String gradeLevel; // e.g., "Grade 10", "First Year"
+    private final Map<String, Subject> subjects; // dynamic subjects
 
-// ---------------------------- CLIENT SIMULATION ----------------------------
-public class StudentGradingSystem {
+    public Student(String name, String gradeLevel) {
+        this.id = UUID.randomUUID();
+        this.name = name;
+        this.gradeLevel = gradeLevel;
+        this.subjects = new HashMap<>();
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getGradeLevel() {
+        return gradeLevel;
+    }
+
+    public void addSubject(String subjectName, double marks) {
+        subjects.put(subjectName, new Subject(subjectName, marks));
+        System.out.println("📘 Added subject: " + subjectName + " for " + name);
+    }
+
+    public double calculateAverage() {
+        if (subjects.isEmpty())
+            return 0;
+
+        double total = 0;
+        for (Subject s : subjects.values()) {
+            total += s.getMarks();
+        }
+        return total / subjects.size();
+    }
+
+    public void printReport() {
+        System.out.println("\n----- Report Card: " + name + " -----");
+        System.out.println("Grade Level: " + gradeLevel);
+        for (Subject s : subjects.values()) {
+            System.out.println("📚 " + s.getName() + " : " + s.getMarks());
+        }
+        System.out.println("🎯 Average Marks: " + calculateAverage());
+    }
+}
+
+// ---------------------------- SUBJECT ----------------------------
+class Subject {
+    private final String name;
+    private double marks;
+
+    public Subject(String name, double marks) {
+        this.name = name;
+        this.marks = marks;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getMarks() {
+        return marks;
+    }
+
+    public void setMarks(double marks) {
+        this.marks = marks;
+    }
+}
+
+// ---------------------------- CLIENT CODE ----------------------------
+public class StudentGradingSystemApp {
     public static void main(String[] args) throws InterruptedException {
 
         School school = new School("Nexus International School");
@@ -138,8 +153,8 @@ public class StudentGradingSystem {
         System.out.println("\n🏆 Checking Top Performer...");
         Student topper = school.getTopper();
 
-        System.out.println("\n🥇 Topper is: " + topper.getName() + 
-                           " with an average of " + topper.calculateAverage());
+        System.out.println("\n🥇 Topper is: " + topper.getName() +
+                " with an average of " + topper.calculateAverage());
 
         System.out.println("\n✨ Student grading evaluation completed!");
     }
