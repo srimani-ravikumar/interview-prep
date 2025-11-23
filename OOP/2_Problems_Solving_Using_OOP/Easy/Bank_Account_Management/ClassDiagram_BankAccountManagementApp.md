@@ -16,11 +16,11 @@ direction TB
     }
     class SavingsAccount {
 	    - double MIN_BALANCE static
-	    + withdraw(double) void*
+	    + withdraw(double) void
     }
     class CurrentAccount {
 	    - double OVERDRAFT_LIMIT static
-	    + withdraw(double) void*
+	    + withdraw(double) void
     }
     class Bank {
 	    - String bankName

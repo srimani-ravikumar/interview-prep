@@ -13,19 +13,19 @@ direction TB
     class Circle {
         - double radius
         + Circle(double radius)
-        + computeArea() double*
+        + computeArea() double
     }
     class Rectangle {
         - double width
         - double height
         + Rectangle(double width, double height)
-        + computeArea() double*
+        + computeArea() double
     }
     class Triangle {
         - double base
         - double height
         + Triangle(double base, double height)
-        + computeArea() double*
+        + computeArea() double
     }
     class ShapeAreaCalculator {
         + main(String[] args) void static

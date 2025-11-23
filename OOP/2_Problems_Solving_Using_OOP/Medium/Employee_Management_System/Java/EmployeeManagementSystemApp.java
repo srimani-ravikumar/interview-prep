@@ -2,21 +2,27 @@ import java.util.*;
 
 // Abstract Class (Abstraction)
 abstract class Employee {
-    private static int idCounter = 1;
-
-    private int id;
+    private UUID id;
     private String name;
     private String department;
 
     public Employee(String name, String department) {
-        this.id = idCounter++;
+        this.id = UUID.randomUUID();
         this.name = name;
         this.department = department;
     }
 
-    public int getId() { return id; }
-    public String getName() { return name; }
-    public String getDepartment() { return department; }
+    public UUID getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
 
     // Polymorphic payment calculation
     public abstract double calculateSalary();
@@ -75,8 +81,8 @@ class Company {
 
     public void addEmployee(Employee employee) {
         departmentMap
-            .computeIfAbsent(employee.getDepartment(), d -> new ArrayList<>())
-            .add(employee);
+                .computeIfAbsent(employee.getDepartment(), d -> new ArrayList<>())
+                .add(employee);
         System.out.println(employee.getName() + " added to " + employee.getDepartment());
     }
 
@@ -102,7 +108,7 @@ class Company {
 }
 
 // Simulation featuring Srimani
-public class Main {
+public class EmployeeManagementSystemApp {
     public static void main(String[] args) {
 
         Company company = new Company();
