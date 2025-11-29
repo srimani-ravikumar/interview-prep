@@ -142,8 +142,7 @@ class Member {
     }
 }
 
-// ---------------------------- MEMBERSHIP (ABSTRACT)
-// ----------------------------
+// ---------------------------- MEMBERSHIP (ABSTRACT) ----------------------------
 abstract class Membership {
     private String type;
 
