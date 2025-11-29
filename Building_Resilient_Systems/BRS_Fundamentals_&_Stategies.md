@@ -1,4 +1,4 @@
-# 🛡️ Building Resilient Systems — Fundamentals & Patterns
+# 🛡️ Fundamentals & Strategies to Build Resilient Systems
 
 ## 🚄 Introduction
 
