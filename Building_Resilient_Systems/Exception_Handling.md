@@ -1,6 +1,6 @@
 # Exception Handling
 
-### Why do we need to do learn exception handling?
+## Why do we need to do learn exception handling?
 
 - There will be cases services will fail.
 - There will be cases you might have to retry.
@@ -11,19 +11,19 @@
 > Catch → Log → Handle → Retry/ Fail Over
 > 
 
-### How to do it in a best way?
+## How to do it in a best way?
 
 - Be clear to user on why it fails with descriptive message
 - Always try to provide solutions (Customers needs solution)
 - Trigger alerts from your end for the next steps (before customer)
 - Fail gracefully
 
-### Mechanisms in handling exception
+## Mechanisms in handling exception
 
 > Use the below terms while discussing with Product Manager / Product Owner
 > 
 
-### Fail Fast
+## Fail Fast
 
 - A **fail-fast** system detects errors early and stops further execution to prevent invalid states. This approach ensures problems are caught quickly, making it easier to debug.
 
@@ -37,7 +37,7 @@ public class ProductServiceFailFirst {
 }
 ```
 
-### Fail Safe
+## Fail Safe
 
 - A **fail-safe** system continues running despite errors, using fallback mechanisms to minimize disruption. It ensures the system remains operational even when a failure occurs.
 
@@ -63,7 +63,7 @@ class ProductServiceFailSafe {
 | **User Experience** | May disrupt the user | Minimizes disruption |
 | **When to Use** | Use when ensuring data integrity is crucial, such as in payment processing or financial transactions. | Use when the system must continue functioning even during a failure, such as in healthcare or transportation systems. |
 
-### Types of exceptions
+## Types of exceptions
 
 - Checked exceptions
 - Unchecked exceptions
@@ -74,7 +74,7 @@ class ProductServiceFailSafe {
 - typically errors that a program might encounter during its normal operation, and the compiler forces the programmer to handle these exceptions explicitly in the code.
 - The compiler checks whether the programmer has handled or declared these exceptions, ensuring that the program doesn't ignore potential errors that could occur during runtime.
 
-### Examples in Java:
+#### Examples in Java:
 
 - ***IOException:** Happens during file I/O operations, such as reading or writing a file that may not be accessible.*
 - ***SQLException:** Thrown when there’s a problem with the database connection or query execution.*
@@ -102,17 +102,17 @@ class FileReaderExample {
 }
 ```
 
-### **Advantages of Checked Exceptions**
+#### **Advantages of Checked Exceptions**
 
 - ***Prevents Unhandled Errors:** By requiring explicit handling, checked exceptions reduce the likelihood of uncaught exceptions causing the program to crash unexpectedly.*
 - ***Encourages Robust Code:** Programmers are forced to consider error handling, which results in more resilient and fault-tolerant software.*
 
-### **Disadvantages of Checked Exceptions**
+#### **Disadvantages of Checked Exceptions**
 
 - ***Increased Boilerplate Code:** Checked exceptions force developers to write additional try-catch blocks or throws declarations, leading to more code and potential complexity.*
 - ***Overuse Can Lead to Clutter:** Excessive handling of checked exceptions in code can lead to overly verbose or cluttered code, making it harder to maintain and read.*
 
-### **When to Use Checked Exceptions:**
+#### **When to Use Checked Exceptions:**
 
 - ***External Resources:** When the program interacts with external resources like files, databases, or networks, where errors are expected and can be handled.*
 - ***Recoverable Conditions:** When the program can recover from the exception by retrying the operation, alerting the user, or attempting alternative methods.*
@@ -123,12 +123,12 @@ class FileReaderExample {
 - typically represent programming bugs, such as logic errors or incorrect API usage, and they often cannot be easily recovered from at runtime.
 - typically used for errors that are beyond the control of the program's flow, such as null pointer references, array index out-of-bounds errors, or invalid type casts. These exceptions often signal that there is a bug in the code that needs to be fixed, rather than something that should be handled by error-handling mechanisms.
 
-### KeyPoints
+#### KeyPoints
 
 - ***No Compiler Requirement to Handle:** The compiler does not require the programmer to handle unchecked exceptions, so they do not need to be caught or declared in method signatures.*
 - ***Represents Programming Bugs:** These exceptions usually indicate errors in the code, such as logic mistakes or invalid assumptions, that should be fixed rather than handled at runtime.*
 
-### Examples in Java:
+#### Examples in Java:
 
 - ***NullPointerException:** Thrown when trying to use a reference that points to null.*
 - ***ArrayIndexOutOfBoundsException:** Thrown when an invalid index is accessed in an array.*
@@ -143,7 +143,7 @@ class FileReaderExample {
     }
 ```
 
-### When to use Unchecked Exception
+#### When to use Unchecked Exception
 
 - The exception signifies a defect in the code that needs to be fixed.
 - The calling code cannot realistically recover from the error.
@@ -179,7 +179,7 @@ class InventoryService{
 }
 ```
 
-### **When to Use Custom Exceptions:**
+#### **When to Use Custom Exceptions:**
 
 - ***To Represent Specific Domain Errors:** When a particular scenario in your application needs to be captured with a unique error message, such **`UserNotFoundException`** or **`ProductOutOfStockException`**.*
 - ***To Wrap Lower-Level Exceptions:** When you need to abstract lower-level errors, such as database connection issues, and present them in a more user-friendly way.*
@@ -199,8 +199,6 @@ When we built the exception-handling model for C# and the CLR (Common Language R
 
 Here’s how the system works internally.
 
----
-
 ## 🚀 **1. Everything Begins with an Exception Object**
 
 In .NET, an exception isn’t just a message.
@@ -217,7 +215,6 @@ We made the design decision that:
     So the runtime, debugger, and application code all speak the *same language*.
     
 
----
 
 ## 🌪️ **2. Structured Exception Handling (SEH) Under the Hood**
 
@@ -240,7 +237,6 @@ When something goes wrong:
 
 This shields developers from low-level OS behavior.
 
----
 
 ## 🧵 **3. CLR Searches for a Handler (The Unwind Algorithm)**
 
@@ -263,7 +259,6 @@ To keep it fast, we implemented metadata tables that describe:
 
 So the CLR knows exactly where to jump.
 
----
 
 ## 🔐 **4. Type Matching Is Exact and Hierarchical**
 
@@ -279,7 +274,6 @@ The CLR compares the thrown exception’s actual type with each catch handler us
 
 This ensures predictable behavior across languages (C#, VB.NET, F#... all share the same runtime rules).
 
----
 
 ## 🧹 **5. We Guarantee All Finally Blocks Execute**
 
@@ -298,7 +292,6 @@ We built special logic in the runtime to enforce this guarantee.
 
 This is why `using` statements (which compile to try-finally) are rock-solid.
 
----
 
 ## 🧵 **6. Exceptions Flow Across async/await State Machines**
 
@@ -312,7 +305,6 @@ So internally:
 
 This makes async exception handling feel natural and synchronous even though the machinery underneath is complex.
 
----
 
 ## 💀 **7. What Happens If Nothing Handles the Exception?**
 
@@ -332,7 +324,6 @@ Exceptions get wrapped in `AggregateException`.
 
 We designed this consistency so that *no exception silently disappears*—a common flaw in older runtimes.
 
----
 
 ## 🧠 **8. The Design Philosophy Behind It All**
 
@@ -346,11 +337,12 @@ When we built the .NET exception system, we focused on:
 
 The end result is a model where developers can reason about control flow cleanly and the runtime can guarantee correctness—even during failures.
 
----
 
 ## ✅ **One-Liner Summary (For Your Notes)**
 
 **“.NET converts faults into typed objects, walks the stack deterministically, ensures finally blocks run, matches handlers based on type hierarchy, and cleanly propagates exceptions—even across async boundaries.”**
+
+---
 
 # How Java handles the exception?
 
@@ -370,7 +362,6 @@ We wanted a model that was:
 
 Here’s how it works internally.
 
----
 
 ## 🧱 **1. Everything Starts with a Throwable**
 
@@ -392,7 +383,6 @@ We wanted:
 - **runtime exceptions** for programmer mistakes
 - **errors** for conditions the VM shouldn’t expect the app to recover from
 
----
 
 ## ⚙️ **2. The JVM Interrupts Control Flow Using an Internal “Throw” Opcode**
 
@@ -405,8 +395,6 @@ When thrown, the JVM immediately:
 3. **begins the stack-walk algorithm** to find a handler
 
 The entire mechanism is native and highly optimized.
-
----
 
 ## 🔍 **3. How JVM Searches for a Matching Handler (Stack Unwinding)**
 
@@ -432,7 +420,6 @@ This is deterministic and identical across:
 - Oracle JVM
 - Android ART (Dalvik before ART)
 
----
 
 ## 🧹 **4. “Finally” Is Guaranteed Through Bytecode Transformation**
 
@@ -450,7 +437,6 @@ A single `finally` block appears *multiple* times in the method’s bytecode:
 
 This is why Java’s resource cleanup (`try-with-resources`) is incredibly reliable.
 
----
 
 ## 🧵 **5. Checked vs Unchecked Exceptions — A Deliberate Language Choice**
 
@@ -469,7 +455,6 @@ Unchecked exceptions (`RuntimeException`) were left unmandated so routine progra
 
 Even today, this dual-model remains one of Java’s trademark features.
 
----
 
 ## 🔗 **6. Exceptions Across Threads**
 
@@ -482,7 +467,6 @@ If an exception isn’t handled inside a thread:
 
 This prevents cross-thread exception leakage and keeps concurrency predictable.
 
----
 
 ## 🌐 **7. JVM and Standard Library Collaboration**
 
@@ -499,7 +483,6 @@ For example:
 
 We built the entire library around the exception hierarchy so the model stays coherent.
 
----
 
 ## 💥 **8. What Happens If Nothing Catches the Exception**
 
@@ -512,7 +495,6 @@ This rule is intentionally strict.
 
 We wanted developers to *immediately see failure*, not silently swallow it.
 
----
 
 ## 🧠 **9. The Core Philosophy Behind Java’s Exception Design**
 
@@ -527,7 +509,6 @@ When we created this system, the guiding principles were:
 
 The goal wasn’t just catching errors—it was building **reliable, maintainable software**.
 
----
 
 ## ✅ **One-Liner Summary (For Your Notes)**
 
