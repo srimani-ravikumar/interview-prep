@@ -1,7 +1,3 @@
-Here is a **clean and well-structured Problem Statement** tailored exactly to your Library + Membership UML:
-
----
-
 ## 📚 Library Management with Membership
 
 * **Problem Statement:**
