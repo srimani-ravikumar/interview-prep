@@ -7,8 +7,8 @@ classDiagram
     class Library {
         - Map~UUID, Book~ books
         - Map~Integer, Member~ members
-        + addBook(Book) void
-        + addMember(Member) void
+        + addBook(Book book) void
+        + addMember(Member book) void
         + borrowBook(UUID memberId, UUID bookId, int daysRequested) void
         + returnBook(UUID memberId, UUID bookId) void
     }
