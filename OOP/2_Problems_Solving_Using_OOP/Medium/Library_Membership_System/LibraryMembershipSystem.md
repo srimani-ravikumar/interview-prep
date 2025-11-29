@@ -1,8 +1,44 @@
 ```mermaid
-
+---
+title: Library Management with Membership
+---
 classDiagram
     direction TB
-
+    class Library {
+        - Map~UUID, Book~ books
+        - Map~Integer, Member~ members
+        + addBook(Book) void
+        + addMember(Member) void
+        + borrowBook(UUID memberId, UUID bookId, int daysRequested) void
+        + returnBook(UUID memberId, UUID bookId) void
+    }
+    class Book {
+        - UUID id
+        - String title
+        - String author
+        - boolean available
+        + Book(String title, String author)
+        + getId() UUID
+        + getTitle() String
+        + getAuthor() String
+        + isAvailable() boolean
+        + borrow() void
+        + returnBook() void
+    }
+    class Member {
+        - UUID id
+        - String name
+        - Membership membership
+        - Map~Integer, Integer~ borrowedBooks
+        + Member(String name, Membership membershipType)
+        + getId() UUID
+        + getName() String
+        + getMembership() Membership
+        + getBorrowedBooks() Map
+        + canBorrow() boolean
+        + borrowBook(UUID bookId, int daysRequested) void
+        + returnBook(UUID bookId) void
+    }
     class Membership {
         <<abstract>>
         - String type
@@ -11,63 +47,32 @@ classDiagram
         + getBorrowLimit() int*
         + getMaxBorrowDays() int*
     }
-
-    class RegularMembership {
-        + RegularMembership()
+    class GoldMembership {
+        + GoldMembership()
         + getBorrowLimit() int
         + getMaxBorrowDays() int
     }
-
-    class PremiumMembership {
-        + PremiumMembership()
+    class SilverMembership {
+        + SilverMemberShip()
         + getBorrowLimit() int
         + getMaxBorrowDays() int
     }
+    class BronzeMembership {
+        + BronzeMembership()
+        + getBorrowLimit() int
+        + getMaxBorrowDays() int
+    }        
 
-    class Book {
-        - int id
-        - String title
-        - boolean available
-        + Book(String)
-        + getId() int
-        + getTitle() String
-        + isAvailable() boolean
-        + borrow() void
-        + returnBook() void
-    }
+     %% Inheritance
+    Membership <|-- GoldMembership
+    Membership <|-- SilverMembership
+    Membership <|-- BronzeMembership
 
-    class Member {
-        - int id
-        - String name
-        - Membership membership
-        - Map~Integer, Integer~ borrowedBooks
-        + Member(String, Membership)
-        + getId() int
-        + getName() String
-        + getMembership() Membership
-        + getBorrowedBooks() Map
-        + canBorrow() boolean
-        + borrowBook(int, int) void
-        + returnBook(int) void
-    }
+    %% Composition
+    Library *-- Book : "owns"
+    Library *-- Member : "owns"
 
-    class LibrarySystem {
-        - Map~Integer, Book~ books
-        - Map~Integer, Member~ members
-        + addBook(Book) void
-        + addMember(Member) void
-        + borrowBook(int, int, int) void
-        + returnBook(int, int) void
-    }
-
-    %% Relationships
-    Membership <|-- RegularMembership
-    Membership <|-- PremiumMembership
-
-    Member "1" --> "1" Membership : "has-a"
-    LibrarySystem "1" --> "*" Book : "manages"
-    LibrarySystem "1" --> "*" Member : "manages"
-
-    Member "1" --> "*" Book : "borrows (via IDs)"
-
+    %% Associations
+    Member --> Membership : "has-a"
+    Member --> Book : "borrows"
 ```
