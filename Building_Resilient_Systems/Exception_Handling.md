@@ -1,4 +1,4 @@
-## Exception Handling
+# Exception Handling
 
 ### Why do we need to do learn exception handling?
 
@@ -191,9 +191,9 @@ class InventoryService{
 
 ---
 
-### How C# with .NET handles the exception?
+# How C# with .NET handles the exception?
 
-# 🔧 **How C# with .NET Handles Exceptions — From the Perspective of the Architect Who Designed It**
+## 🔧 **From the Perspective of the Architect Who Designed It**
 
 When we built the exception-handling model for C# and the CLR (Common Language Runtime), we had one primary goal: **make error propagation safe, predictable, performant, and uniform across all languages running on .NET**.
 
@@ -348,13 +348,13 @@ The end result is a model where developers can reason about control flow cleanly
 
 ---
 
-# ✅ **One-Liner Summary (For Your Notes)**
+## ✅ **One-Liner Summary (For Your Notes)**
 
 **“.NET converts faults into typed objects, walks the stack deterministically, ensures finally blocks run, matches handlers based on type hierarchy, and cleanly propagates exceptions—even across async boundaries.”**
 
-### How Java handles the exception?
+# How Java handles the exception?
 
-# ☕ **How Java Handles Exceptions — From the Perspective of the Architect Who Designed It**
+## ☕ **From the Perspective of the Architect Who Designed It**
 
 When we designed Java’s exception model in the mid-90s, the intention was simple:
 
@@ -529,6 +529,6 @@ The goal wasn’t just catching errors—it was building **reliable, maintainabl
 
 ---
 
-# ✅ **One-Liner Summary (For Your Notes)**
+## ✅ **One-Liner Summary (For Your Notes)**
 
 **“Java turns errors into `Throwable` objects, triggers a well-defined stack-unwind using exception tables, enforces handling of checked exceptions, guarantees all `finally` blocks execute, and terminates cleanly if nothing catches the exception.”**
