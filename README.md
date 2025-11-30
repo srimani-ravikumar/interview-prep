@@ -6,11 +6,11 @@ The primary focus is on **general programming concepts** rather than language-sp
 ## Topics Covered
 
 1. **Object-Oriented Programming (OOP)**
-2. **Software Design Principles**
-3. **Software Design Patterns**
+2. **Software Design Principles (SOLID)**
+3. **Software Design Patterns (GoF)**
 4. **Data Structures Implementation**
 5. **Algorithms Implementation**
-6. **Low-Level System Design**
+6. **Low-Level System Design (LLD)**
 7. **Computer Networks Notes & Projects**
 8. **Operating Systems Notes & Projects**
 
