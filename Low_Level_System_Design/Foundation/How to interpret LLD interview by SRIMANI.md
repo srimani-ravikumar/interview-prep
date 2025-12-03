@@ -1,7 +1,5 @@
 # How to interpret LLD interview by Srimani?
 
----
-
 > *Always keep an eye on the clock to avoid getting stuck in particular area.*
 > 
 
