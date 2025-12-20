@@ -1,15 +1,11 @@
 # Quick Guide — C#
 
----
-
 <aside>
 💡
 
 https://learn.microsoft.com/en-us/dotnet/csharp/tour-of-csharp/
 
 </aside>
-
----
 
 # A. Language Fundamentals
 
