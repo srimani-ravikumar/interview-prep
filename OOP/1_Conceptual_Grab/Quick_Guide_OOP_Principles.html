@@ -1,0 +1,1054 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Quick Guide: OOP Principles</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="2cf113c0-c808-80e2-806e-fa281f83faac" class="page sans"><header><h1 class="page-title" dir="auto">Quick Guide: OOP Principles</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><hr id="2cf113c0-c808-80e6-959c-f646be8e3ea2"/></div><div style="display:contents" dir="auto"><blockquote id="2cf113c0-c808-8008-b3bd-df4c89621249" class=""><em><strong>You said OOP I heard AEIP<br/>A → Abstraction<br/>E → Encapsulation<br/>I → Inheritance<br/>P → Polymorphism</strong></em></blockquote></div><div style="display:contents" dir="auto"><details open=""><summary style="font-weight:600;font-size:1.5em;line-height:1.3;margin:0">Real life analogy for Class &amp; Object</summary><div class="indented"><div style="display:contents" dir="auto"><h3 id="2cf113c0-c808-80cd-8fb3-d3190cae5857" class="">🧱 Class and Object — Blueprint Analogy</h3></div><div style="display:contents" dir="auto"><p id="2cf113c0-c808-8085-b274-f6bf30891f54" class="">In programming, the concepts of <strong>class</strong> and <strong>object</strong> can be understood through a simple real-world analogy:</p></div><div style="display:contents" dir="auto"><blockquote id="2cf113c0-c808-80e0-99d1-e8e98bf278aa" class="">A class is like a blueprint, and an object is like a house built from that blueprint.</blockquote></div><div style="display:contents" dir="auto"><hr id="2cf113c0-c808-8025-be7b-f8e8f39c074c"/></div><div style="display:contents" dir="auto"><h3 id="2cf113c0-c808-8094-9ade-c2a9e1f96a84" class="">🏗️ Analogy: The Blueprint and the House</h3></div><div style="display:contents" dir="auto"><h3 id="2cf113c0-c808-80af-8204-e02714b6c90f" class="">📐 Class (The Blueprint)</h3></div><div style="display:contents" dir="auto"><p id="2cf113c0-c808-808d-9a04-ee965b7c0baf" class="">A <strong>class</strong> is a template or design that defines the <strong>common properties and behaviors</strong> of a specific type of thing.</p></div><div style="display:contents" dir="auto"><p id="2cf113c0-c808-80c3-980c-c902b11890e2" class="">A house blueprint specifies:</p></div><div style="display:contents" dir="auto"><h3 id="2cf113c0-c808-80d3-8d2d-c83b7da80261" class=""><strong>Properties (Attributes)</strong></h3></div><div style="display:contents" dir="auto"><ul id="2cf113c0-c808-80c8-a579-dfbec7d94ec5" class="bulleted-list"><li style="list-style-type:disc">Size of rooms</li></ul></div><div style="display:contents" dir="auto"><ul id="2cf113c0-c808-80ff-bbb9-dc24f7c9354e" class="bulleted-list"><li style="list-style-type:disc">Number of windows</li></ul></div><div style="display:contents" dir="auto"><ul id="2cf113c0-c808-8099-ae8e-cc12838f4243" class="bulleted-list"><li style="list-style-type:disc">Type of roofing material</li></ul></div><div style="display:contents" dir="auto"><ul id="2cf113c0-c808-80f1-8897-c175665d5c1f" class="bulleted-list"><li style="list-style-type:disc">Color of paint</li></ul></div><div style="display:contents" dir="auto"><h3 id="2cf113c0-c808-80f1-af12-fa32f21dce32" class=""><strong>Behaviors (Methods)</strong></h3></div><div style="display:contents" dir="auto"><ul id="2cf113c0-c808-80c8-9be8-c4a62082c530" class="bulleted-list"><li style="list-style-type:disc">How the electrical system functions</li></ul></div><div style="display:contents" dir="auto"><ul id="2cf113c0-c808-80fb-8373-e3baae79bd8e" class="bulleted-list"><li style="list-style-type:disc">Where the plumbing runs</li></ul></div><div style="display:contents" dir="auto"><ul id="2cf113c0-c808-8054-82e3-ee0143667ea2" class="bulleted-list"><li style="list-style-type:disc">How doors open and close</li></ul></div><div style="display:contents" dir="auto"><p id="2cf113c0-c808-80ea-95bc-c2364465ee42" class="">👉 The blueprint itself is <strong>not a real house</strong> you can live in — it is just a <strong>plan</strong>.</p></div><div style="display:contents" dir="auto"><hr id="2cf113c0-c808-8016-8b62-f861ef7b5d9b"/></div><div style="display:contents" dir="auto"><h3 id="2cf113c0-c808-80f4-bb0b-e2c1a6de4f5a" class="">🏠 Object (The House)</h3></div><div style="display:contents" dir="auto"><p id="2cf113c0-c808-8049-9ff4-f1f6d23188c6" class="">An <strong>object</strong> is a <strong>real, concrete instance</strong> created using the class (blueprint).</p></div><div style="display:contents" dir="auto"><p id="2cf113c0-c808-802a-986e-d7d1477ece9d" class="">From the same blueprint, you can build many different houses:</p></div><div style="display:contents" dir="auto"><ul id="2cf113c0-c808-8043-b54d-f99e0fbcb907" class="bulleted-list"><li style="list-style-type:disc"><strong>Instance 1 (House A)</strong><div style="display:contents" dir="auto"><ul id="2cf113c0-c808-80a9-9062-e2319b2be282" class="bulleted-list"><li style="list-style-type:circle">Green paint</li></ul></div><div style="display:contents" dir="auto"><ul id="2cf113c0-c808-8036-b92a-db1e21e75f53" class="bulleted-list"><li style="list-style-type:circle">Three bedrooms</li></ul></div><div style="display:contents" dir="auto"><ul id="2cf113c0-c808-8051-b8eb-d561914d298a" class="bulleted-list"><li style="list-style-type:circle">Two-car garage</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2cf113c0-c808-80bd-bb90-f5764d108383" class="bulleted-list"><li style="list-style-type:disc"><strong>Instance 2 (House B)</strong><div style="display:contents" dir="auto"><ul id="2cf113c0-c808-80db-9b57-ebee9c15f357" class="bulleted-list"><li style="list-style-type:circle">Blue paint</li></ul></div><div style="display:contents" dir="auto"><ul id="2cf113c0-c808-8010-a20f-eaaf063fa075" class="bulleted-list"><li style="list-style-type:circle">Three bedrooms</li></ul></div><div style="display:contents" dir="auto"><ul id="2cf113c0-c808-80db-aeb3-eafdb27bd0cf" class="bulleted-list"><li style="list-style-type:circle">Single-car garage</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="2cf113c0-c808-80f9-b241-ced2ea4d9704" class="">✔ Both houses follow the <strong>same blueprint</strong>, but</p></div><div style="display:contents" dir="auto"><p id="2cf113c0-c808-8003-8203-e0106be61483" class="">✔ Each has its <strong>own unique characteristics</strong> and</p></div><div style="display:contents" dir="auto"><p id="2cf113c0-c808-8099-b3e0-f1525c7ab92c" class="">✔ Exists <strong>independently</strong> in the real world.</p></div><div style="display:contents" dir="auto"><hr id="2cf113c0-c808-800c-8008-dac0a8229e72"/></div><div style="display:contents" dir="auto"><h3 id="2cf113c0-c808-806a-8e6f-e2f6e9a6187b" class="">🔁 Induction: From Concept to Code</h3></div><div style="display:contents" dir="auto"><p id="2cf113c0-c808-802f-93bb-d9e77beaecbd" class="">This analogy maps directly to programming terminology:</p></div><div style="display:contents" dir="ltr"><table id="2cf113c0-c808-805c-b10d-d46af2588426" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="2cf113c0-c808-802b-bb2b-c60f66c8551f"><th id="\`i|" class="simple-table-header-color simple-table-header">Concept</th><th id="&gt;RJd" class="simple-table-header-color simple-table-header">Analogy</th><th id="&gt;zsK" class="simple-table-header-color simple-table-header">Programming Term</th><th id="GZYq" class="simple-table-header-color simple-table-header">Description</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="2cf113c0-c808-8077-8f15-c3320708027f"><td id="\`i|" class="">Plan</td><td id="&gt;RJd" class="">Blueprint</td><td id="&gt;zsK" class=""><strong>Class</strong></td><td id="GZYq" class="">Defines the structure and capabilities (fields and methods) of objects. Acts as a factory for creating instances.</td></tr></div><div style="display:contents" dir="ltr"><tr id="2cf113c0-c808-80af-9309-de3f6c5e5c23"><td id="\`i|" class="">Instance</td><td id="&gt;RJd" class="">A specific house</td><td id="&gt;zsK" class=""><strong>Object</strong></td><td id="GZYq" class="">A concrete entity created from a class. Holds its own state and can perform actions.</td></tr></div><div style="display:contents" dir="ltr"><tr id="2cf113c0-c808-806a-a465-fccbce5cc18b"><td id="\`i|" class="">Characteristics</td><td id="&gt;RJd" class="">Paint color, room size</td><td id="&gt;zsK" class=""><strong>Attributes / Properties</strong></td><td id="GZYq" class="">Variables inside the class that store an object’s unique state.</td></tr></div><div style="display:contents" dir="ltr"><tr id="2cf113c0-c808-80ce-aa31-d876f51fe9eb"><td id="\`i|" class="">Actions</td><td id="&gt;RJd" class="">Open doors, use electricity</td><td id="&gt;zsK" class=""><strong>Methods / Behaviors</strong></td><td id="GZYq" class="">Functions that define what an object can do.</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><hr id="2cf113c0-c808-8018-b439-ddfe3f988ae3"/></div><div style="display:contents" dir="auto"><h2 id="2cf113c0-c808-800f-8fa9-c66326bf3941" class="">✅ Summary</h2></div><div style="display:contents" dir="auto"><ul id="2cf113c0-c808-80d8-86fa-c6cec0f16e21" class="bulleted-list"><li style="list-style-type:disc">A <strong>Class</strong> is defined <strong>once</strong> to describe structure and behavior.</li></ul></div><div style="display:contents" dir="auto"><ul id="2cf113c0-c808-80e2-9505-d98b7aaac4a6" class="bulleted-list"><li style="list-style-type:disc"><strong>Objects</strong> are created from that class.</li></ul></div><div style="display:contents" dir="auto"><ul id="2cf113c0-c808-80a8-a3d4-e76230498ae4" class="bulleted-list"><li style="list-style-type:disc">Each object:<div style="display:contents" dir="auto"><ul id="2cf113c0-c808-80e8-ba77-cd953bdf7c67" class="bulleted-list"><li style="list-style-type:circle">Shares the same structure</li></ul></div><div style="display:contents" dir="auto"><ul id="2cf113c0-c808-803b-9f9a-c920a12940d3" class="bulleted-list"><li style="list-style-type:circle">Maintains its <strong>own state</strong></li></ul></div><div style="display:contents" dir="auto"><ul id="2cf113c0-c808-8055-8ae8-f9cc4502548f" class="bulleted-list"><li style="list-style-type:circle">Operates independently</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><blockquote id="2cf113c0-c808-80c0-8487-ed66bae8a3b2" class="">Class = Blueprint<div style="display:contents" dir="auto"><p id="2cf113c0-c808-8010-92f9-e7debd824961" class=""><strong>Object = House built from it</strong></p></div></blockquote></div></div></details></div><div style="display:contents" dir="auto"><details open=""><summary style="font-weight:600;font-size:1.5em;line-height:1.3;margin:0">Abstraction</summary><div class="indented"><div style="display:contents" dir="auto"><p id="2cf113c0-c808-80cf-a7fc-d6175eb51e36" class="">Abstraction is the concept of hiding complex implementation details and showing only the necessary features of an object. This is achieved using <strong>abstract classes</strong> and <strong>interfaces</strong>. They define a contract without providing full implementation.</p></div><div style="display:contents" dir="auto"><p id="2cf113c0-c808-8090-8787-c74169d4930d" class=""><strong>Keywords/Concepts:</strong> <code>abstract</code>, <code>interface</code>.</p></div><div style="display:contents" dir="auto"><p id="2cf113c0-c808-800a-9a58-f0c6cf0be5a2" class=""><strong>Interviewer point:</strong> &quot;Abstraction defines the &#x27;what&#x27; without specifying the &#x27;how&#x27;, creating a clear contract for implementation.&quot;</p></div><div style="display:contents" dir="auto"><p id="2cf113c0-c808-8014-a023-e609aa2b38aa" class=""><strong>C# Syntax Example (Using Abstract Class):</strong></p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2cf113c0-c808-809a-b482-d3d7b60d614e" class="code code-wrap"><code class="language-C#" style="white-space:pre-wrap;word-break:break-all">// The &#x27;abstract&#x27; class cannot be instantiated itself
+public abstract class Shape
+{
+    // Can contain implemented methods
+    public abstract double CalculateArea(); // Abstract method (no body)
+
+    public void Display()
+    {
+        Console.WriteLine($&quot;This is a shape with Area: {CalculateArea()}&quot;);
+    }
+}
+
+public class Circle : Shape
+{
+    public double Radius { get; set; }
+
+    // Must implement the abstract method
+    public override double CalculateArea()
+    {
+        return Math.PI * Radius * Radius;
+    }
+}</code></pre></div><div style="display:contents" dir="auto"><p id="2cf113c0-c808-80bd-99f6-e98313d4d094" class=""><strong>C# Syntax Example (Using Interface):</strong></p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2cf113c0-c808-804a-a8fc-ea31389b3d03" class="code code-wrap"><code class="language-C#" style="white-space:pre-wrap;word-break:break-all">// Interface defines ONLY the contract
+public interface IShape
+{
+    // No implementation, only signature
+    double CalculateArea();
+}
+
+// Class implements the interface
+public class Rectangle : IShape
+{
+    public double Length { get; set; }
+    public double Width { get; set; }
+
+    // Must implement ALL interface members
+    public double CalculateArea()
+    {
+        return Length * Width;
+    }
+}
+
+// Usage
+class Program
+{
+    static void Main()
+    {
+        IShape shape = new Rectangle
+        {
+            Length = 10,
+            Width = 5
+        };
+
+        Console.WriteLine($&quot;Area: {shape.CalculateArea()}&quot;);
+    }
+}</code></pre></div></div></details></div><div style="display:contents" dir="auto"><details open=""><summary style="font-weight:600;font-size:1.5em;line-height:1.3;margin:0">Encapsulation</summary><div class="indented"><div style="display:contents" dir="auto"><p id="2cf113c0-c808-8001-b354-d19cf5189329" class="">Encapsulation is the principle of bundling the data (fields) and methods that operate on that data within a single unit (a class). It involves restricting direct access to some of an object&#x27;s components, typically using access modifiers and properties.</p></div><div style="display:contents" dir="auto"><p id="2cf113c0-c808-8054-a6fd-ecbdd6189f87" class=""><strong>Keywords/Concepts:</strong> <code>public</code>, <code>private</code>, <code>protected</code>, <code>internal</code>, <code>properties</code>.</p></div><div style="display:contents" dir="auto"><p id="2cf113c0-c808-8080-884b-dee3b9983eaa" class=""><strong>Interviewer point:</strong> &quot;Encapsulation guarantees that internal state is protected from unauthorized outside access.&quot;</p></div><div style="display:contents" dir="auto"><p id="2cf113c0-c808-8029-9aa0-c6554abbb970" class=""><strong>C# Syntax Example:</strong></p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2cf113c0-c808-8014-b8d1-ed6383125f62" class="code code-wrap"><code class="language-C#" style="white-space:pre-wrap;word-break:break-all">public class BankAccount
+{
+    // Private field: the data is hidden
+    private decimal _balance;
+
+    // Public Property: controlled access to the data (encapsulated)
+    public decimal Balance
+    {
+        get { return _balance; }
+        // We can add validation logic here before setting the value
+        private set 
+        { 
+            if (value &gt;= 0) {
+                _balance = value; 
+            }
+        }
+    }
+
+    // Method to modify the balance safely
+    public void Deposit(decimal amount)
+    {
+        if (amount &gt; 0)
+        {
+            Balance += amount; 
+        }
+    }
+}</code></pre></div></div></details></div><div style="display:contents" dir="auto"><details open=""><summary style="font-weight:600;font-size:1.5em;line-height:1.3;margin:0">Inheritance</summary><div class="indented"><div style="display:contents" dir="auto"><p id="2cf113c0-c808-8096-8b9f-f666587ea25b" class="">Inheritance is a mechanism that allows a new class (derived class or subclass) to inherit properties and methods from an existing class (base class or superclass). This promotes code reuse and models a &quot;is-a&quot; relationship.</p></div><div style="display:contents" dir="auto"><p id="2cf113c0-c808-809d-901c-c3aeb8800a6b" class=""><strong>Keywords/Concepts:</strong> <code>:</code> (colon for inheritance), <code>base</code>, <code>sealed</code>.</p></div><div style="display:contents" dir="auto"><p id="2cf113c0-c808-80a3-b7b8-d8ab53ac0342" class=""><strong>Interviewer point:</strong> &quot;Inheritance helps establish an &#x27;is-a&#x27; relationship, where a <code>Dog</code> <em>is an</em> <code>Animal</code>.&quot;</p></div><div style="display:contents" dir="auto"><p id="2cf113c0-c808-80fa-9ced-c7e3b73636aa" class=""><strong>C# Syntax Example:</strong></p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2cf113c0-c808-8082-964c-daf0d3ea55c5" class="code code-wrap"><code class="language-C#" style="white-space:pre-wrap;word-break:break-all">// Base Class
+public class Animal
+{
+    public string Name { get; set; }
+
+    public void Eat()
+    {
+        Console.WriteLine($&quot;{Name} is eating.&quot;);
+    }
+}
+
+// Derived Class: Uses the colon syntax for inheritance
+public class Dog : Animal 
+{
+    public void Bark()
+    {
+        Console.WriteLine($&quot;{Name} is barking &#x27;Woof!&#x27;&quot;);
+    }
+}
+
+// Usage: 
+// Dog myDog = new Dog { Name = &quot;Fido&quot; };
+// myDog.Eat();   // Inherited from Animal
+// myDog.Bark();  // Specific to Dog</code></pre></div></div></details></div><div style="display:contents" dir="auto"><details open=""><summary style="font-weight:600;font-size:1.5em;line-height:1.3;margin:0">Polymorphism</summary><div class="indented"><div style="display:contents" dir="auto"><p id="2cf113c0-c808-80eb-8ddc-c64f75b7194b" class="">Polymorphism literally means &quot;many forms.&quot; It allows objects of different classes that are related by inheritance to be treated as objects of a common base class. In C#, this is achieved through method overloading and overriding.</p></div><div style="display:contents" dir="auto"><p id="2cf113c0-c808-80ad-b77a-f62b1f9b04fd" class=""><strong>Keywords/Concepts:</strong> <code>virtual</code>, <code>override</code>, Method Overloading.</p></div><div style="display:contents" dir="auto"><p id="2cf113c0-c808-8046-bbd4-ca113bbc9895" class=""><strong>Interviewer point:</strong> &quot;Polymorphism lets a single interface represent different underlying forms, allowing us to treat derived classes as their base type at runtime.&quot;</p></div><div style="display:contents" dir="auto"><h3 id="2cf113c0-c808-80e4-b97b-ce5dad5ebf4c" class=""><strong>Compile-Time Polymorphism (Method Overloading)</strong></h3></div><div style="display:contents" dir="auto"><p id="2cf113c0-c808-80fa-b43c-f2c7b53499a2" class="">Compile-time polymorphism is achieved using <strong>method overloading</strong>, where <strong>multiple methods have the same name but different parameter lists</strong>.</p></div><div style="display:contents" dir="auto"><p id="2cf113c0-c808-80b9-9f18-d108bb70e610" class="">The method call is resolved <strong>at compile time</strong>, not runtime.</p></div><div style="display:contents" dir="auto"><p id="2cf113c0-c808-80bb-aef8-c38a37b01480" class=""><strong>C# Syntax Example (Compile-Time Polymorphism via Overloading)</strong></p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2cf113c0-c808-806d-875e-e37ed3782817" class="code code-wrap"><code class="language-C#" style="white-space:pre-wrap;word-break:break-all">public class Calculator
+{
+    // Same method name, different parameter types
+    public int Add(int a, int b)
+    {
+        return a + b;
+    }
+
+    // Overloaded method with different number of parameters
+    public int Add(int a, int b, int c)
+    {
+        return a + b + c;
+    }
+
+    // Overloaded method with different parameter types
+    public double Add(double a, double b)
+    {
+        return a + b;
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Calculator calculator = new Calculator();
+
+        Console.WriteLine(calculator.Add(2, 3));        // Calls Add(int, int)
+        Console.WriteLine(calculator.Add(1, 2, 3));     // Calls Add(int, int, int)
+        Console.WriteLine(calculator.Add(2.5, 3.5));    // Calls Add(double, double)
+    }
+}</code></pre></div><div style="display:contents" dir="auto"><h3 id="2cf113c0-c808-80ab-8b0c-f36b6e4a2b65" class=""><strong>Run-Time Polymorphism (Method Overriding)</strong></h3></div><div style="display:contents" dir="auto"><p id="2cf113c0-c808-8050-a899-e3d728bdf5e7" class="">Method overriding is a feature of <strong>runtime polymorphism</strong> where a <strong>derived class provides its own implementation of a method defined in its base class</strong>. The base class method must be marked with <code>virtual</code>, and the derived class method must use <code>override</code>.</p></div><div style="display:contents" dir="auto"><p id="2cf113c0-c808-80f2-bd5a-c25ccda1d874" class="">The method that gets executed is decided <strong>at runtime</strong>, based on the <strong>actual object type</strong>, not the reference type.</p></div><div style="display:contents" dir="auto"><p id="2cf113c0-c808-8059-88dd-eba73d5565ae" class=""><strong>C# Syntax Example (Runtime Polymorphism via Overriding):</strong></p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2cf113c0-c808-8069-9ca9-c49fd42cb3ad" class="code code-wrap"><code class="language-C#" style="white-space:pre-wrap;word-break:break-all">public class Vehicle
+{
+    // Mark the base method as &#x27;virtual&#x27; to allow derived classes to override it
+    public virtual void StartEngine()
+    {
+        Console.WriteLine(&quot;Vehicle engine starting.&quot;);
+    }
+}
+
+public class Car : Vehicle
+{
+    // Use &#x27;override&#x27; to provide a specific implementation for the Car class
+    public override void StartEngine()
+    {
+        Console.WriteLine(&quot;Car engine starting quietly.&quot;);
+    }
+}
+
+public class Motorcycle : Vehicle
+{
+    // Use &#x27;override&#x27; to provide a different specific implementation
+    public override void StartEngine()
+    {
+        Console.WriteLine(&quot;Motorcycle engine starting loud!&quot;);
+    }
+}
+
+// Usage: A list of the base type (Vehicle) handles all derived types differently
+List&lt;Vehicle&gt; vehicles = new List&lt;Vehicle&gt; { new Car(), new Motorcycle() };
+
+foreach (var vehicle in vehicles)
+{
+    // Calls the correct overridden method at runtime
+    vehicle.StartEngine(); 
+}</code></pre></div><div style="display:contents" dir="auto"><p id="2cf113c0-c808-80bf-b115-f536a61a68ab" class="">
+</p></div></div></details></div><div style="display:contents" dir="auto"><details open=""><summary style="font-weight:600;font-size:1.5em;line-height:1.3;margin:0">Relationship</summary><div class="indented"><div style="display:contents" dir="ltr"><table id="2cf113c0-c808-80d0-9a72-feb20dfdc1cf" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="2cf113c0-c808-8000-9db5-c8b998de2845"><th id="TFX:" class="simple-table-header-color simple-table-header">Rank</th><th id="rgwW" class="simple-table-header-color simple-table-header">Arrow</th><th id="p`^~" class="simple-table-header-color simple-table-header">Type</th><th id="HHfv" class="simple-table-header-color simple-table-header">Technical Meaning</th><th id="SbFf" class="simple-table-header-color simple-table-header">Human Analogy</th><th id="HBJv" class="simple-table-header-color simple-table-header">Mermaid Example</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="2cf113c0-c808-80a4-b33b-d4a9548b8113"><td id="TFX:" class=""><strong>1</strong></td><td id="rgwW" class=""><code>--&gt;</code></td><td id="p`^~" class=""><strong>Association</strong></td><td id="HHfv" class="">Uses / references</td><td id="SbFf" class=""><strong>“I work with you.”</strong></td><td id="HBJv" class=""><code>Order --&gt; Customer : placed-by</code></td></tr></div><div style="display:contents" dir="ltr"><tr id="2cf113c0-c808-80a0-bdf9-f55ebe929129"><td id="TFX:" class=""><strong>2</strong></td><td id="rgwW" class=""><code>o--</code></td><td id="p`^~" class=""><strong>Aggregation</strong></td><td id="HHfv" class="">Weak has-a (shared)</td><td id="SbFf" class=""><strong>“I have you, but you are not mine.”</strong></td><td id="HBJv" class=""><code>Team o-- Player : has</code></td></tr></div><div style="display:contents" dir="ltr"><tr id="2cf113c0-c808-8041-8e51-ea490da0b9b7"><td id="TFX:" class=""><strong>3</strong></td><td id="rgwW" class=""><code>*--</code></td><td id="p`^~" class=""><strong>Composition</strong></td><td id="HHfv" class="">Strong has-a (owned)</td><td id="SbFf" class=""><strong>“You are mine and only mine.”</strong></td><td id="HBJv" class=""><code>House *-- Room : consists-of</code></td></tr></div><div style="display:contents" dir="ltr"><tr id="2cf113c0-c808-8092-a9f0-ce4efec70aaa"><td id="TFX:" class=""><strong>4</strong></td><td id="rgwW" class=""><code>..&gt;</code></td><td id="p`^~" class=""><strong>Realization</strong></td><td id="HHfv" class="">Implements interface</td><td id="SbFf" class=""><strong>“I follow your rules.”</strong></td><td id="HBJv" class=""><code>StripePayment ..&gt; PaymentGateway</code></td></tr></div><div style="display:contents" dir="ltr"><tr id="2cf113c0-c808-80b2-a104-f0675a8f6e45"><td id="TFX:" class=""><strong>5</strong></td><td id="rgwW" class=""><code>&lt;--</code></td><td id="p`^~" class=""><strong>Inheritance</strong></td><td id="HHfv" class="">Is-a</td><td id="SbFf" class=""><strong>“I am a type of you.”</strong></td><td id="HBJv" class=""><code>Car &lt;-- Vehicle</code></td></tr></div><div style="display:contents" dir="ltr"><tr id="2cf113c0-c808-80eb-92fc-e09ceaf0c060"><td id="TFX:" class=""><strong>6</strong></td><td id="rgwW" class=""><code>..&gt;</code></td><td id="p`^~" class=""><strong>Dependency</strong></td><td id="HHfv" class="">Temporary use</td><td id="SbFf" class=""><strong>“I need you only for a moment.”</strong></td><td id="HBJv" class=""><code>ReportService ..&gt; Logger : logs</code></td></tr></div><div style="display:contents" dir="ltr"><tr id="2cf113c0-c808-806a-8dc6-d93a0a609db1"><td id="TFX:" class=""><strong>7</strong></td><td id="rgwW" class=""><code>--</code></td><td id="p`^~" class=""><strong>Solid Link</strong></td><td id="HHfv" class="">Structural connection</td><td id="SbFf" class=""><strong>“We stay connected, nothing too complex.”</strong></td><td id="HBJv" class=""><code>Node -- Edge</code></td></tr></div><div style="display:contents" dir="ltr"><tr id="2cf113c0-c808-8090-b344-dcaf02538d28"><td id="TFX:" class=""><strong>8</strong></td><td id="rgwW" class=""><code>..</code></td><td id="p`^~" class=""><strong>Dashed Link</strong></td><td id="HHfv" class="">Weak / indirect</td><td id="SbFf" class=""><strong>“I know you, but only loosely.”</strong></td><td id="HBJv" class=""><code>UI .. Backend</code></td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2cf113c0-c808-80d1-9fd2-fe0ed94ee806" class="code code-wrap"><code class="language-Mermaid" style="white-space:pre-wrap;word-break:break-all">classDiagram
+    %% 1. Association
+    class Order
+    class Customer
+    Order --&gt; Customer : placed-by
+    %% &quot;I work with you.&quot;
+
+    %% 2. Aggregation
+    class Team
+    class Player
+    Team o-- Player : has
+    %% &quot;I have you, but you are not mine.&quot;
+
+    %% 3. Composition
+    class House
+    class Room
+    House *-- Room : consists-of
+    %% &quot;You are mine and only mine.&quot;
+
+    %% 4. Realization
+    class PaymentGateway {
+        &lt;&lt;interface&gt;&gt;
+    }
+    class StripePayment
+    StripePayment ..&gt; PaymentGateway : implements
+    %% &quot;I follow your rules.&quot;
+
+    %% 5. Inheritance
+    class Vehicle
+    class Car
+    Car &lt;-- Vehicle : is-a
+    %% &quot;I am a type of you.&quot;
+
+    %% 6. Dependency
+    class ReportService
+    class Logger
+    ReportService ..&gt; Logger : logs
+    %% &quot;I need you only for a moment.&quot;
+
+    %% 7. Solid Link
+    class Node
+    class Edge
+    Node -- Edge : connected-to
+    %% &quot;We stay connected, nothing too complex.&quot;
+
+    %% 8. Dashed Link
+    class UI
+    class Backend
+    UI .. Backend : interacts-with
+    %% &quot;I know you, but only loosely.&quot;
+</code></pre></div></div></details></div><div style="display:contents" dir="auto"><details open=""><summary style="font-weight:600;font-size:1.5em;line-height:1.3;margin:0">Cardinality</summary><div class="indented"><div style="display:contents" dir="ltr"><table id="2cf113c0-c808-807c-93db-c6ac3de1c5f1" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="2cf113c0-c808-804c-a00a-ce78c91917a0"><th id="BACj" class="simple-table-header-color simple-table-header">Rank</th><th id="xKRK" class="simple-table-header-color simple-table-header">Cardinality</th><th id="wfoT" class="simple-table-header-color simple-table-header">Technical Meaning</th><th id="Gyde" class="simple-table-header-color simple-table-header">Human Analogy</th><th id="KEq&lt;" class="simple-table-header-color simple-table-header">Mermaid Example</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="2cf113c0-c808-80e7-9505-f9d75c194917"><td id="BACj" class=""><strong>1</strong></td><td id="xKRK" class=""><code>0..*</code></td><td id="wfoT" class="">Zero to many</td><td id="Gyde" class=""><strong>“I can manage without you… but I can also have many of you.”</strong></td><td id="KEq&lt;" class=""><code>Customer &quot;1&quot; --&gt; &quot;0..*&quot; Order</code></td></tr></div><div style="display:contents" dir="ltr"><tr id="2cf113c0-c808-80e5-9dbc-e4ed559dee15"><td id="BACj" class=""><strong>2</strong></td><td id="xKRK" class=""><code>1..*</code></td><td id="wfoT" class="">One to many</td><td id="Gyde" class=""><strong>“I need at least one of you… maybe many more.”</strong></td><td id="KEq&lt;" class=""><code>Library &quot;1&quot; --&gt; &quot;1..*&quot; Book</code></td></tr></div><div style="display:contents" dir="ltr"><tr id="2cf113c0-c808-8081-95a4-f29ba4262a58"><td id="BACj" class=""><strong>3</strong></td><td id="xKRK" class=""><code>0..1</code></td><td id="wfoT" class="">Zero or one (optional)</td><td id="Gyde" class=""><strong>“I may have you… or I may not.”</strong></td><td id="KEq&lt;" class=""><code>User &quot;1&quot; --&gt; &quot;0..1&quot; Profile</code></td></tr></div><div style="display:contents" dir="ltr"><tr id="2cf113c0-c808-8029-af3a-cc072f953a57"><td id="BACj" class=""><strong>4</strong></td><td id="xKRK" class=""><code>1</code></td><td id="wfoT" class="">Exactly one</td><td id="Gyde" class=""><strong>“I need exactly one of you… no more, no less.”</strong></td><td id="KEq&lt;" class=""><code>Car &quot;1&quot; *-- &quot;1&quot; Engine</code></td></tr></div><div style="display:contents" dir="ltr"><tr id="2cf113c0-c808-80af-9b76-cfb5ee6d4554"><td id="BACj" class=""><strong>5</strong></td><td id="xKRK" class=""><code>0..n</code></td><td id="wfoT" class="">Zero to n</td><td id="Gyde" class=""><strong>“I don’t really need you… but I might have a limited number of you.”</strong></td><td id="KEq&lt;" class=""><code>Course &quot;1&quot; --&gt; &quot;0..10&quot; Module</code></td></tr></div><div style="display:contents" dir="ltr"><tr id="2cf113c0-c808-80ae-8568-f888e5943972"><td id="BACj" class=""><strong>6</strong></td><td id="xKRK" class=""><code>1..n</code></td><td id="wfoT" class="">At least one, up to n</td><td id="Gyde" class=""><strong>“I must have a few of you, but not too many.”</strong></td><td id="KEq&lt;" class=""><code>Batch &quot;1&quot; --&gt; &quot;1..60&quot; Student</code></td></tr></div><div style="display:contents" dir="ltr"><tr id="2cf113c0-c808-80ef-81f5-cc6e8e35f59f"><td id="BACj" class=""><strong>7</strong></td><td id="xKRK" class=""><code>n</code></td><td id="wfoT" class="">Exactly n</td><td id="Gyde" class=""><strong>“I must have this exact number of you.”</strong></td><td id="KEq&lt;" class=""><code>Triangle &quot;1&quot; --&gt; &quot;3&quot; Side</code></td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2cf113c0-c808-80f4-b2c9-c1b54aac109c" class="code code-wrap"><code class="language-Mermaid" style="white-space:pre-wrap;word-break:break-all">classDiagram
+
+    %% 1. Zero to many (0..*)
+    class Customer
+    class Order
+    Customer &quot;1&quot; --&gt; &quot;0..*&quot; Order : places
+    %% “I can manage without you… but I can also have many of you.”
+
+    %% 2. One to many (1..*)
+    class Library
+    class Book
+    Library &quot;1&quot; --&gt; &quot;1..*&quot; Book : has
+    %% “I need at least one of you… maybe many more.”
+
+    %% 3. Zero or one (0..1)
+    class User
+    class Profile
+    User &quot;1&quot; --&gt; &quot;0..1&quot; Profile : has
+    %% “I may have you… or I may not.”
+
+    %% 4. Exactly one (1)
+    class Car
+    class Engine
+    Car &quot;1&quot; *-- &quot;1&quot; Engine : contains
+    %% “I need exactly one of you… no more, no less.”
+
+    %% 5. Zero to n (0..n)
+    class Course
+    class Module
+    Course &quot;1&quot; --&gt; &quot;0..10&quot; Module : includes
+    %% “I don’t really need you… but I might have a limited number of you.”
+
+    %% 6. One to n (1..n)
+    class Batch
+    class Student
+    Batch &quot;1&quot; --&gt; &quot;1..60&quot; Student : admits
+    %% “I must have a few of you, but not too many.”
+
+    %% 7. Exactly n (n)
+    class Triangle
+    class Side
+    Triangle &quot;1&quot; --&gt; &quot;3&quot; Side : has
+    %% “I must have this exact number of you.”
+</code></pre></div></div></details></div><div style="display:contents" dir="auto"><details open=""><summary style="font-weight:600;font-size:1.5em;line-height:1.3;margin:0">Invoking parent Constructor</summary><div class="indented"><div style="display:contents" dir="auto"><h3 id="2cf113c0-c808-802c-859f-ed03fe0d0fb2" class="">What problem does this solve?</h3></div><div style="display:contents" dir="auto"><p id="2cf113c0-c808-8060-b68a-d5affad2d491" class="">When a <strong>derived class</strong> needs to reuse and initialize <strong>shared state</strong> from its <strong>parent class</strong>, without duplicating logic.</p></div><div style="display:contents" dir="auto"><h3 id="2cf113c0-c808-80e1-9420-e63579d579a2" class="">Intuition (Plain English)</h3></div><div style="display:contents" dir="auto"><ul id="2cf113c0-c808-80f1-b114-ff0d772812ad" class="bulleted-list"><li style="list-style-type:disc">Parent class owns <strong>common properties</strong> (Id, Price).</li></ul></div><div style="display:contents" dir="auto"><ul id="2cf113c0-c808-80ce-a340-f8948560e53b" class="bulleted-list"><li style="list-style-type:disc">Child class adds <strong>specialized behavior</strong> (Weight, DownloadLink, etc.).</li></ul></div><div style="display:contents" dir="auto"><ul id="2cf113c0-c808-8054-88e6-d71f199718c5" class="bulleted-list"><li style="list-style-type:disc">Instead of reinitializing common fields again, the child <strong>delegates initialization to the parent</strong>.</li></ul></div><div style="display:contents" dir="auto"><p id="2cf113c0-c808-800f-b72f-cbc1690fc455" class="">👉 <em>“Let the parent do the parent’s job.”</em></p></div><div style="display:contents" dir="auto"><h3 id="2cf113c0-c808-80ba-a8a2-ee8921225cf4" class="">How it works</h3></div><div style="display:contents" dir="auto"><ul id="2cf113c0-c808-807b-b7f6-d3fe2aa0c5ce" class="bulleted-list"><li style="list-style-type:disc"><code>base(...)</code> explicitly calls the <strong>parent constructor</strong></li></ul></div><div style="display:contents" dir="auto"><ul id="2cf113c0-c808-80ca-984a-d9d59b07a69e" class="bulleted-list"><li style="list-style-type:disc">Ensures consistent initialization</li></ul></div><div style="display:contents" dir="auto"><ul id="2cf113c0-c808-80dd-8b62-c73cc8c9d0b8" class="bulleted-list"><li style="list-style-type:disc">Enforces DRY and correctness</li></ul></div><div style="display:contents" dir="auto"><h3 id="2cf113c0-c808-806c-98bc-ff6fe2b237ee" class=""><strong>Syntax &amp; Example (E-commerce)</strong></h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2cf113c0-c808-8066-9e00-f26fbec3972f" class="code code-wrap"><code class="language-C#" style="white-space:pre-wrap;word-break:break-all">public class Product
+{
+    public int Id { get; set; }
+    public decimal Price { get; set; }
+
+    // Parent constructor initializes shared state
+    public Product(int id, decimal price)
+    {
+        Id = id;
+        Price = price;
+    }
+}
+
+public class PhysicalProduct : Product
+{
+    public double Weight { get; set; }
+
+    // &#x27;base&#x27; passes common data to the parent
+    public PhysicalProduct(int id, decimal price, double weight)
+        : base(id, price)
+    {
+        Weight = weight;
+    }
+}</code></pre></div><div style="display:contents" dir="auto"><h3 id="2cf113c0-c808-8030-abf8-e90a59376841" class="">Interview Rules (Must Know)</h3></div><div style="display:contents" dir="auto"><ul id="2cf113c0-c808-80eb-a52e-fedb5811d478" class="bulleted-list"><li style="list-style-type:disc"><code>base(...)</code> <strong>must be the first call</strong> in the constructor</li></ul></div><div style="display:contents" dir="auto"><ul id="2cf113c0-c808-80b5-93f3-cbc1f40982db" class="bulleted-list"><li style="list-style-type:disc">Used <strong>only in inheritance</strong></li></ul></div><div style="display:contents" dir="auto"><ul id="2cf113c0-c808-8014-888c-d43fc5317da1" class="bulleted-list"><li style="list-style-type:disc">If parent has no parameterless constructor → <code>base(...)</code> is mandatory</li></ul></div><div style="display:contents" dir="auto"><h3 id="2cf113c0-c808-802f-9961-db30343bc7d7" class="">One-Line Interview Answer</h3></div><div style="display:contents" dir="auto"><blockquote id="2cf113c0-c808-8049-943b-f6f26fe6c772" class="">“Parent constructor invocation using base ensures shared state is initialized by the base class, avoiding duplication.”</blockquote></div></div></details></div><div style="display:contents" dir="auto"><details open=""><summary style="font-weight:600;font-size:1.5em;line-height:1.3;margin:0">Chaining Methods</summary><div class="indented"><div style="display:contents" dir="auto"><p id="2cf113c0-c808-8026-88b5-ca6ffdb7a2f5" class="">Chaining avoids duplication by <strong>reusing logic instead of rewriting it</strong>.</p></div><div style="display:contents" dir="auto"><hr id="2cf113c0-c808-806b-a6b5-f4f630bd2224"/></div><div style="display:contents" dir="auto"><h3 id="2cf113c0-c808-803c-8b4a-e61078054f60" class="">Constructor Chaining (<code>this</code>)</h3></div><div style="display:contents" dir="auto"><h3 id="2cf113c0-c808-8073-9cac-c91da4ca9f80" class="">What problem does this solve?</h3></div><div style="display:contents" dir="auto"><p id="2cf113c0-c808-809e-baa2-d9ad7df4392b" class="">Multiple constructors with <strong>overlapping initialization logic</strong>.</p></div><div style="display:contents" dir="auto"><h3 id="2cf113c0-c808-8095-b595-e34d29acfec3" class="">Intuition</h3></div><div style="display:contents" dir="auto"><ul id="2cf113c0-c808-8038-a39d-fd649397415e" class="bulleted-list"><li style="list-style-type:disc">One constructor is the <strong>master</strong></li></ul></div><div style="display:contents" dir="auto"><ul id="2cf113c0-c808-80dc-a631-f6175d03b128" class="bulleted-list"><li style="list-style-type:disc">Others just supply <strong>defaults</strong></li></ul></div><div style="display:contents" dir="auto"><ul id="2cf113c0-c808-8019-ad4a-ebceed07ca96" class="bulleted-list"><li style="list-style-type:disc">No repeated assignments</li></ul></div><div style="display:contents" dir="auto"><h3 id="2cf113c0-c808-80e4-8a9a-cbf7c717b654" class="">Syntax &amp; Example (Order System)</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2cf113c0-c808-80fd-97eb-c8939949833e" class="code code-wrap"><code class="language-C#" style="white-space:pre-wrap;word-break:break-all">public class Order
+{
+    public int OrderId { get; set; }
+    public string Status { get; set; }
+    public DateTime CreatedAt { get; set; }
+
+    // Master constructor
+    public Order(int id, string status, DateTime date)
+    {
+        OrderId = id;
+        Status = status;
+        CreatedAt = date;
+    }
+
+    // Chaining with defaults
+    public Order(int id)
+        : this(id, &quot;Pending&quot;, DateTime.UtcNow)
+    {
+        // No duplicate logic
+    }
+}</code></pre></div><div style="display:contents" dir="auto"><h3 id="2cf113c0-c808-8057-a5da-de9cdf06adf0" class="">Key Rules</h3></div><div style="display:contents" dir="auto"><ul id="2cf113c0-c808-805f-8819-c907c65d72f7" class="bulleted-list"><li style="list-style-type:disc"><code>this(...)</code> must be the <strong>first statement</strong></li></ul></div><div style="display:contents" dir="auto"><ul id="2cf113c0-c808-806b-9460-df8efc4e55da" class="bulleted-list"><li style="list-style-type:disc">Works <strong>within the same class</strong></li></ul></div><div style="display:contents" dir="auto"><ul id="2cf113c0-c808-803c-989c-c7eb220b9335" class="bulleted-list"><li style="list-style-type:disc">Improves maintainability</li></ul></div><div style="display:contents" dir="auto"><h3 id="2cf113c0-c808-804e-868a-cad3464b6426" class="">One-Line Interview Answer</h3></div><div style="display:contents" dir="auto"><blockquote id="2cf113c0-c808-809f-a159-eff91f227524" class="">“Constructor chaining using this reuses initialization logic within the same class to avoid duplication.”</blockquote></div><div style="display:contents" dir="auto"><hr id="2cf113c0-c808-803b-8295-e93d4eb84b0c"/></div><div style="display:contents" dir="auto"><h3 id="2cf113c0-c808-80f2-abfe-ed29d0a5245f" class="">Method Chaining (Fluent Interface)</h3></div><div style="display:contents" dir="auto"><h3 id="2cf113c0-c808-8092-8eac-d348acd79063" class="">What problem does this solve?</h3></div><div style="display:contents" dir="auto"><p id="2cf113c0-c808-80e0-890f-ebc50d0d2f9c" class="">Multiple sequential operations that should read <strong>clearly and fluently</strong>.</p></div><div style="display:contents" dir="auto"><h3 id="2cf113c0-c808-8025-9674-c3b1626f65fe" class="">Intuition</h3></div><div style="display:contents" dir="auto"><ul id="2cf113c0-c808-80f7-9ff7-e807a5fda7a0" class="bulleted-list"><li style="list-style-type:disc">Each method returns the <strong>same object</strong></li></ul></div><div style="display:contents" dir="auto"><ul id="2cf113c0-c808-8058-b250-e50245d469ef" class="bulleted-list"><li style="list-style-type:disc">Calls flow left → right</li></ul></div><div style="display:contents" dir="auto"><ul id="2cf113c0-c808-805b-867f-c459aa73739d" class="bulleted-list"><li style="list-style-type:disc">Reads like a sentence</li></ul></div><div style="display:contents" dir="auto"><h3 id="2cf113c0-c808-803f-acaf-f1a28a4bb041" class="">Syntax &amp; Example (Checkout Flow)</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2cf113c0-c808-805d-ba2f-c12056e4e1c1" class="code code-wrap"><code class="language-C#" style="white-space:pre-wrap;word-break:break-all">public class DiscountManager
+{
+    public decimal Total { get; private set; }
+
+    public DiscountManager(decimal initialTotal)
+    {
+        Total = initialTotal;
+    }
+
+    public DiscountManager ApplyCoupon(string code)
+    {
+        if (code == &quot;SAVE10&quot;)
+            Total *= 0.9m;
+
+        return this; // Enables chaining
+    }
+
+    public DiscountManager ApplyHolidayBonus()
+    {
+        Total -= 5.00m;
+        return this;
+    }
+
+    public DiscountManager AddShipping(decimal cost)
+    {
+        Total += cost;
+        return this;
+    }
+}
+
+// Usage
+var finalPrice = new DiscountManager(100.00m)
+    .ApplyCoupon(&quot;SAVE10&quot;)
+    .ApplyHolidayBonus()
+    .AddShipping(12.50m)
+    .Total;</code></pre></div><div style="display:contents" dir="auto"><h3 id="2cf113c0-c808-8070-bb67-cc6c3a70eff5" class="">Where Used in Real Systems</h3></div><div style="display:contents" dir="auto"><ul id="2cf113c0-c808-8043-9681-d6a6c29dba32" class="bulleted-list"><li style="list-style-type:disc">Builders</li></ul></div><div style="display:contents" dir="auto"><ul id="2cf113c0-c808-8092-8c8e-e60a4ed7a421" class="bulleted-list"><li style="list-style-type:disc">Cart configuration</li></ul></div><div style="display:contents" dir="auto"><ul id="2cf113c0-c808-80ba-b292-dd136f9f9821" class="bulleted-list"><li style="list-style-type:disc">Query builders</li></ul></div><div style="display:contents" dir="auto"><ul id="2cf113c0-c808-80ab-8207-c8d8b0cd7446" class="bulleted-list"><li style="list-style-type:disc">Fluent validation APIs</li></ul></div><div style="display:contents" dir="auto"><h3 id="2cf113c0-c808-80eb-bf28-d0dee2ff3f41" class="">One-Line Interview Answer</h3></div><div style="display:contents" dir="auto"><blockquote id="2cf113c0-c808-80aa-a4f3-f6b84f82d80e" class="">“Method chaining creates fluent APIs by returning the same instance (this) from each method.”</blockquote></div></div></details></div><div style="display:contents" dir="auto"><details open=""><summary style="font-weight:600;font-size:1.5em;line-height:1.3;margin:0">FAQs</summary><div class="indented"><div style="display:contents" dir="auto"><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">Composition vs Inheritance</summary><div class="indented"><div style="display:contents" dir="auto"><p id="2cf113c0-c808-8026-aa6d-d4861d8fd681" class="">Composition is generally favored over inheritance in object-oriented programming because <strong>it offers greater flexibility, loose coupling, and better testability</strong>. While inheritance models a rigid &quot;is-a&quot; relationship, composition models a more adaptable &quot;has-a&quot; relationship.</p></div><div style="display:contents" dir="auto"><p id="2cf113c0-c808-80d3-b946-fc0a187b896e" class=""><strong>Why Favor Composition?</strong></p></div><div style="display:contents" dir="auto"><ul id="2cf113c0-c808-80bb-b2d8-d88259935851" class="bulleted-list"><li style="list-style-type:disc"><strong>Flexibility</strong> With composition, behaviors can be changed at runtime by swapping out internal components. Inheritance creates a static, compile-time relationship that cannot be altered dynamically.</li></ul></div><div style="display:contents" dir="auto"><ul id="2cf113c0-c808-8097-aa1a-f69d9593bc61" class="bulleted-list"><li style="list-style-type:disc"><strong>Loose Coupling</strong> Composition creates fewer dependencies between classes. A change in a composed class typically does not affect the outer class, whereas changes to a base class can have unintended side effects on all its subclasses (known as the &quot;fragile base class&quot; problem).</li></ul></div><div style="display:contents" dir="auto"><ul id="2cf113c0-c808-80ab-bb75-fb5f7db985c8" class="bulleted-list"><li style="list-style-type:disc"><strong>Better Testability</strong> Components in a composition-based design can be tested independently by injecting mock objects, making unit testing much easier.</li></ul></div><div style="display:contents" dir="auto"><ul id="2cf113c0-c808-8020-b9a2-e9ddffa51e39" class="bulleted-list"><li style="list-style-type:disc"><strong>Avoids Complex Hierarchies</strong> Deep inheritance trees can become complex and difficult to manage, leading to a &quot;class explosion&quot; problem when trying to combine different sets of behaviors. Composition allows for combining diverse functionalities like building with &quot;Lego blocks&quot;.</li></ul></div><div style="display:contents" dir="auto"><ul id="2cf113c0-c808-8046-8b24-e18cf8e525e5" class="bulleted-list"><li style="list-style-type:disc"><strong>Stronger Encapsulation</strong> Composition keeps the internal details of components hidden from the containing class, adhering better to the principle of encapsulation. Inheritance can break encapsulation by exposing protected members to subclasses.</li></ul></div><div style="display:contents" dir="auto"><p id="2cf113c0-c808-8026-83d0-e7e49bcdc08f" class=""><strong>When to Use Inheritance</strong></p></div><div style="display:contents" dir="auto"><p id="2cf113c0-c808-8009-b04a-efc9666c692a" class="">The &quot;composition over inheritance&quot; principle is a guideline, not a strict rule. Inheritance is still appropriate when:</p></div><div style="display:contents" dir="auto"><ul id="2cf113c0-c808-80ec-b660-ed3b806e11dc" class="bulleted-list"><li style="list-style-type:disc">There is a genuine, non-volatile &quot;is-a&quot; relationship where the subclass is a true specialization of the parent class and can completely substitute for it (Liskov Substitution Principle).</li></ul></div><div style="display:contents" dir="auto"><ul id="2cf113c0-c808-801c-b18c-c7671d74ee46" class="bulleted-list"><li style="list-style-type:disc">You need to extend classes in a rigid, fixed hierarchy, such as specific frameworks (e.g., UI libraries) where the design is stable and well-defined.</li></ul></div><div style="display:contents" dir="auto"><p id="2cf113c0-c808-8001-92cc-f1485e91ce81" class="">Ultimately, composition is preferred in modern software development for its ability to create more resilient, adaptable, and maintainable systems.</p></div></div></details></div></div></details></div><div style="display:contents" dir="auto"><details open=""><summary style="font-weight:600;font-size:1.5em;line-height:1.3;margin:0">References</summary><div class="indented"><div style="display:contents" dir="auto"><p id="2cf113c0-c808-807b-860e-f51d99583e34" class=""><a href="https://www.interviewbit.com/oops-interview-questions/">https://www.interviewbit.com/oops-interview-questions/</a></p></div><div style="display:contents" dir="auto"><p id="2cf113c0-c808-80ac-90fe-e5c583d570fb" class=""><a href="https://www.geeksforgeeks.org/dsa/introduction-of-object-oriented-programming/">https://www.geeksforgeeks.org/dsa/introduction-of-object-oriented-programming/</a></p></div><div style="display:contents" dir="auto"><p id="2cf113c0-c808-80ad-8d27-e67cb66016ad" class="">
+</p></div></div></details></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
