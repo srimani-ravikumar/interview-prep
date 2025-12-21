@@ -1,69 +1,65 @@
 # Quick Guide: OOP Principles
 
----
+> ***You said OOP, I heard AEIP***
+> **A → Abstraction**
+> **E → Encapsulation**
+> **I → Inheritance**
+> **P → Polymorphism**
 
-> ***You said OOP I heard AEIP
-A → Abstraction
-E → Encapsulation
-I → Inheritance
-P → Polymorphism***
-> 
-
-## Real life analogy for Class & Object
+## Real Life Analogy for Class & Object
 
 ### 🧱 Class and Object — Blueprint Analogy
 
 In programming, the concepts of **class** and **object** can be understood through a simple real-world analogy:
 
-> A class is like a blueprint, and an object is like a house built from that blueprint.
-> 
+> **A class is like a blueprint, and an object is like a house built from that blueprint.**
 
 ---
 
 ### 🏗️ Analogy: The Blueprint and the House
 
-### 📐 Class (The Blueprint)
+#### 📐 Class (The Blueprint)
 
 A **class** is a template or design that defines the **common properties and behaviors** of a specific type of thing.
 
 A house blueprint specifies:
 
-### **Properties (Attributes)**
+##### Properties (Attributes)
 
-- Size of rooms
-- Number of windows
-- Type of roofing material
-- Color of paint
+* Size of rooms
+* Number of windows
+* Type of roofing material
+* Color of paint
 
-### **Behaviors (Methods)**
+##### Behaviors (Methods)
 
-- How the electrical system functions
-- Where the plumbing runs
-- How doors open and close
+* How the electrical system functions
+* Where the plumbing runs
+* How doors open and close
 
 👉 The blueprint itself is **not a real house** you can live in — it is just a **plan**.
 
 ---
 
-### 🏠 Object (The House)
+#### 🏠 Object (The House)
 
 An **object** is a **real, concrete instance** created using the class (blueprint).
 
 From the same blueprint, you can build many different houses:
 
-- **Instance 1 (House A)**
-    - Green paint
-    - Three bedrooms
-    - Two-car garage
-- **Instance 2 (House B)**
-    - Blue paint
-    - Three bedrooms
-    - Single-car garage
+* **Instance 1 (House A)**
+
+  * Green paint
+  * Three bedrooms
+  * Two-car garage
+* **Instance 2 (House B)**
+
+  * Blue paint
+  * Three bedrooms
+  * Single-car garage
 
 ✔ Both houses follow the **same blueprint**, but
-
-✔ Each has its **own unique characteristics** and
-
+✔ Each has its **own unique characteristics**, and
 ✔ Exists **independently** in the real world.
 
 ---
@@ -72,39 +68,41 @@ From the same blueprint, you can build many different houses:
 
 This analogy maps directly to programming terminology:
 
-| Concept | Analogy | Programming Term | Description |
-| --- | --- | --- | --- |
-| Plan | Blueprint | **Class** | Defines the structure and capabilities (fields and methods) of objects. Acts as a factory for creating instances. |
-| Instance | A specific house | **Object** | A concrete entity created from a class. Holds its own state and can perform actions. |
-| Characteristics | Paint color, room size | **Attributes / Properties** | Variables inside the class that store an object’s unique state. |
-| Actions | Open doors, use electricity | **Methods / Behaviors** | Functions that define what an object can do. |
+| Concept         | Analogy                     | Programming Term            | Description                                                                                                       |
+| --------------- | --------------------------- | --------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| Plan            | Blueprint                   | **Class**                   | Defines the structure and capabilities (fields and methods) of objects. Acts as a factory for creating instances. |
+| Instance        | A specific house            | **Object**                  | A concrete entity created from a class. Holds its own state and can perform actions.                              |
+| Characteristics | Paint color, room size      | **Attributes / Properties** | Variables inside the class that store an object’s unique state.                                                   |
+| Actions         | Open doors, use electricity | **Methods / Behaviors**     | Functions that define what an object can do.                                                                      |
 
 ---
 
-## ✅ Summary
+### ✅ Summary
 
-- A **Class** is defined **once** to describe structure and behavior.
-- **Objects** are created from that class.
-- Each object:
-    - Shares the same structure
-    - Maintains its **own state**
-    - Operates independently
+* A **Class** is defined **once** to describe structure and behavior.
+* **Objects** are created from that class.
+* Each object:
 
-> Class = Blueprint
-> 
-> 
+  * Shares the same structure
+  * Maintains its **own state**
+  * Operates independently
+
+> **Class = Blueprint**
 > **Object = House built from it**
-> 
 
 ## Abstraction
 
-Abstraction is the concept of hiding complex implementation details and showing only the necessary features of an object. This is achieved using **abstract classes** and **interfaces**. They define a contract without providing full implementation.
+Abstraction is the concept of hiding complex implementation details and showing only the necessary features of an object. This is achieved using **abstract classes** and **interfaces**. They define a contract without providing full implementation.
 
-**Keywords/Concepts:** `abstract`, `interface`.
+**Keywords / Concepts:** `abstract`, `interface`
 
-**Interviewer point:** "Abstraction defines the 'what' without specifying the 'how', creating a clear contract for implementation."
+**Interviewer Point:**
 
-**C# Syntax Example (Using Abstract Class):**
+> *"Abstraction defines the 'what' without specifying the 'how', creating a clear contract for implementation."*
+
+---
+
+### C# Syntax Example (Using Abstract Class)
 
 ```csharp
 // The 'abstract' class cannot be instantiated itself
@@ -131,7 +129,9 @@ public class Circle : Shape
 }
 ```
 
-**C# Syntax Example (Using Interface):**
+---
+
+### C# Syntax Example (Using Interface)
 
 ```csharp
 // Interface defines ONLY the contract
@@ -174,11 +174,15 @@ class Program
 
 Encapsulation is the principle of bundling the data (fields) and methods that operate on that data within a single unit (a class). It involves restricting direct access to some of an object's components, typically using access modifiers and properties.
 
-**Keywords/Concepts:** `public`, `private`, `protected`, `internal`, `properties`.
+**Keywords / Concepts:** `public`, `private`, `protected`, `internal`, `properties`
 
-**Interviewer point:** "Encapsulation guarantees that internal state is protected from unauthorized outside access."
+**Interviewer Point:**
 
-**C# Syntax Example:**
+> *"Encapsulation guarantees that internal state is protected from unauthorized outside access."*
+
+---
+
+### C# Syntax Example
 
 ```csharp
 public class BankAccount
@@ -191,10 +195,11 @@ public class BankAccount
     {
         get { return _balance; }
         // We can add validation logic here before setting the value
-        private set 
-        { 
-            if (value >= 0) {
-                _balance = value; 
+        private set
+        {
+            if (value >= 0)
+            {
+                _balance = value;
             }
         }
     }
@@ -204,7 +209,7 @@ public class BankAccount
     {
         if (amount > 0)
         {
-            Balance += amount; 
+            Balance += amount;
         }
     }
 }
@@ -249,19 +254,23 @@ public class Dog : Animal
 
 ## Polymorphism
 
-Polymorphism literally means "many forms." It allows objects of different classes that are related by inheritance to be treated as objects of a common base class. In C#, this is achieved through method overloading and overriding.
+Polymorphism literally means **"many forms."** It allows objects of different classes that are related by inheritance to be treated as objects of a common base class. In C#, this is achieved through method overloading and overriding.
 
-**Keywords/Concepts:** `virtual`, `override`, Method Overloading.
+**Keywords / Concepts:** `virtual`, `override`, Method Overloading
 
-**Interviewer point:** "Polymorphism lets a single interface represent different underlying forms, allowing us to treat derived classes as their base type at runtime."
+**Interviewer Point:**
 
-### **Compile-Time Polymorphism (Method Overloading)**
+> *"Polymorphism lets a single interface represent different underlying forms, allowing us to treat derived classes as their base type at runtime."*
+
+---
+
+### Compile-Time Polymorphism (Method Overloading)
 
 Compile-time polymorphism is achieved using **method overloading**, where **multiple methods have the same name but different parameter lists**.
 
 The method call is resolved **at compile time**, not runtime.
 
-**C# Syntax Example (Compile-Time Polymorphism via Overloading)**
+#### C# Syntax Example (Compile-Time Polymorphism via Overloading)
 
 ```csharp
 public class Calculator
@@ -298,13 +307,15 @@ class Program
 }
 ```
 
-### **Run-Time Polymorphism (Method Overriding)**
+---
+
+### Run-Time Polymorphism (Method Overriding)
 
 Method overriding is a feature of **runtime polymorphism** where a **derived class provides its own implementation of a method defined in its base class**. The base class method must be marked with `virtual`, and the derived class method must use `override`.
 
 The method that gets executed is decided **at runtime**, based on the **actual object type**, not the reference type.
 
-**C# Syntax Example (Runtime Polymorphism via Overriding):**
+#### C# Syntax Example (Runtime Polymorphism via Overriding)
 
 ```csharp
 public class Vehicle
@@ -340,7 +351,7 @@ List<Vehicle> vehicles = new List<Vehicle> { new Car(), new Motorcycle() };
 foreach (var vehicle in vehicles)
 {
     // Calls the correct overridden method at runtime
-    vehicle.StartEngine(); 
+    vehicle.StartEngine();
 }
 ```
 
@@ -413,15 +424,19 @@ classDiagram
 
 ## Cardinality
 
-| Rank | Cardinality | Technical Meaning | Human Analogy | Mermaid Example |
-| --- | --- | --- | --- | --- |
-| **1** | `0..*` | Zero to many | **“I can manage without you… but I can also have many of you.”** | `Customer "1" --> "0..*" Order` |
-| **2** | `1..*` | One to many | **“I need at least one of you… maybe many more.”** | `Library "1" --> "1..*" Book` |
-| **3** | `0..1` | Zero or one (optional) | **“I may have you… or I may not.”** | `User "1" --> "0..1" Profile` |
-| **4** | `1` | Exactly one | **“I need exactly one of you… no more, no less.”** | `Car "1" *-- "1" Engine` |
-| **5** | `0..n` | Zero to n | **“I don’t really need you… but I might have a limited number of you.”** | `Course "1" --> "0..10" Module` |
-| **6** | `1..n` | At least one, up to n | **“I must have a few of you, but not too many.”** | `Batch "1" --> "1..60" Student` |
-| **7** | `n` | Exactly n | **“I must have this exact number of you.”** | `Triangle "1" --> "3" Side` |
+| Rank  | Cardinality | Technical Meaning      | Human Analogy                                                            | Mermaid Example                 |
+| ----- | ----------- | ---------------------- | ------------------------------------------------------------------------ | ------------------------------- |
+| **1** | `0..*`      | Zero to many           | **“I can manage without you… but I can also have many of you.”**         | `Customer "1" --> "0..*" Order` |
+| **2** | `1..*`      | One to many            | **“I need at least one of you… maybe many more.”**                       | `Library "1" --> "1..*" Book`   |
+| **3** | `0..1`      | Zero or one (optional) | **“I may have you… or I may not.”**                                      | `User "1" --> "0..1" Profile`   |
+| **4** | `1`         | Exactly one            | **“I need exactly one of you… no more, no less.”**                       | `Car "1" *-- "1" Engine`        |
+| **5** | `0..n`      | Zero to n              | **“I don’t really need you… but I might have a limited number of you.”** | `Course "1" --> "0..10" Module` |
+| **6** | `1..n`      | At least one, up to n  | **“I must have a few of you, but not too many.”**                        | `Batch "1" --> "1..60" Student` |
+| **7** | `n`         | Exactly n              | **“I must have this exact number of you.”**                              | `Triangle "1" --> "3" Side`     |
+
+---
+
+### Mermaid Diagram
 
 ```mermaid
 classDiagram
@@ -467,30 +482,35 @@ classDiagram
     class Side
     Triangle "1" --> "3" Side : has
     %% “I must have this exact number of you.”
-
 ```
 
-## Invoking parent Constructor
+## Invoking Parent Constructor
 
 ### What problem does this solve?
 
 When a **derived class** needs to reuse and initialize **shared state** from its **parent class**, without duplicating logic.
 
+---
+
 ### Intuition (Plain English)
 
-- Parent class owns **common properties** (Id, Price).
-- Child class adds **specialized behavior** (Weight, DownloadLink, etc.).
-- Instead of reinitializing common fields again, the child **delegates initialization to the parent**.
+* Parent class owns **common properties** (Id, Price).
+* Child class adds **specialized behavior** (Weight, DownloadLink, etc.).
+* Instead of reinitializing common fields again, the child **delegates initialization to the parent**.
 
 👉 *“Let the parent do the parent’s job.”*
 
+---
+
 ### How it works
 
-- `base(...)` explicitly calls the **parent constructor**
-- Ensures consistent initialization
-- Enforces DRY and correctness
+* `base(...)` explicitly calls the **parent constructor**
+* Ensures consistent initialization
+* Enforces DRY and correctness
 
-### **Syntax & Example (E-commerce)**
+---
+
+### Syntax & Example (E-commerce)
 
 ```csharp
 public class Product
@@ -519,16 +539,19 @@ public class PhysicalProduct : Product
 }
 ```
 
+---
+
 ### Interview Rules (Must Know)
 
-- `base(...)` **must be the first call** in the constructor
-- Used **only in inheritance**
-- If parent has no parameterless constructor → `base(...)` is mandatory
+* `base(...)` **must be the first call** in the constructor
+* Used **only in inheritance**
+* If parent has no parameterless constructor → `base(...)` is mandatory
+
+---
 
 ### One-Line Interview Answer
 
-> “Parent constructor invocation using base ensures shared state is initialized by the base class, avoiding duplication.”
-> 
+> *“Parent constructor invocation using base ensures shared state is initialized by the base class, avoiding duplication.”*
 
 ## Chaining Methods
 
@@ -538,17 +561,21 @@ Chaining avoids duplication by **reusing logic instead of rewriting it**.
 
 ### Constructor Chaining (`this`)
 
-### What problem does this solve?
+#### What problem does this solve?
 
 Multiple constructors with **overlapping initialization logic**.
 
-### Intuition
+---
 
-- One constructor is the **master**
-- Others just supply **defaults**
-- No repeated assignments
+#### Intuition
 
-### Syntax & Example (Order System)
+* One constructor is the **master**
+* Others just supply **defaults**
+* No repeated assignments
+
+---
+
+#### Syntax & Example (Order System)
 
 ```csharp
 public class Order
@@ -574,32 +601,39 @@ public class Order
 }
 ```
 
-### Key Rules
+---
 
-- `this(...)` must be the **first statement**
-- Works **within the same class**
-- Improves maintainability
+#### Key Rules
 
-### One-Line Interview Answer
+* `this(...)` must be the **first statement**
+* Works **within the same class**
+* Improves maintainability
 
-> “Constructor chaining using this reuses initialization logic within the same class to avoid duplication.”
-> 
+---
+
+#### One-Line Interview Answer
+
+> *“Constructor chaining using this reuses initialization logic within the same class to avoid duplication.”*
 
 ---
 
 ### Method Chaining (Fluent Interface)
 
-### What problem does this solve?
+#### What problem does this solve?
 
 Multiple sequential operations that should read **clearly and fluently**.
 
-### Intuition
+---
 
-- Each method returns the **same object**
-- Calls flow left → right
-- Reads like a sentence
+#### Intuition
 
-### Syntax & Example (Checkout Flow)
+* Each method returns the **same object**
+* Calls flow left → right
+* Reads like a sentence
+
+---
+
+#### Syntax & Example (Checkout Flow)
 
 ```csharp
 public class DiscountManager
@@ -640,43 +674,59 @@ var finalPrice = new DiscountManager(100.00m)
     .Total;
 ```
 
-### Where Used in Real Systems
+---
 
-- Builders
-- Cart configuration
-- Query builders
-- Fluent validation APIs
+#### Where Used in Real Systems
 
-### One-Line Interview Answer
+* Builders
+* Cart configuration
+* Query builders
+* Fluent validation APIs
 
-> “Method chaining creates fluent APIs by returning the same instance (this) from each method.”
-> 
+---
+
+#### One-Line Interview Answer
+
+> *“Method chaining creates fluent APIs by returning the same instance (this) from each method.”*
 
 ## FAQs
 
 ### Composition vs Inheritance
 
-Composition is generally favored over inheritance in object-oriented programming because **it offers greater flexibility, loose coupling, and better testability**. While inheritance models a rigid "is-a" relationship, composition models a more adaptable "has-a" relationship.
+Composition is generally favored over inheritance in object-oriented programming because **it offers greater flexibility, loose coupling, and better testability**. While inheritance models a rigid **"is-a"** relationship, composition models a more adaptable **"has-a"** relationship.
 
-**Why Favor Composition?**
+---
 
-- **Flexibility** With composition, behaviors can be changed at runtime by swapping out internal components. Inheritance creates a static, compile-time relationship that cannot be altered dynamically.
-- **Loose Coupling** Composition creates fewer dependencies between classes. A change in a composed class typically does not affect the outer class, whereas changes to a base class can have unintended side effects on all its subclasses (known as the "fragile base class" problem).
-- **Better Testability** Components in a composition-based design can be tested independently by injecting mock objects, making unit testing much easier.
-- **Avoids Complex Hierarchies** Deep inheritance trees can become complex and difficult to manage, leading to a "class explosion" problem when trying to combine different sets of behaviors. Composition allows for combining diverse functionalities like building with "Lego blocks".
-- **Stronger Encapsulation** Composition keeps the internal details of components hidden from the containing class, adhering better to the principle of encapsulation. Inheritance can break encapsulation by exposing protected members to subclasses.
+#### Why Favor Composition?
 
-**When to Use Inheritance**
+* **Flexibility**
+  With composition, behaviors can be changed at runtime by swapping out internal components. Inheritance creates a static, compile-time relationship that cannot be altered dynamically.
 
-The "composition over inheritance" principle is a guideline, not a strict rule. Inheritance is still appropriate when:
+* **Loose Coupling**
+  Composition creates fewer dependencies between classes. A change in a composed class typically does not affect the outer class, whereas changes to a base class can have unintended side effects on all its subclasses (known as the *"fragile base class"* problem).
 
-- There is a genuine, non-volatile "is-a" relationship where the subclass is a true specialization of the parent class and can completely substitute for it (Liskov Substitution Principle).
-- You need to extend classes in a rigid, fixed hierarchy, such as specific frameworks (e.g., UI libraries) where the design is stable and well-defined.
+* **Better Testability**
+  Components in a composition-based design can be tested independently by injecting mock objects, making unit testing much easier.
+
+* **Avoids Complex Hierarchies**
+  Deep inheritance trees can become complex and difficult to manage, leading to a *"class explosion"* problem when trying to combine different sets of behaviors. Composition allows for combining diverse functionalities like building with *"Lego blocks"*.
+
+* **Stronger Encapsulation**
+  Composition keeps the internal details of components hidden from the containing class, adhering better to the principle of encapsulation. Inheritance can break encapsulation by exposing protected members to subclasses.
+
+---
+
+#### When to Use Inheritance
+
+The *"composition over inheritance"* principle is a guideline, not a strict rule. Inheritance is still appropriate when:
+
+* There is a genuine, non-volatile **"is-a"** relationship where the subclass is a true specialization of the parent class and can completely substitute for it (Liskov Substitution Principle).
+* You need to extend classes in a rigid, fixed hierarchy, such as specific frameworks (e.g., UI libraries) where the design is stable and well-defined.
 
 Ultimately, composition is preferred in modern software development for its ability to create more resilient, adaptable, and maintainable systems.
 
+
 ## References
 
-[https://www.interviewbit.com/oops-interview-questions/](https://www.interviewbit.com/oops-interview-questions/)
-
-[https://www.geeksforgeeks.org/dsa/introduction-of-object-oriented-programming/](https://www.geeksforgeeks.org/dsa/introduction-of-object-oriented-programming/)
+* [https://www.interviewbit.com/oops-interview-questions/](https://www.interviewbit.com/oops-interview-questions/)
+* [https://www.geeksforgeeks.org/dsa/introduction-of-object-oriented-programming/](https://www.geeksforgeeks.org/dsa/introduction-of-object-oriented-programming/)
