@@ -14,8 +14,6 @@ In programming, the concepts of **class** and **object** can be understood throu
 
 > **A class is like a blueprint, and an object is like a house built from that blueprint.**
 
----
-
 ### 🏗️ Analogy: The Blueprint and the House
 
 #### 📐 Class (The Blueprint)
@@ -39,7 +37,6 @@ A house blueprint specifies:
 
 👉 The blueprint itself is **not a real house** you can live in — it is just a **plan**.
 
----
 
 #### 🏠 Object (The House)
 
@@ -62,8 +59,6 @@ From the same blueprint, you can build many different houses:
 ✔ Each has its **own unique characteristics**, and
 ✔ Exists **independently** in the real world.
 
----
-
 ### 🔁 Induction: From Concept to Code
 
 This analogy maps directly to programming terminology:
@@ -74,8 +69,6 @@ This analogy maps directly to programming terminology:
 | Instance        | A specific house            | **Object**                  | A concrete entity created from a class. Holds its own state and can perform actions.                              |
 | Characteristics | Paint color, room size      | **Attributes / Properties** | Variables inside the class that store an object’s unique state.                                                   |
 | Actions         | Open doors, use electricity | **Methods / Behaviors**     | Functions that define what an object can do.                                                                      |
-
----
 
 ### ✅ Summary
 
@@ -90,6 +83,8 @@ This analogy maps directly to programming terminology:
 > **Class = Blueprint**
 > **Object = House built from it**
 
+---
+
 ## Abstraction
 
 Abstraction is the concept of hiding complex implementation details and showing only the necessary features of an object. This is achieved using **abstract classes** and **interfaces**. They define a contract without providing full implementation.
@@ -99,8 +94,6 @@ Abstraction is the concept of hiding complex implementation details and showing 
 **Interviewer Point:**
 
 > *"Abstraction defines the 'what' without specifying the 'how', creating a clear contract for implementation."*
-
----
 
 ### C# Syntax Example (Using Abstract Class)
 
@@ -128,8 +121,6 @@ public class Circle : Shape
     }
 }
 ```
-
----
 
 ### C# Syntax Example (Using Interface)
 
@@ -169,6 +160,7 @@ class Program
     }
 }
 ```
+---
 
 ## Encapsulation
 
@@ -179,8 +171,6 @@ Encapsulation is the principle of bundling the data (fields) and methods that op
 **Interviewer Point:**
 
 > *"Encapsulation guarantees that internal state is protected from unauthorized outside access."*
-
----
 
 ### C# Syntax Example
 
@@ -214,6 +204,7 @@ public class BankAccount
     }
 }
 ```
+---
 
 ## Inheritance
 
@@ -252,6 +243,8 @@ public class Dog : Animal
 // myDog.Bark();  // Specific to Dog
 ```
 
+---
+
 ## Polymorphism
 
 Polymorphism literally means **"many forms."** It allows objects of different classes that are related by inheritance to be treated as objects of a common base class. In C#, this is achieved through method overloading and overriding.
@@ -261,8 +254,6 @@ Polymorphism literally means **"many forms."** It allows objects of different cl
 **Interviewer Point:**
 
 > *"Polymorphism lets a single interface represent different underlying forms, allowing us to treat derived classes as their base type at runtime."*
-
----
 
 ### Compile-Time Polymorphism (Method Overloading)
 
@@ -306,8 +297,6 @@ class Program
     }
 }
 ```
-
----
 
 ### Run-Time Polymorphism (Method Overriding)
 
@@ -354,6 +343,8 @@ foreach (var vehicle in vehicles)
     vehicle.StartEngine();
 }
 ```
+
+---
 
 ## Relationship
 
@@ -421,6 +412,7 @@ classDiagram
     %% "I know you, but only loosely."
 
 ```
+---
 
 ## Cardinality
 
@@ -433,8 +425,6 @@ classDiagram
 | **5** | `0..n`      | Zero to n              | **“I don’t really need you… but I might have a limited number of you.”** | `Course "1" --> "0..10" Module` |
 | **6** | `1..n`      | At least one, up to n  | **“I must have a few of you, but not too many.”**                        | `Batch "1" --> "1..60" Student` |
 | **7** | `n`         | Exactly n              | **“I must have this exact number of you.”**                              | `Triangle "1" --> "3" Side`     |
-
----
 
 ### Mermaid Diagram
 
@@ -483,14 +473,13 @@ classDiagram
     Triangle "1" --> "3" Side : has
     %% “I must have this exact number of you.”
 ```
+---
 
 ## Invoking Parent Constructor
 
 ### What problem does this solve?
 
 When a **derived class** needs to reuse and initialize **shared state** from its **parent class**, without duplicating logic.
-
----
 
 ### Intuition (Plain English)
 
@@ -500,15 +489,11 @@ When a **derived class** needs to reuse and initialize **shared state** from its
 
 👉 *“Let the parent do the parent’s job.”*
 
----
-
 ### How it works
 
 * `base(...)` explicitly calls the **parent constructor**
 * Ensures consistent initialization
 * Enforces DRY and correctness
-
----
 
 ### Syntax & Example (E-commerce)
 
@@ -539,25 +524,22 @@ public class PhysicalProduct : Product
 }
 ```
 
----
-
 ### Interview Rules (Must Know)
 
 * `base(...)` **must be the first call** in the constructor
 * Used **only in inheritance**
 * If parent has no parameterless constructor → `base(...)` is mandatory
 
----
-
 ### One-Line Interview Answer
 
 > *“Parent constructor invocation using base ensures shared state is initialized by the base class, avoiding duplication.”*
+
+---
 
 ## Chaining Methods
 
 Chaining avoids duplication by **reusing logic instead of rewriting it**.
 
----
 
 ### Constructor Chaining (`this`)
 
@@ -565,17 +547,14 @@ Chaining avoids duplication by **reusing logic instead of rewriting it**.
 
 Multiple constructors with **overlapping initialization logic**.
 
----
-
 #### Intuition
 
 * One constructor is the **master**
 * Others just supply **defaults**
 * No repeated assignments
 
----
 
-#### Syntax & Example (Order System)
+#### Syntax & Example (E-commerce)
 
 ```csharp
 public class Order
@@ -601,21 +580,15 @@ public class Order
 }
 ```
 
----
-
 #### Key Rules
 
 * `this(...)` must be the **first statement**
 * Works **within the same class**
 * Improves maintainability
 
----
-
 #### One-Line Interview Answer
 
 > *“Constructor chaining using this reuses initialization logic within the same class to avoid duplication.”*
-
----
 
 ### Method Chaining (Fluent Interface)
 
@@ -623,15 +596,11 @@ public class Order
 
 Multiple sequential operations that should read **clearly and fluently**.
 
----
-
 #### Intuition
 
 * Each method returns the **same object**
 * Calls flow left → right
 * Reads like a sentence
-
----
 
 #### Syntax & Example (Checkout Flow)
 
@@ -674,8 +643,6 @@ var finalPrice = new DiscountManager(100.00m)
     .Total;
 ```
 
----
-
 #### Where Used in Real Systems
 
 * Builders
@@ -683,19 +650,17 @@ var finalPrice = new DiscountManager(100.00m)
 * Query builders
 * Fluent validation APIs
 
----
-
 #### One-Line Interview Answer
 
 > *“Method chaining creates fluent APIs by returning the same instance (this) from each method.”*
+
+---
 
 ## FAQs
 
 ### Composition vs Inheritance
 
 Composition is generally favored over inheritance in object-oriented programming because **it offers greater flexibility, loose coupling, and better testability**. While inheritance models a rigid **"is-a"** relationship, composition models a more adaptable **"has-a"** relationship.
-
----
 
 #### Why Favor Composition?
 
@@ -714,8 +679,6 @@ Composition is generally favored over inheritance in object-oriented programming
 * **Stronger Encapsulation**
   Composition keeps the internal details of components hidden from the containing class, adhering better to the principle of encapsulation. Inheritance can break encapsulation by exposing protected members to subclasses.
 
----
-
 #### When to Use Inheritance
 
 The *"composition over inheritance"* principle is a guideline, not a strict rule. Inheritance is still appropriate when:
@@ -725,8 +688,11 @@ The *"composition over inheritance"* principle is a guideline, not a strict rule
 
 Ultimately, composition is preferred in modern software development for its ability to create more resilient, adaptable, and maintainable systems.
 
+---
 
 ## References
 
 * [https://www.interviewbit.com/oops-interview-questions/](https://www.interviewbit.com/oops-interview-questions/)
 * [https://www.geeksforgeeks.org/dsa/introduction-of-object-oriented-programming/](https://www.geeksforgeeks.org/dsa/introduction-of-object-oriented-programming/)
+
+---
