@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36310.24 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendMastery.CoreAPI.CRUDBasics.InMemory", "BackendMastery.CoreAPI.CRUDBasics.InMemory\BackendMastery.CoreAPI.CRUDBasics.InMemory.csproj", "{CF78A9B5-73A1-453F-AAE5-E5577B5593BC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendMastery.CoreAPI.CRUDBasics.InMemory", "src\BackendMastery.CoreAPI.CRUDBasics.InMemory\BackendMastery.CoreAPI.CRUDBasics.InMemory.csproj", "{CF78A9B5-73A1-453F-AAE5-E5577B5593BC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
