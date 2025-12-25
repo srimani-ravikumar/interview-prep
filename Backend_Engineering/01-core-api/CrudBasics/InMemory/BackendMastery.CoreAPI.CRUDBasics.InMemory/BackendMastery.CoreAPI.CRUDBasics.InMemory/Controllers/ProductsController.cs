@@ -42,6 +42,7 @@ public class ProductsController : ControllerBase
 
     /// <summary>
     /// Retrieves a specific product by its unique identifier.
+    /// Endpoint Structure: GET /api/products/{id}
     /// </summary>
     /// <param name="id">
     /// The unique identifier of the product.
@@ -49,7 +50,6 @@ public class ProductsController : ControllerBase
     /// <returns>
     /// HTTP 200 (OK) if found; otherwise HTTP 404 (Not Found).
     /// </returns>
-    // Endpoint Structure: GET /api/products/{id}
     [HttpGet("{id:guid}")]
     public IActionResult GetById(Guid id)
     {
@@ -63,18 +63,20 @@ public class ProductsController : ControllerBase
     }
 
     /// <summary>
-    /// Creates a new product.
+    /// Creates a new product using the provided request payload.
+    /// Endpoint Structure: POST /api/products
     /// </summary>
-    /// <param name="name">
-    /// The name of the product.
-    /// </param>
-    /// <param name="price">
-    /// The price of the product.
+    /// <param name="request">
+    /// The request body containing the product details required for creation.
     /// </param>
     /// <returns>
-    /// HTTP 201 (Created) with the newly created product and location header.
+    /// HTTP 201 (Created) with the newly created product and the location header
+    /// pointing to the GET endpoint of the created resource.
     /// </returns>
-    // Endpoint Structure: POST /api/products
+    /// <remarks>
+    /// The request data is supplied via the HTTP request body and mapped to a DTO
+    /// to decouple API contracts from domain entities.
+    /// </remarks>
     [HttpPost]
     public IActionResult Create([FromBody] ProductCreateUpdateRequest request)
     {
@@ -90,22 +92,24 @@ public class ProductsController : ControllerBase
     }
 
     /// <summary>
-    /// Updates an existing product.
+    /// Updates an existing product using the provided request payload.
+    /// Endpoint Structure: PUT /api/products/{id}
     /// </summary>
     /// <param name="id">
     /// The unique identifier of the product to update.
     /// </param>
-    /// <param name="name">
-    /// The updated name of the product.
-    /// </param>
-    /// <param name="price">
-    /// The updated price of the product.
+    /// <param name="request">
+    /// The request body containing the updated product details.
     /// </param>
     /// <returns>
-    /// HTTP 204 (No Content) if updated successfully;
-    /// otherwise HTTP 404 (Not Found).
+    /// HTTP 204 (No Content) if the update is successful;
+    /// otherwise HTTP 404 (Not Found) if the product does not exist.
     /// </returns>
-    // Endpoint Structure: PUT /api/products/{id}
+    /// <remarks>
+    /// The identifier is supplied via the route, while the updated data
+    /// is supplied via the request body to clearly separate resource identity
+    /// from mutable state.
+    /// </remarks>
     [HttpPut("{id:guid}")]
     public IActionResult Update([FromRoute] Guid id, [FromBody] ProductCreateUpdateRequest request)
     {
@@ -119,6 +123,7 @@ public class ProductsController : ControllerBase
 
     /// <summary>
     /// Deletes a product by its unique identifier.
+    /// Endpoint Structure: DELETE /api/products/{id}
     /// </summary>
     /// <param name="id">
     /// The unique identifier of the product to delete.
@@ -127,7 +132,6 @@ public class ProductsController : ControllerBase
     /// HTTP 204 (No Content) if deleted successfully;
     /// otherwise HTTP 404 (Not Found).
     /// </returns>
-    // Endpoint Structure: DELETE /api/products/{id}
     [HttpDelete("{id:guid}")]
     public IActionResult Delete(Guid id)
     {
