@@ -1,6 +1,6 @@
 @BackendMastery.CoreAPI.CRUDBasics.InMemory_HostAddress = http://localhost:5214
 
-GET {{BackendMastery.CoreAPI.CRUDBasics.InMemory_HostAddress}}/weatherforecast/
+GET {{BackendMastery.CoreAPI.CRUDBasics.InMemory_HostAddress}}/api/v1/products/
 Accept: application/json
 
 ###
