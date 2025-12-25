@@ -36,13 +36,13 @@ public class ProductsController : ControllerBase
     /// <returns>
     /// HTTP 200 (OK) with the list of products. or Empty List
     /// </returns>
-    // Endpoint Structure: GET /api/products
+    // Endpoint Structure: GET /api/v1/products
     [HttpGet]
     public IActionResult GetAll() => Ok(_service.GetAll());
 
     /// <summary>
     /// Retrieves a specific product by its unique identifier.
-    /// Endpoint Structure: GET /api/products/{id}
+    /// Endpoint Structure: GET /api/v1/products/{id}
     /// </summary>
     /// <param name="id">
     /// The unique identifier of the product.
@@ -64,7 +64,7 @@ public class ProductsController : ControllerBase
 
     /// <summary>
     /// Creates a new product using the provided request payload.
-    /// Endpoint Structure: POST /api/products
+    /// Endpoint Structure: POST /api/v1/products
     /// </summary>
     /// <param name="request">
     /// The request body containing the product details required for creation.
@@ -93,7 +93,7 @@ public class ProductsController : ControllerBase
 
     /// <summary>
     /// Updates an existing product using the provided request payload.
-    /// Endpoint Structure: PUT /api/products/{id}
+    /// Endpoint Structure: PUT /api/v1/products/{id}
     /// </summary>
     /// <param name="id">
     /// The unique identifier of the product to update.
@@ -123,7 +123,7 @@ public class ProductsController : ControllerBase
 
     /// <summary>
     /// Deletes a product by its unique identifier.
-    /// Endpoint Structure: DELETE /api/products/{id}
+    /// Endpoint Structure: DELETE /api/v1/products/{id}
     /// </summary>
     /// <param name="id">
     /// The unique identifier of the product to delete.
