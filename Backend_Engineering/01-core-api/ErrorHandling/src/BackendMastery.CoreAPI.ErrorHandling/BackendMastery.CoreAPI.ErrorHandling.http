@@ -1,0 +1,6 @@
+@BackendMastery.CoreAPI.ErrorHandling_HostAddress = http://localhost:5206
+
+GET {{BackendMastery.CoreAPI.ErrorHandling_HostAddress}}/errors/
+Accept: application/json
+
+###
