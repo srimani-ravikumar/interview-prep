@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36310.24 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendMastery.CoreAPI.RESTPrinciples", "src/BackendMastery.CoreAPI.RESTPrinciples/BackendMastery.CoreAPI.RESTPrinciples.csproj", "{B04D4E3C-6AC6-467E-A347-6201D79F9E9F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B04D4E3C-6AC6-467E-A347-6201D79F9E9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B04D4E3C-6AC6-467E-A347-6201D79F9E9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B04D4E3C-6AC6-467E-A347-6201D79F9E9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B04D4E3C-6AC6-467E-A347-6201D79F9E9F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4EA8C504-C5E7-4BB3-BBC9-B2B9D5020265}
+	EndGlobalSection
+EndGlobal
