@@ -1,0 +1,6 @@
+@BackendMastery.CoreAPI.Validations_HostAddress = http://localhost:5252
+
+GET {{BackendMastery.CoreAPI.Validations_HostAddress}}/validation/
+Accept: application/json
+
+###
