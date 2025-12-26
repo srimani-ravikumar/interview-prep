@@ -1,0 +1,6 @@
+@BackendMastery.CoreAPI.CRUDBasics.Database_HostAddress = http://localhost:5202
+
+GET {{BackendMastery.CoreAPI.CRUDBasics.Database_HostAddress}}/api/v1/products/
+Accept: application/json
+
+###
