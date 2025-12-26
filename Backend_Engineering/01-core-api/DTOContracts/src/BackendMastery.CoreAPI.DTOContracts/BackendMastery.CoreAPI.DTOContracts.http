@@ -1,0 +1,6 @@
+@BackendMastery.CoreAPI.DTOContracts_HostAddress = http://localhost:5029
+
+GET {{BackendMastery.CoreAPI.DTOContracts_HostAddress}}/api/v1/dto-contracts/
+Accept: application/json
+
+###
