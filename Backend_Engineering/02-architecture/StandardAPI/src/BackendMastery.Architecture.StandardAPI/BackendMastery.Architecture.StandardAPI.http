@@ -1,0 +1,6 @@
+@BackendMastery.Architecture.StandardAPI_HostAddress = http://localhost:5081
+
+GET {{BackendMastery.Architecture.StandardAPI_HostAddress}}/api/v1/orders/
+Accept: application/json
+
+###
