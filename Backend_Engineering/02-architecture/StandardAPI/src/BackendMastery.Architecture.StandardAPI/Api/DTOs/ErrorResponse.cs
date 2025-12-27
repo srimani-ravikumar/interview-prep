@@ -1,4 +1,4 @@
-﻿namespace BackendMastery.StandardAPI.Api.DTOs;
+﻿namespace BackendMastery.Architecture.StandardAPI.Api.DTOs;
 
 /// <summary>
 /// Standard API error response.

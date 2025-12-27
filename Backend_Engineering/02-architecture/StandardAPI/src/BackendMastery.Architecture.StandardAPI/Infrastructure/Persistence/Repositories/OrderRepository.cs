@@ -1,8 +1,8 @@
-﻿using BackendMastery.StandardAPI.Application.Interfaces.Repositories;
-using BackendMastery.StandardAPI.Domain.Models;
+﻿using BackendMastery.Architecture.StandardAPI.Application.Interfaces.Repositories;
+using BackendMastery.Architecture.StandardAPI.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace BackendMastery.StandardAPI.Infrastructure.Persistence.Repositories;
+namespace BackendMastery.Architecture.StandardAPI.Infrastructure.Persistence.Repositories;
 
 /// <summary>
 /// EF Core implementation of Order repository.

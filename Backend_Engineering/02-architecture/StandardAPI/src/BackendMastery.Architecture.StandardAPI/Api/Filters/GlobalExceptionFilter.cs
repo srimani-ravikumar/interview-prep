@@ -1,10 +1,10 @@
-﻿using BackendMastery.StandardAPI.Api.DTOs;
-using BackendMastery.StandardAPI.Domain.Exceptions;
+﻿using BackendMastery.Architecture.StandardAPI.Api.DTOs;
+using BackendMastery.Architecture.StandardAPI.Domain.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Net;
 
-namespace BackendMastery.StandardAPI.Api.Filters;
+namespace BackendMastery.Architecture.StandardAPI.Api.Filters;
 
 /// <summary>
 /// Translates exceptions into HTTP responses.

@@ -1,6 +1,6 @@
-﻿using BackendMastery.StandardAPI.Domain.Exceptions;
+﻿using BackendMastery.Architecture.StandardAPI.Domain.Exceptions;
 
-namespace BackendMastery.StandardAPI.Domain.Models;
+namespace BackendMastery.Architecture.StandardAPI.Domain.Models;
 
 /// <summary>
 /// Represents an Order in the business domain.

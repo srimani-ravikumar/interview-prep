@@ -1,9 +1,9 @@
-﻿using BackendMastery.StandardAPI.Domain.Models;
+﻿using BackendMastery.Architecture.StandardAPI.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Reflection.Emit;
 
-namespace BackendMastery.StandardAPI.Infrastructure.Persistence;
+namespace BackendMastery.Architecture.StandardAPI.Infrastructure.Persistence;
 
 /// <summary>
 /// EF Core DbContext.

@@ -1,4 +1,4 @@
-﻿namespace BackendMastery.StandardAPI.Domain.Exceptions;
+﻿namespace BackendMastery.Architecture.StandardAPI.Domain.Exceptions;
 
 /// <summary>
 /// Thrown when an order violates business rules.

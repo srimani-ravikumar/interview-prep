@@ -1,9 +1,9 @@
-﻿using BackendMastery.StandardAPI.Api.DTOs;
-using BackendMastery.StandardAPI.Application.Interfaces.Services;
-using BackendMastery.StandardAPI.Domain.Models;
+﻿using BackendMastery.Architecture.StandardAPI.Api.DTOs;
+using BackendMastery.Architecture.StandardAPI.Application.Interfaces.Services;
+using BackendMastery.Architecture.StandardAPI.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BackendMastery.StandardAPI.Api.Controllers;
+namespace BackendMastery.Architecture.StandardAPI.Api.Controllers;
 
 [ApiController]
 [Route("api/v1/orders")]

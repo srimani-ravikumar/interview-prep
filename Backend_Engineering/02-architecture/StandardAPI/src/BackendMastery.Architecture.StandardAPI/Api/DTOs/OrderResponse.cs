@@ -1,4 +1,4 @@
-﻿namespace BackendMastery.StandardAPI.Api.DTOs;
+﻿namespace BackendMastery.Architecture.StandardAPI.Api.DTOs;
 
 /// <summary>
 /// HTTP response contract for an order.

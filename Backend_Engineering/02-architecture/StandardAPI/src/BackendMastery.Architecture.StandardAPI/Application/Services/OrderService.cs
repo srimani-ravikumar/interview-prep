@@ -1,9 +1,9 @@
-﻿using BackendMastery.StandardAPI.Application.Interfaces.Repositories;
-using BackendMastery.StandardAPI.Application.Interfaces.Services;
-using BackendMastery.StandardAPI.Domain.Models;
-using BackendMastery.StandardAPI.Application.Validators;
+﻿using BackendMastery.Architecture.StandardAPI.Application.Interfaces.Repositories;
+using BackendMastery.Architecture.StandardAPI.Application.Interfaces.Services;
+using BackendMastery.Architecture.StandardAPI.Domain.Models;
+using BackendMastery.Architecture.StandardAPI.Application.Validators;
 
-namespace BackendMastery.StandardAPI.Application.Services;
+namespace BackendMastery.Architecture.StandardAPI.Application.Services;
 
 /// <summary>
 /// Implements Order-related business workflows.

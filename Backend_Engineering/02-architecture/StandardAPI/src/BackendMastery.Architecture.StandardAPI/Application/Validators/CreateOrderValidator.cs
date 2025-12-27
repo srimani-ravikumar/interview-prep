@@ -1,4 +1,4 @@
-﻿namespace BackendMastery.StandardAPI.Application.Validators;
+﻿namespace BackendMastery.Architecture.StandardAPI.Application.Validators;
 
 /// <summary>
 /// Validates application-level input.

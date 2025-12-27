@@ -1,6 +1,6 @@
-﻿using BackendMastery.StandardAPI.Domain.Models;
+﻿using BackendMastery.Architecture.StandardAPI.Domain.Models;
 
-namespace BackendMastery.StandardAPI.Application.Interfaces.Repositories;
+namespace BackendMastery.Architecture.StandardAPI.Application.Interfaces.Repositories;
 
 /// <summary>
 /// Repository contract for Order persistence.

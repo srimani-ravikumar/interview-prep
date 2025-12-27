@@ -1,10 +1,10 @@
-using BackendMastery.StandardAPI.Api.Filters;
-using BackendMastery.StandardAPI.Application.Interfaces.Repositories;
-using BackendMastery.StandardAPI.Application.Interfaces.Services;
-using BackendMastery.StandardAPI.Application.Services;
-using BackendMastery.StandardAPI.Application.Validators;
-using BackendMastery.StandardAPI.Infrastructure.Persistence;
-using BackendMastery.StandardAPI.Infrastructure.Persistence.Repositories;
+using BackendMastery.Architecture.StandardAPI.Api.Filters;
+using BackendMastery.Architecture.StandardAPI.Application.Interfaces.Repositories;
+using BackendMastery.Architecture.StandardAPI.Application.Interfaces.Services;
+using BackendMastery.Architecture.StandardAPI.Application.Services;
+using BackendMastery.Architecture.StandardAPI.Application.Validators;
+using BackendMastery.Architecture.StandardAPI.Infrastructure.Persistence;
+using BackendMastery.Architecture.StandardAPI.Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

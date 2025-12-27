@@ -1,6 +1,6 @@
-﻿using BackendMastery.StandardAPI.Domain.Models;
+﻿using BackendMastery.Architecture.StandardAPI.Domain.Models;
 
-namespace BackendMastery.StandardAPI.Application.Interfaces.Services;
+namespace BackendMastery.Architecture.StandardAPI.Application.Interfaces.Services;
 
 /// <summary>
 /// Use-case contract for Order operations.
