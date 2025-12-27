@@ -61,17 +61,31 @@ On the data side, I’ve covered:
 
 ---
 
-### 🟣 API Production Readiness — *Done*
+### 🟣 API Production Readiness — Done
 
 I can reason about:
 
 * Authentication vs Authorization
-* JWT & policy-based auth
-* API documentation (Swagger / OpenAPI)
-* API versioning (when it matters)
-* Unit tests vs integration tests
+* JWT & policy-based authorization
+* API contracts & documentation (Swagger / OpenAPI)
+* API versioning (only when it actually matters)
+* Validation & consistent error responses
+* **Building resilient APIs:**
 
-✅ This is production-aware, not academic.
+  * Timeouts & retries (with backoff)
+  * Circuit breakers
+  * Bulkheads & failure isolation
+  * Idempotency for safe retries
+  * Graceful degradation strategies & fallbacks
+* Unit tests vs integration tests
+* Observability basics (logging, correlation IDs, failure visibility)
+* **Deployment & environment awareness**
+
+  * Environment-specific configuration
+  * Secrets vs config
+  * Safe deployments & rollbacks (conceptually)
+
+✅ This is **production-aware**, **failure-conscious**, and **built for real-world systems**, not academic demos.
 
 ---
 
