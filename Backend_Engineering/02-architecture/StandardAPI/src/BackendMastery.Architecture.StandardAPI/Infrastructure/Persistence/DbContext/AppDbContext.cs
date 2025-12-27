@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Reflection.Emit;
 
-namespace BackendMastery.Architecture.StandardAPI.Infrastructure.Persistence;
+namespace BackendMastery.Architecture.StandardAPI.Infrastructure.Persistence.DbContext;
 
 /// <summary>
 /// EF Core DbContext.
@@ -42,6 +42,9 @@ public class AppDbContext : DbContext
                   .IsRequired();
 
             entity.Property(o => o.IsPriority)
+                  .IsRequired();
+
+            entity.Property(o => o.IsApproved)
                   .IsRequired();
         });
     }

@@ -1,4 +1,5 @@
 ﻿using BackendMastery.Architecture.StandardAPI.Domain.Exceptions;
+using BackendMastery.Architecture.StandardAPI.Domain.Rules;
 
 namespace BackendMastery.Architecture.StandardAPI.Domain.Models;
 
@@ -28,12 +29,16 @@ public class Order
     public Guid Id { get; private set; }
     public decimal Amount { get; private set; }
     public bool IsPriority { get; private set; }
+    public bool IsApproved { get; private set; }
 
     // Constructor enforces invariants (fail-fast)
-    public Order(decimal amount)
+    public Order(decimal amount, bool isApproved)
     {
         if (amount <= 0)
             throw new InvalidOrderException("Order amount must be greater than zero.");
+
+        // Enforce business rule
+        HighValueOrderRule.Enforce(amount, isApproved);
 
         Id = Guid.NewGuid();
         Amount = amount;

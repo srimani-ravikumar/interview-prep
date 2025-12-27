@@ -35,12 +35,12 @@ public class OrderService : IOrderService
     /// <summary>
     /// Places a new order.
     /// </summary>
-    public async Task<Order> PlaceOrderAsync(decimal amount)
+    public async Task<Order> PlaceOrderAsync(decimal amount, bool isApproved)
     {
         _validator.Validate(amount);
 
         // Domain enforces invariants (fail-fast)
-        var order = new Order(amount);
+        var order = new Order(amount, isApproved);
 
         // Application decides persistence
         await _orderRepository.AddAsync(order);

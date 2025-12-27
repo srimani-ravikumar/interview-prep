@@ -36,7 +36,10 @@ public class OrdersController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateOrderRequest request)
     {
-        Order order = await _orderService.PlaceOrderAsync(request.Amount);
+        // This will be replaced Manager/ Supervisor Override feature in the real world
+        bool isApproved = true;
+
+        Order order = await _orderService.PlaceOrderAsync(request.Amount, isApproved);
 
         var response = MapToResponse(order);
 

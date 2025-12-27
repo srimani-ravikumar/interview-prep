@@ -3,7 +3,7 @@ using BackendMastery.Architecture.StandardAPI.Application.Interfaces.Repositorie
 using BackendMastery.Architecture.StandardAPI.Application.Interfaces.Services;
 using BackendMastery.Architecture.StandardAPI.Application.Services;
 using BackendMastery.Architecture.StandardAPI.Application.Validators;
-using BackendMastery.Architecture.StandardAPI.Infrastructure.Persistence;
+using BackendMastery.Architecture.StandardAPI.Infrastructure.Persistence.DbContext;
 using BackendMastery.Architecture.StandardAPI.Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 

@@ -19,7 +19,7 @@ namespace BackendMastery.Architecture.StandardAPI.Application.Interfaces.Service
 /// </remarks>
 public interface IOrderService
 {
-    Task<Order> PlaceOrderAsync(decimal amount);
+    Task<Order> PlaceOrderAsync(decimal amount, bool isApproved);
 
     Task<Order?> GetOrderByIdAsync(Guid id);
 

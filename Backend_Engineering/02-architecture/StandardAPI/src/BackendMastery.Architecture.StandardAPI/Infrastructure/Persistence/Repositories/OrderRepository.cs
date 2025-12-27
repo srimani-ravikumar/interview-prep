@@ -1,5 +1,6 @@
 ﻿using BackendMastery.Architecture.StandardAPI.Application.Interfaces.Repositories;
 using BackendMastery.Architecture.StandardAPI.Domain.Models;
+using BackendMastery.Architecture.StandardAPI.Infrastructure.Persistence.DbContext;
 using Microsoft.EntityFrameworkCore;
 
 namespace BackendMastery.Architecture.StandardAPI.Infrastructure.Persistence.Repositories;
