@@ -3,19 +3,133 @@
 > **Core theme:**
 > *“How does the application interact with stored data safely and predictably?”*
 
-This section is about **using an ORM correctly**, not memorizing APIs.
+This section is **not about learning ORM APIs**.
+It is about understanding **how applications manage data that outlives memory**.
+
+ORMs are just **tools**.
+The **behavior they implement is universal**.
 
 ---
 
-## 🧠 Mental Boundary
+## 🧠 What This Section Is REALLY About
+
+At a surface level, this section asks:
+
+> **How does the application interact with stored data safely and efficiently?**
+
+But internally, this question decomposes into **three hidden questions**
+that *every ORM must answer*.
+
+> **Most real-world persistence bugs come from misunderstanding one of these three.**
+
+---
+
+### 1️⃣ How long does data live in memory?
+
+→ **Persistence Context / Session Lifecycle**
+
+**Core intuition**
+
+> Data does not live forever in memory.
+> An ORM must define *when* an object is valid and *when it is not*.
+
+**This explains**
+
+* One request → one `DbContext`
+* Why long-lived contexts are dangerous
+* Why the same database row maps to the same object **only within a context**
+* Identity map behavior
+
+**Failure mode**
+
+> Treating the ORM like a stateless query tool
+
+---
+
+### 2️⃣ How does the system know what changed?
+
+→ **Change Tracking / Unit of Work**
+
+**Core intuition**
+
+> ORMs do not persist method calls —
+> they persist **state transitions over time**.
+
+**This explains**
+
+* Dirty checking
+* Why `SaveChanges()` works without explicit updates
+* Why detached entities cause bugs
+* Why accidental updates happen
+
+**Failure mode**
+
+> Assuming calling a method means persistence already happened
+
+---
+
+### 3️⃣ How do reads and writes behave differently?
+
+→ **Query Behavior vs State Mutation**
+
+**Core intuition**
+
+> Reads optimize for speed and shape.
+> Writes optimize for correctness and identity.
+
+**This explains**
+
+* Tracking vs no-tracking queries
+* Why read-only queries shouldn’t be tracked
+* Why CQRS naturally emerges
+* Why performance issues often come from write-style reads
+
+**Failure mode**
+
+> Treating all queries as equal
+
+---
+
+## 🧠 The Unifying Insight
+
+> **An ORM is a state synchronization engine between memory and storage.**
+
+It is **not**:
+
+* A query helper
+* A CRUD generator
+* A database wrapper that removes thinking
+
+If you treat an ORM as a **state machine**, everything makes sense.
+If you treat it as a **database shortcut**, you will fight it.
+
+---
+
+## 🧠 Mental Boundary (Important)
+
+This section deliberately assumes:
+
+* ✅ Happy path only
+* ✅ No failures
+* ✅ No retries
+* ✅ No distributed concerns
+
+Because:
 
 * Modeling answers **what data is**
 * Persistence mechanism answers **how data is accessed**
-* Still assuming **happy path** (no failures yet)
+* Failures and consistency belong to **later sections**
+
+> ❗ Mixing failure handling into ORM understanding creates bad abstractions.
 
 ---
 
-## ✅ Project Catalog — Persistence Mechanism
+## ✅ Project Catalog — Persistence Mechanism (ORM)
+
+Each project isolates **one persistence rule**
+and forces you to reason about it explicitly.
+
+---
 
 ### 🟢 1. Persistence Context Lifecycle
 
@@ -25,13 +139,17 @@ This section is about **using an ORM correctly**, not memorizing APIs.
 BackendMastery.Persistence.ORM.ContextLifecycle
 ```
 
+**Core Intuition**
+
+> A persistence context defines an **identity boundary**.
+
 **Focus**
 
 * Persistence context / session
 * One request → one context
 * Identity map behavior
 
-**Key takeaway**
+**Key Takeaway**
 
 > **The ORM context is a unit of work, not a query tool.**
 
@@ -45,13 +163,17 @@ BackendMastery.Persistence.ORM.ContextLifecycle
 BackendMastery.Persistence.ORM.ChangeTracking
 ```
 
+**Core Intuition**
+
+> ORMs track **state transitions**, not method calls.
+
 **Focus**
 
 * New vs modified vs deleted
 * Explicit vs implicit updates
 * Dirty checking
 
-**Key takeaway**
+**Key Takeaway**
 
 > **ORMs persist intent, not method calls.**
 
@@ -65,13 +187,17 @@ BackendMastery.Persistence.ORM.ChangeTracking
 BackendMastery.Persistence.ORM.ReadWriteBehavior
 ```
 
+**Core Intuition**
+
+> Reads and writes have fundamentally different costs.
+
 **Focus**
 
 * Read-only queries
-* Write tracking cost
+* Write tracking overhead
 * Query intent clarity
 
-**Key takeaway**
+**Key Takeaway**
 
 > **Not all queries should be tracked.**
 
@@ -85,13 +211,17 @@ BackendMastery.Persistence.ORM.ReadWriteBehavior
 BackendMastery.Persistence.ORM.RepositoryImplementation
 ```
 
+**Core Intuition**
+
+> Repositories protect the domain from persistence mechanics.
+
 **Focus**
 
 * Repository as persistence adapter
-* Avoiding IQueryable leakage
+* Avoiding `IQueryable` leakage
 * Returning domain objects safely
 
-**Key takeaway**
+**Key Takeaway**
 
 > **Repositories abstract storage behavior, not collections.**
 
@@ -105,13 +235,17 @@ BackendMastery.Persistence.ORM.RepositoryImplementation
 BackendMastery.Persistence.ORM.LoadingStrategies
 ```
 
+**Core Intuition**
+
+> Implicit data access breaks predictability.
+
 **Focus**
 
 * Lazy loading risks
 * N+1 problem
 * Explicit loading
 
-**Key takeaway**
+**Key Takeaway**
 
 > **Implicit data access is a production bug waiting to happen.**
 
@@ -125,13 +259,17 @@ BackendMastery.Persistence.ORM.LoadingStrategies
 BackendMastery.Persistence.ORM.QueryShaping
 ```
 
+**Core Intuition**
+
+> Data shape matters more than query count.
+
 **Focus**
 
 * Selecting only required data
 * Projection vs entity loading
 * Read-model shaping
 
-**Key takeaway**
+**Key Takeaway**
 
 > **ORM performance problems are usually modeling problems.**
 
@@ -145,19 +283,23 @@ BackendMastery.Persistence.ORM.QueryShaping
 BackendMastery.Persistence.ORM.AntiPatterns
 ```
 
+**Core Intuition**
+
+> ORM misuse leaks infrastructure into business logic.
+
 **Focus**
 
-* ORM in controllers
+* ORM usage inside controllers
 * Fat repositories
 * Domain polluted with persistence concerns
 
-**Key takeaway**
+**Key Takeaway**
 
-> **ORM misuse leaks infrastructure into business logic.**
+> **Persistence concerns must never define domain behavior.**
 
 ---
 
-## 📂 Section 2 Layout
+## 📂 Section Layout
 
 ```
 2. Persistence Mechanism (ORM)
@@ -169,5 +311,14 @@ BackendMastery.Persistence.ORM.AntiPatterns
 ├── QueryShaping
 └── AntiPatterns
 ```
+
+---
+
+## 🧠 Final Lock-In Thought
+
+> **Most ORM bugs come from misunderstanding context lifetime,
+> change tracking, or read/write intent — not from the ORM itself.**
+
+This section exists to **burn those three ideas into muscle memory**.
 
 ---
