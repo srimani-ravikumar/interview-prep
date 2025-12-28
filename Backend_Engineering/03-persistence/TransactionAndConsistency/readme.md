@@ -115,7 +115,27 @@ BackendMastery.Persistence.Transactions.ConsistencyRules
 
 ---
 
-### 🔵 6. Transaction Anti-Patterns
+### 🟡 6. Consistency Models — Strong vs Eventual
+
+📦 **Project**
+
+```
+BackendMastery.Persistence.Transactions.ConsistencyModels
+```
+
+**Focus**
+
+*  **how to choose consistency intentionally**, based on business needs.
+* **Strong consistency** vs **Eventual consistency** (TradeOffs)
+
+**Key takeaway**
+
+> **“Strong consistency guarantees correctness, while eventual consistency trades freshness for scalability.”**
+
+
+---
+
+### 🔵 7. Transaction Anti-Patterns
 
 📦 **Project**
 
