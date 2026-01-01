@@ -1,0 +1,6 @@
+@BackendMastery.Persistence.EFCore.CodeFirst_HostAddress = http://localhost:5123
+
+GET {{BackendMastery.Persistence.EFCore.CodeFirst_HostAddress}}/api/v1/orders/
+Accept: application/json
+
+###

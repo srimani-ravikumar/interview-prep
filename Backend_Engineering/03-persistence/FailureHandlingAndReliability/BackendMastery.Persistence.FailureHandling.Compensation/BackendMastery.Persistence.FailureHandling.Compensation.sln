@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36310.24 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendMastery.Persistence.FailureHandling.Compensation", "BackendMastery.Persistence.FailureHandling.Compensation.csproj", "{80988EAF-327A-4478-B356-8D6DB36081F0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{80988EAF-327A-4478-B356-8D6DB36081F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80988EAF-327A-4478-B356-8D6DB36081F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80988EAF-327A-4478-B356-8D6DB36081F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80988EAF-327A-4478-B356-8D6DB36081F0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {49E7F464-67B5-4656-AC3E-F51DAFDB7265}
+	EndGlobalSection
+EndGlobal
