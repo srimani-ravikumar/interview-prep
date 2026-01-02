@@ -1,0 +1,6 @@
+@BackendMastery.ECommerce.API_HostAddress = http://localhost:5294
+
+GET {{BackendMastery.ECommerce.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
