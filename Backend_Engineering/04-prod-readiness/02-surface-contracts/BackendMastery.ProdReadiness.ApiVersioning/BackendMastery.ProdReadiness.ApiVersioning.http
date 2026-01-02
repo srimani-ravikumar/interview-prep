@@ -1,0 +1,6 @@
+@BackendMastery.ProdReadiness.ApiVersioning_HostAddress = http://localhost:5138
+
+GET {{BackendMastery.ProdReadiness.ApiVersioning_HostAddress}}/api/v2/orders/
+Accept: application/json
+
+###

@@ -1,0 +1,6 @@
+@BackendMastery.ProdReadiness.Validation_HostAddress = http://localhost:5170
+
+GET {{BackendMastery.ProdReadiness.Validation_HostAddress}}/api/v1/orders/
+Accept: application/json
+
+###

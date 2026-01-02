@@ -1,0 +1,6 @@
+@BackendMastery.ProdReadiness.QueryCapabilities_HostAddress = http://localhost:5198
+
+GET {{BackendMastery.ProdReadiness.QueryCapabilities_HostAddress}}/api/v1/orders/
+Accept: application/json
+
+###
