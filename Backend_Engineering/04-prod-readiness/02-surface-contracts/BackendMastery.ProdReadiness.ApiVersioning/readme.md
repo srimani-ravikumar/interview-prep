@@ -1,12 +1,3 @@
-﻿Below is the **production-grade `README.md`** for
-`BackendMastery.ProdReadiness.ApiVersioning`.
-
-This version **explicitly includes an industry-standard “version-to-version transformation” section**, because that’s where most real systems fail.
-
-You can paste this **as-is**.
-
----
-
 # BackendMastery.ProdReadiness.ApiVersioning
 
 ## API Versioning — Controlled Evolution of Contracts
