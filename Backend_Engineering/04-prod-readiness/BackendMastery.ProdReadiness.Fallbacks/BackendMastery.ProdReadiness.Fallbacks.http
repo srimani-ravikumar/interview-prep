@@ -1,0 +1,6 @@
+@BackendMastery.ProdReadiness.Fallbacks_HostAddress = http://localhost:5233
+
+GET {{BackendMastery.ProdReadiness.Fallbacks_HostAddress}}/api/products/
+Accept: application/json
+
+###

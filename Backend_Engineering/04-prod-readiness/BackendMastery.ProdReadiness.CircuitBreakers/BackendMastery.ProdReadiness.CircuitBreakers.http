@@ -1,0 +1,6 @@
+@BackendMastery.ProdReadiness.CircuitBreakers_HostAddress = http://localhost:5274
+
+GET {{BackendMastery.ProdReadiness.CircuitBreakers_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

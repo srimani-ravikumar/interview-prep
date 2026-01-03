@@ -1,0 +1,6 @@
+@BackendMastery.ProdReadiness.Timeouts_HostAddress = http://localhost:5209
+
+GET {{BackendMastery.ProdReadiness.Timeouts_HostAddress}}/api/weather/
+Accept: application/json
+
+###
