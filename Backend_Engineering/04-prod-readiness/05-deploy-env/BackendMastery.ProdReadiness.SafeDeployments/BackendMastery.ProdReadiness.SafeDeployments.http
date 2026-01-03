@@ -1,0 +1,6 @@
+@BackendMastery.ProdReadiness.SafeDeployments_HostAddress = http://localhost:5277
+
+GET {{BackendMastery.ProdReadiness.SafeDeployments_HostAddress}}/orders/
+Accept: application/json
+
+###
